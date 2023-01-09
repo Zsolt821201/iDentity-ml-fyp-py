@@ -1,0 +1,42 @@
+---
+title: Order example
+---
+erDiagram
+    UserAccount ||--o{ Roster : has
+    UserAccount ||--o{ Permission : has
+    UserAccount ||--o{ Role : has
+    Roster ||--|{ Location : on
+    Permission ||--|{ Location : on
+    loginMethod ||--|{ Roster : uses
+    Roster{
+        int id PK
+        string signOnDateTime
+        string signOffDateTime
+        string loginMethodid FK
+        int locationId FK
+        int userAccountId FK
+
+    }
+    Location{
+        int id PK
+        string name
+        string address
+        string city
+        string state
+        string zip
+        string phone
+        string fax
+        string email
+        string website
+        string status
+    }
+    UserAccount{
+        int id PK
+        string firstName
+        string lastName
+        string email
+        string phone
+        string status
+        string password
+        string faceRecognitionData
+    }

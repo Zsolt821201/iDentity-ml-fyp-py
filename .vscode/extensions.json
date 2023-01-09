@@ -1,5 +1,13 @@
 {
     "recommendations": [
-        "cweijan.vscode-office"
+        "cweijan.vscode-office",
+        "bierner.markdown-mermaid",
+        "tomoyukim.vscode-mermaid-editor",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "ms-python.python",
+        "donjayamanne.python-extension-pack",
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint"
     ]
 }

@@ -16,14 +16,13 @@ while True:
 
     _, img = cap.read()
 
-    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     faces = face_cascade.detectMultiScale(gray, 1.5, 5)
 
-    for (x,y,width,height) in faces:
+    for (x, y, width, height) in faces:
 
-        cv2.rectangle(img,(x,y),(x+width,y+height),(255,0,0),2)
+        cv2.rectangle(img, (x, y), (x+width, y+height), (255, 0, 0), 2)
 
         roi_gray = gray[y:y+height, x:x+width]
 
@@ -31,17 +30,17 @@ while True:
 
         eyes = eye_cascade.detectMultiScale(roi_gray)
 
-        for (ex,ey,ew,eh) in eyes:
+        for (ex, ey, ew, eh) in eyes:
 
-            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+            cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
 
     print(f"found {len(faces)} face(s)")
 
-    cv2.imshow('img',img)
+    cv2.imshow('img', img)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    
+
 
 cap.release()
 

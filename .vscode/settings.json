@@ -1,6 +1,12 @@
 {
     "cSpell.words": [
+        "frontalface",
+        "haarcascade",
+        "haarcascades",
         "imshow",
-        "imwrite"
+        "imwrite",
+        "ndarray",
+        "Toth",
+        "Zsolt"
     ]
 }

@@ -8,6 +8,7 @@
         "donjayamanne.python-extension-pack",
         "streetsidesoftware.code-spell-checker",
         "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "gruntfuggly.todo-tree"
     ]
 }

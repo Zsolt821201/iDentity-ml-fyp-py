@@ -2,41 +2,50 @@
 title: Order example
 ---
 erDiagram
-    UserAccount ||--o{ Roster : has
-    UserAccount ||--o{ Permission : has
-    UserAccount ||--o{ Role : has
+    LocationPermission ||--|{ Location : on
     Roster ||--|{ Location : on
-    Permission ||--|{ Location : on
-    loginMethod ||--|{ Roster : uses
-    Roster{
-        int id PK
-        string signOnDateTime
-        string signOffDateTime
-        string loginMethodid FK
-        int locationId FK
-        int userAccountId FK
+    UserAccount ||--o{ LocationPermission : has
+    UserAccount ||--o{ Roster : has
+    UserAccount ||--o{ UserAccountRole : has
+    UserAccountRole ||--|{ Role : has
 
+    Location {
+        int id PK
+        string address
+        string description
+        string email
+        string name
+        string telephone
     }
-    Location{
+    LocationPermission {
+        int locationId PK
+        int userAccountId PK
+    }
+    Roster {
+        int id PK
+        int locationId FK
+        string signInDateTime
+        string signOutDateTime
+        int userAccountId FK
+    }
+    Role {
         int id PK
         string name
-        string address
-        string city
-        string state
-        string zip
-        string phone
-        string fax
-        string email
-        string website
-        string status
+        string description
     }
-    UserAccount{
+    UserAccount {
         int id PK
-        string firstName
-        string lastName
         string email
-        string phone
-        string status
+        boolean enabled
+        boolean faceRecognitionEnabled
+        string firstName
+        boolean isTwin
+        string lastName
         string password
-        string faceRecognitionData
+        string telephone
+        string username
+    }
+    UserAccountRole {
+        int userAccountId PK
+        int roleId PK
     }

@@ -7,6 +7,8 @@ import numpy
 from PIL import Image
 import cv2
 import os
+import sqlite3
+from sqlite3 import Error
 
 CLASSIFIER_CONFIGURATION: str = str(Path(
     __file__).parent / 'haarcascades/haarcascade_frontalface_default.xml')
@@ -17,6 +19,33 @@ DATABASE_FACIAL_TRAINER: str = str(Path(
 FACE_SAMPLE_COUNT: int = 30
 ESCAPE_KEY: int = 27
 
+def create_connection(db_file: str):
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+
+def select_all_users(conn: sqlite3.Connection):
+    """
+    Query all rows in the userAccount table
+    Args:
+        conn (sqlite3.Connection): Connection object
+    Returns:
+        list: list of users
+    """
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM UserAccount")
+
+    rows = cur.fetchall()
+
+    for row in rows:
+        print(row)
 
 def user_registration(user_account_id: str = "1"):
     """
@@ -188,8 +217,8 @@ class LocationPermission:
 class Roster:
     id: int = 0
     location_id: int = 0
-    sign_in_date_time: datetime = datetime.now()
-    sign_out_date_time: datetime = datetime.now()
+    sign_in_date_time: str = ""
+    sign_out_date_time: str = ""
     user_account_id: int = 0
 
 class Role:
@@ -223,6 +252,12 @@ def main():
     # user_registration()
     # face_training()
     face_recognition()
+    database = "database\identity.db"
+    connection = create_connection(database)
+    
+    with connection:
+        print ("1. Query select all user account:")
+        select_all_users(connection)
 
 
 if __name__ == "__main__":

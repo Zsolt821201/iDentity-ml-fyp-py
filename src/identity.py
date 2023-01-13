@@ -1,5 +1,6 @@
 # Copyright Zsolt Toth
 
+import datetime
 from numpy import ndarray
 from pathlib import Path
 import numpy
@@ -172,9 +173,50 @@ def face_recognition():
     cv2.destroyAllWindows()
 
 
+class Location:
+    id: int = 0
+    address: str = ""
+    description: str = ""
+    email: str = ""
+    name: str = ""
+    telephone: str = ""
+
+class LocationPermission:
+    location_id: int = 0
+    user_account_id: int = 0
+
+class Roster:
+    id: int = 0
+    location_id: int = 0
+    sign_in_date_time: datetime = datetime.now()
+    sign_out_date_time: datetime = datetime.now()
+    user_account_id: int = 0
+
+class Role:
+    id: int = 0
+    name: str = ""
+    description: str = ""
+
 class UserAccount:
     id: int = 0
     email: str = ""
+    enabled: bool = False
+    face_recognition_enabled: bool = False
+    first_name: str = ""
+    is_twin: bool = False
+    last_name: str = ""
+    password: str = ""
+    telephone: str = ""
+    username: str = ""
+
+class UserAccountRole:
+    user_account_id: int = 0  
+    role_id: int = 0
+
+    
+  
+    
+    
 
 
 def main():

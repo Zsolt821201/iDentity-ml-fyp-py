@@ -95,32 +95,32 @@ def user_registration(user_account_id: str = "1"):
     cv2.destroyAllWindows()
 
 
-def getImagesAndLabels(path):
+def get_images_and_labels(path):
 
-    imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
-    faceSamples = []
+    image_paths = [os.path.join(path, f) for f in os.listdir(path)]
+    face_samples = []
     ids = []
 
     detector = cv2.CascadeClassifier(CLASSIFIER_CONFIGURATION)
 
-    for imagePath in imagePaths:
+    for image_path in image_paths:
 
-        PIL_img = Image.open(imagePath).convert('L')  # convert it to grayscale
+        PIL_img = Image.open(image_path).convert('L')  # convert it to grayscale
         img_numpy = numpy.array(PIL_img, 'uint8')
 
-        user_id = int(os.path.split(imagePath)[-1].split(".")[1])
+        user_id = int(os.path.split(image_path)[-1].split(".")[1])
         faces = detector.detectMultiScale(img_numpy)
 
         for (x, y, w, h) in faces:
-            faceSamples.append(img_numpy[y:y+h, x:x+w])
+            face_samples.append(img_numpy[y:y+h, x:x+w])
             ids.append(user_id)
 
-    return faceSamples, ids
+    return face_samples, ids
 
 
 def face_training():
     print("\n [INFO] Training faces. It will take a few seconds. Wait ...")
-    faces, ids = getImagesAndLabels(DATABASE_FACE_DIRECTORY)
+    faces, ids = get_images_and_labels(DATABASE_FACE_DIRECTORY)
 
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
@@ -147,7 +147,7 @@ def face_recognition():
     id = 0
 
     # names related to ids: example ==> Marcelo: id=1,  etc
-    names = ['None', 'Marcelo', 'Paula', 'Ilza', 'Z', 'W'] #TODO get from sql database
+    names = ['None', 'Zsolt', 'Paula', 'Ilza', 'Z', 'W'] #TODO get from sql database
 
     # Initialize and start realtime video capture
     cam = cv2.VideoCapture(0)
@@ -209,10 +209,22 @@ class Location:
     email: str = ""
     name: str = ""
     telephone: str = ""
+    
+    def __init__(self, id, address, description, email, name, telephone):
+        self.id = 0
+        self.address = ""
+        self.description = ""
+        self.email = ""
+        self.name = ""
+        self.telephone = ""
 
 class LocationPermission:
     location_id: int = 0
     user_account_id: int = 0
+    
+    def __init__(self, location_id, user_account_id):
+        self.location_id = location_id
+        self.user_account_id = user_account_id
 
 class Roster:
     id: int = 0
@@ -221,10 +233,21 @@ class Roster:
     sign_out_date_time: str = ""
     user_account_id: int = 0
 
+    def __init__(self, id, location_id, sign_in_date_time, sign_out_date_time, user_account_id):
+        self.id = id
+        self.location_id = location_id
+        self.sign_in_date_time = sign_in_date_time
+        self.sign_out_date_time = sign_out_date_time
+        self.user_account_id = user_account_id
 class Role:
     id: int = 0
     name: str = ""
     description: str = ""
+    
+    def __init__(self, id, name, description):
+        self.id = id
+        self.name = name
+        self.description = description
 
 class UserAccount:
     id: int = 0
@@ -237,10 +260,26 @@ class UserAccount:
     password: str = ""
     telephone: str = ""
     username: str = ""
+    
+    def __init__(self, id, email):
+        self.id = id
+        self.email = email
+        self.enabled = False
+        self.face_recognition_enabled = False
+        self.first_name = ""
+        self.is_twin = False
+        self.last_name = ""
+        self.password = ""
+        self.telephone = ""
+        self.username = ""
 
 class UserAccountRole:
     user_account_id: int = 0  
     role_id: int = 0
+    
+    def __init__(self, user_account_id, role_id):
+        self.user_account_id = user_account_id
+        self.role_id = role_id
 
     
   

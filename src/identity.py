@@ -1,5 +1,6 @@
 # Copyright Zsolt Toth
 
+from dataclasses import dataclass
 import datetime
 from numpy import ndarray
 from pathlib import Path
@@ -12,6 +13,10 @@ from sqlite3 import Error
 
 CLASSIFIER_CONFIGURATION: str = str(Path(
     __file__).parent / 'haarcascades/haarcascade_frontalface_default.xml')
+DATABASE_DIRECTORY: str = str(Path(
+    __file__).parent.parent / 'database/')
+DATABASE_PATH: str = str(Path(
+    __file__).parent.parent / 'database/identity.db')
 DATABASE_FACE_DIRECTORY: str = str(Path(
     __file__).parent.parent / 'database/identity_face_dataset')
 DATABASE_FACIAL_TRAINER: str = str(Path(
@@ -19,33 +24,107 @@ DATABASE_FACIAL_TRAINER: str = str(Path(
 FACE_SAMPLE_COUNT: int = 30
 ESCAPE_KEY: int = 27
 
-def create_connection(db_file: str):
-    """ create a database connection to a SQLite database """
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
 
-def select_all_users(conn: sqlite3.Connection):
-    """
-    Query all rows in the userAccount table
-    Args:
-        conn (sqlite3.Connection): Connection object
-    Returns:
-        list: list of users
-    """
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM UserAccount")
+@dataclass
+class UserAccount:
+    id: int = 0
+    email: str = ""
+    enabled: bool = False
+    face_recognition_enabled: bool = False
+    first_name: str = ""
+    is_twin: bool = False
+    last_name: str = ""
+    password: str = ""
+    telephone: str = ""
+    username: str = ""
 
-    rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
+class IdentifyService:
+    connection: sqlite3.Connection = None
+
+    def __init__(self, database_directory_path: str):
+        self.database_directory_path = database_directory_path
+        self.database_path: str = str(
+            Path(database_directory_path) / 'identity.db')
+        self.database_face_directory: str = str(
+            Path(database_directory_path) / 'identity_face_dataset')
+        self.database_facial_trainer: str = str(
+            Path(database_directory_path) / 'trainer.yml')
+        self.connection = sqlite3.connect(self.database_path)
+        self.__user_account_service = UserAccountService(self)
+
+    def get_user_account_service(self):
+        return self.__user_account_service
+
+    def get_last_inserted_row_id(self) -> int:
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT last_insert_rowid()")
+        return cursor.fetchone()[0]
+
+
+class UserAccountService:
+
+    def __init__(self, identify_service: IdentifyService):
+        self.__user_account_repository = UserAccountRepository(
+            identify_service)
+
+    def get_user_accounts(self):
+        return self.__user_account_repository.get_user_accounts()
+
+    def get_user_account_by_id(self, user_account_id: str):
+        return self.__user_account_repository.get_user_account_by_id(user_account_id)
+
+    def save_user_account(self, user_account: UserAccount, images: list):
+        user_account: self.__user_account_repository.save_user_account(
+            user_account)
+        if user_account.face_registration:
+            save_images(user_account.id, images)
+            regenerate_facial_trainer()
+        return user_account
+
+
+class UserAccountRepository:
+
+    def __init__(self, identify_service: IdentifyService):
+        self.__identify_service = identify_service
+
+    def get_user_accounts(self):
+        """
+        Query all rows in the userAccount table
+        Returns:
+            list: list of users
+        """
+        cursor = self.__identify_service.connection.cursor()
+        select_query = "SELECT * FROM UserAccount"
+        cursor.execute(select_query)
+
+        user_accounts = []
+        rows = cursor.fetchall()
+
+        print(rows)
+
+        for row in rows:
+            user_accounts.append(UserAccount(
+                row[0], row[1], row[2] == 1, row[3] == 1, row[4], row[5] == 1, row[6], row[7], row[8], row[9]))
+
+        return user_accounts
+
+    def save_user_account(self, user_account: UserAccount):
+        """
+        Save user account
+        Args:
+            user_account (UserAccount): user account
+        Returns:
+            UserAccount: saved user account
+        """
+        cursor = self.__identify_service.connection.cursor()
+        insert_query = "INSERT INTO UserAccount (email, enabled, face_recognition_enabled, first_name, is_twin, last_name, password, telephone, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        cursor.execute(insert_query, (user_account.email, user_account.enabled, user_account.face_recognition_enabled, user_account.first_name,
+                       user_account.is_twin, user_account.last_name, user_account.password, user_account.telephone, user_account.username))
+        user_account.id = self.__identify_service.get_last_inserted_row_id()
+        self.__identify_service.connection.commit()
+        return user_account
+
 
 def user_registration(user_account_id: str = "1"):
     """
@@ -105,7 +184,8 @@ def get_images_and_labels(path):
 
     for image_path in image_paths:
 
-        PIL_img = Image.open(image_path).convert('L')  # convert it to grayscale
+        PIL_img = Image.open(image_path).convert(
+            'L')  # convert it to grayscale
         img_numpy = numpy.array(PIL_img, 'uint8')
 
         user_id = int(os.path.split(image_path)[-1].split(".")[1])
@@ -130,7 +210,7 @@ def face_training():
     # recognizer.save() worked on Mac, but not on Pi
     recognizer.write(DATABASE_FACIAL_TRAINER)
 
-    # Print the numer of faces trained and end program
+    # Print the number of faces trained and end program
     print("\n [INFO] {0} faces trained. Exiting Program".format(
         len(numpy.unique(ids))))
 
@@ -147,7 +227,8 @@ def face_recognition():
     id = 0
 
     # names related to ids: example ==> Marcelo: id=1,  etc
-    names = ['None', 'Zsolt', 'Paula', 'Ilza', 'Z', 'W'] #TODO get from sql database
+    names = ['None', 'Zsolt', 'Paula', 'Ilza',
+             'Z', 'W']  # TODO get from sql database
 
     # Initialize and start realtime video capture
     cam = cv2.VideoCapture(0)
@@ -209,7 +290,7 @@ class Location:
     email: str = ""
     name: str = ""
     telephone: str = ""
-    
+
     def __init__(self, id, address, description, email, name, telephone):
         self.id = 0
         self.address = ""
@@ -218,13 +299,15 @@ class Location:
         self.name = ""
         self.telephone = ""
 
+
 class LocationPermission:
     location_id: int = 0
     user_account_id: int = 0
-    
+
     def __init__(self, location_id, user_account_id):
         self.location_id = location_id
         self.user_account_id = user_account_id
+
 
 class Roster:
     id: int = 0
@@ -239,64 +322,50 @@ class Roster:
         self.sign_in_date_time = sign_in_date_time
         self.sign_out_date_time = sign_out_date_time
         self.user_account_id = user_account_id
+
+
 class Role:
     id: int = 0
     name: str = ""
     description: str = ""
-    
+
     def __init__(self, id, name, description):
         self.id = id
         self.name = name
         self.description = description
 
-class UserAccount:
-    id: int = 0
-    email: str = ""
-    enabled: bool = False
-    face_recognition_enabled: bool = False
-    first_name: str = ""
-    is_twin: bool = False
-    last_name: str = ""
-    password: str = ""
-    telephone: str = ""
-    username: str = ""
-    
-    def __init__(self, id, email):
-        self.id = id
-        self.email = email
-        self.enabled = False
-        self.face_recognition_enabled = False
-        self.first_name = ""
-        self.is_twin = False
-        self.last_name = ""
-        self.password = ""
-        self.telephone = ""
-        self.username = ""
 
 class UserAccountRole:
-    user_account_id: int = 0  
+    user_account_id: int = 0
     role_id: int = 0
-    
+
     def __init__(self, user_account_id, role_id):
         self.user_account_id = user_account_id
         self.role_id = role_id
-
-    
-  
-    
-    
 
 
 def main():
     # user_registration()
     # face_training()
-    face_recognition()
-    database = "database\identity.db"
-    connection = create_connection(database)
-    
-    with connection:
-        print ("1. Query select all user account:")
-        select_all_users(connection)
+    # face_recognition()
+
+    admin_UserAccount = UserAccount(1, "admin@identify.com")
+    admin_UserAccount.username = "admin"
+
+    print(admin_UserAccount)
+    print(admin_UserAccount.email)
+    print(admin_UserAccount.username)
+
+    identify_service = IdentifyService(DATABASE_DIRECTORY)
+
+    user_accounts = identify_service.get_user_account_service().get_user_accounts()
+
+    for user_account in user_accounts:
+        print(user_account)
+
+#    with connection:
+ #       print ("1. Query select all user account:")
+  #      select_all_users(connection)
 
 
 if __name__ == "__main__":

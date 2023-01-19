@@ -36,6 +36,7 @@ class Roster(models.Model):
         on_delete=models.CASCADE,
     )
 
+# https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
 class UserAccountManager(BaseUserManager):
     def create_user(self, username, password=None):
         """

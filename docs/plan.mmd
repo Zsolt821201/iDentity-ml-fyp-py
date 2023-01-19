@@ -4,6 +4,7 @@ graph LR
     FaceRecognition(Face Recognition) -->DataStorage
     DataStorage[(Database)]-->ER(ER Diagram)
     Website
-    WebCameraLibrary
+    ModifyDjangoUser
+    WebCameraLibrary(OpenCV.js)--images-->Website(Django)-->FaceRegistration.py
     
     

@@ -21,7 +21,7 @@ class Roster(models.Model):
     id = models.AutoField(primary_key=True)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     sign_in_date = models.DateTimeField('date signed in', auto_now_add=True)
-    sign_out_date = models.DateTimeField('date signed out', auto_now_add=True)
+    sign_out_date = models.DateTimeField('date signed out', blank=True, null=True)
     user_account_id = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

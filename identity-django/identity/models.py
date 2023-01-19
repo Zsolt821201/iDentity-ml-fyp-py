@@ -7,7 +7,7 @@ class Location(models.Model):
     description = models.CharField(max_length=200)
     email = models.EmailField(max_length=200, unique=True)
     name = models.CharField(max_length=200, unique=True)
-    telephone = models.em(max_length=20)
+    telephone = models.CharField(max_length=20)
 
 class LocationPermission(models.Model):
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)

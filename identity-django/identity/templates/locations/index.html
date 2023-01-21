@@ -1,0 +1,11 @@
+<h1>Locations</h1>
+{% if locations %}
+    <ul>
+    {% for location in locations %}
+        <li><a href="{% url 'details' location.id %}">{{ location.name }}</a></li>
+        <li><a href="/locations/{{ location.id }}/">{{ location.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No locations are available.</p>
+{% endif %}

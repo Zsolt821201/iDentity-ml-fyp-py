@@ -4,7 +4,10 @@ from django.http import HttpResponse
 from .models import Location
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the Identity index.")
+    return render(request, 'website/index.html')
+
+def setup_facial_recognition(request):
+    return render(request, 'user-accounts/setup-facial-recognition.html')
 
 def locations(request):
     locations: list(Location) = Location.objects.order_by('-name')

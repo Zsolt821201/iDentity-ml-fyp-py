@@ -1,3 +1,8 @@
+{% extends 'master.html' %}
+
+{% block title %}Locations{% endblock %}
+
+{% block content %}
 <h1>Locations</h1>
 {% if locations %}
     <ul>
@@ -9,3 +14,4 @@
 {% else %}
     <p>No locations are available.</p>
 {% endif %}
+{% endblock %}

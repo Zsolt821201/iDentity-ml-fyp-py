@@ -5,6 +5,7 @@
         "haarcascades",
         "imshow",
         "imwrite",
+        "LBPH",
         "ndarray",
         "Toth",
         "Zsolt"

@@ -2,54 +2,88 @@
 
 
 {% block content %}
-<h1>Welcome to Idenity</h1>
-<body>
-    <h2>Face Detection Camera Example</h2>
-    <p>
-        Click <b>Start/Stop</b> button to start or stop the camera capture.<br>
-        The <b>videoInput</b> is a &lt;video&gt; element used as face detector input.
-        The <b>canvasOutput</b> is a &lt;canvas&gt; element used as face detector output.<br>
-        The code of &lt;textarea&gt; will be executed when video is started.
-        You can modify the code to investigate more.
-    </p>
-    <div>
-    <div class="control"><button id="startAndStop">Start</button></div>
-    <textarea class="code" rows="29" cols="80" id="codeEditor" spellcheck="false"></textarea>
-    </div>
-    <p class="err" id="errorMessage"></p>
-    <div>
-        <table cellpadding="0" cellspacing="0" width="0" border="0">
-        <tbody><tr>
-            <td>
-                <video id="videoInput" width="320" height="240"></video>
-            </td>
-            <td>
-                <canvas id="canvasOutput" width="320" height="240"></canvas>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>
-                <div class="caption">videoInput</div>
-            </td>
-            <td>
-                <div class="caption">canvasOutput</div>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        </tbody></table>
-    </div>
+<script id="codeSnippet" type="text/code-snippet">
+    let video = document.getElementById('videoInput');
+    let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    let gray = new cv.Mat();
+    let cap = new cv.VideoCapture(video);
+    let faces = new cv.RectVector();
+    let classifier = new cv.CascadeClassifier();
+    
+    // load pre-trained classifiers
+    classifier.load("haarcascade_frontalface_default.xml");
+    
+    const FPS = 30;
+    function processVideo() {
+        try {
+            if (!streaming) {
+                // clean and stop.
+                src.delete();
+                dst.delete();
+                gray.delete();
+                faces.delete();
+                classifier.delete();
+                return;
+            }
+            let begin = Date.now();
+            // start processing.
+            cap.read(src);
+            src.copyTo(dst);
+            cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
+            // detect faces.
+            classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+            // draw faces.
+            for (let i = 0; i < faces.size(); ++i) {
+                let face = faces.get(i);
+                let point1 = new cv.Point(face.x, face.y);
+                let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+                cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+            }
+            cv.imshow('canvasOutput', dst);
+            // schedule the next one.
+            let delay = 1000/FPS - (Date.now() - begin);
+            setTimeout(processVideo, delay);
+        } catch (err) {
+            utils.printError(err);
+        }
+    };
+    
+    // schedule the first one.
+    setTimeout(processVideo, 0);
+    </script>
+<h2>Face Detection Camera Example</h2>
+<div class="control"><button id="startAndStop">Start</button></div>
+<textarea class="code" rows="8" cols="60" id="codeEditor" spellcheck="false"></textarea>
+<p class="err" id="errorMessage"></p>
+
+<div>
+    <table border="0">
+        <caption>Face Detection Camera Example</caption>
+        <thead>
+            <tr>
+                <th>Video Input</th>
+                <th>Canvas Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><video id="videoInput" width="320" height="240"></video></td>
+                <td><canvas id="canvasOutput" width="320" height="240"></canvas></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 
 {% block scripts%}
+<!--<script aysc src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>-->
 <script type="text/javascript">
     function Utils(errorOutputId) { // eslint-disable-line no-unused-vars
         let self = this;
         this.errorOutput = document.getElementById(errorOutputId);
     
-        const OPENCV_URL = 'opencv.js';
+        const OPENCV_URL = "https://docs.opencv.org/4.x/opencv.js" //'https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js';
         this.loadOpenCv = function(onloadCallback) {
             let script = document.createElement('script');
             script.setAttribute('async', '');
@@ -250,8 +284,10 @@
     }
     
     utils.loadOpenCv(() => {
-        let faceCascadeFile = 'haarcascade_frontalface_default.xml';
-        utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
+        let faceCascadeFile = "./haarcascade_frontalface_default.xml"
+        let faceCascadeFileUrl  = "https://raw.githubusercontent.com/kipr/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml"
+        //let faceCascadeFileUrl  ="http://127.0.0.1:8000/static/haarcascade_frontalface_default.xml"
+        utils.createFileFromUrl(faceCascadeFile, faceCascadeFileUrl, () => {
             startAndStop.removeAttribute('disabled');
         });
     });

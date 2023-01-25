@@ -52,6 +52,8 @@ class UserAccount(AbstractUser):
     
     def __str__(self):
         return self.get_username()
+    
+    # Add Update Method save user account  images to disk
    
 
 CLASSIFIER_CONFIGURATION: str = str(Path(

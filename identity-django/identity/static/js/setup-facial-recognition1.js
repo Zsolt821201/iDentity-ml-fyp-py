@@ -1,106 +1,63 @@
-{% extends 'master.html' %}
+// TODO: JavaScript 
+// Save 30 images to a request
+
+function saveImages(images)
+{
+  const userAccountId = document.getElementById("user-account-id").value;
+  const formData = new FormData();
+
+  formData.append('user-account-id', userAccountId);
+  images.forEach(image => {
+    formData.append('images', image);
+  });
+
+  const options = {
+    body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    method: "POST",
+  }
 
 
-{% block content %}
-<script id="codeSnippet" type="text/code-snippet">
+  fetch("/upload-facial-data", options)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  });
 
-    const FACE_SAMPLE_COUNT = 30;
+}
 
-    
-    let video = document.getElementById('videoInput');
-    let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
-    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC4);
-    let gray = new cv.Mat();
-    let cap = new cv.VideoCapture(video);
-    let faces = new cv.RectVector();
-    let classifier = new cv.CascadeClassifier();
-    
-    // load pre-trained classifiers
-    classifier.load("haarcascade_frontalface_default.xml");
-    
-    var faceImages =[];
+// Post the request to the server
 
-    const FPS = 30;
-    function processVideo() {
-        try {
-            if (!streaming) {
-                // clean and stop.
-                src.delete();
-                dst.delete();
-                gray.delete();
-                faces.delete();
-                classifier.delete();
-                return;
-            }
-            let begin = Date.now();
-            // start processing.
-            cap.read(src);
-            src.copyTo(dst);
-            cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
-            // detect faces.
-            classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+// If the server returns a success, clear the images from the canvas, alert user
 
-            console.log("# Faces found: "+faces.size());
-            if(faces.size() == 0)
-            {
-                console.log("Error: No face detected");
-            }
-    
-            if(faces.size() > 1)
-            {
-                console.log("Error: More than one face detected");
-            }
+//This function, clearCanvasOnSuccess, takes in a response object as an argument. 
+//It checks if the status property of the response is equal to "success". 
+//If it is, it calls the clearCanvas function which has the code to clear the images from the canvas. 
+//It also alerts the user that the images have been cleared from the canvas.
+//You can call the function by passing the response from server like this : clearCanvasOnSuccess(serverResponse);
+function clearCanvasOnSuccess(response) {
+    if (response.status === "success") {
+        clearCanvas();
+        alert("Success! Images have been cleared from the canvas.");
+    }
+}
+// Clear the canvas of all images
+// This function, clearCanvas, is used to clear the images from the canvas. It first gets the canvas element by its id using document.getElementById("myCanvas") and gets the 2D rendering context using canvas.getContext("2d").
+// Then it uses the clearRect method on the context object to clear the entire canvas. The clearRect method takes four arguments: the x-coordinate and y-coordinate of the top-left corner of the rectangle to be cleared, and the width and height of the rectangle. In this case, the entire canvas is being cleared (0, 0, canvas.width, canvas.height) which starts from top left corner to bottom right corner.
 
-            // draw faces.
-            for (let i = 0; i < faces.size(); ++i) {
-                let face = faces.get(i);
-                let point1 = new cv.Point(face.x, face.y);
-                let point2 = new cv.Point(face.x + face.width, face.y + face.height);
-                cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
-                while(faceImages.Length < FACE_SAMPLE_COUNT)
-                {
-                    faceImages.push(dst);
-                }
-            }
-            cv.imshow('canvasOutput', dst);
-            // schedule the next one.
-            let delay = 1000/FPS - (Date.now() - begin);
-            setTimeout(processVideo, delay);
-        } catch (err) {
-            utils.printError(err);
-        }
-    };
-    
-    // schedule the first one.
-    setTimeout(processVideo, 0);
-    </script>
-<h2>Face Detection Camera Example</h2>
-<div class="control"><button id="startAndStop">Start</button></div>
-<textarea class="code" rows="8" cols="60" id="codeEditor" spellcheck="false"></textarea>
-<p class="err" id="errorMessage"></p>
+// Note: Make sure to replace "myCanvas" with the actual id of your canvas element in the HTML.
 
-<div>
-    <table border="0">
-        <caption>Face Detection Camera Example</caption>
-        <thead>
-            <tr>
-                <th>Video Input</th>
-                <th>Canvas Output</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><video id="videoInput" width="320" height="240"></video></td>
-                <td><canvas id="canvasOutput" width="320" height="240"></canvas></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-{% endblock %}
+// You can call this function when ever you want to clear the canvas, after calling this function all the images on the canvas will be removed.
+function clearCanvas() {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-{% block scripts%}
-<!--<script aysc src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>-->
-<script type="text/javascript">
+
+
     function Utils(errorOutputId) { // eslint-disable-line no-unused-vars
         let self = this;
         this.errorOutput = document.getElementById(errorOutputId);
@@ -236,9 +193,9 @@
             const constraints = {
                 'qvga': {width: {exact: 320}, height: {exact: 240}},
                 'vga': {width: {exact: 640}, height: {exact: 480}}};
-            let video = document.getElementById(videoId);
-            if (!video) {
-                video = document.createElement('video');
+            let videoElement = document.getElementById(videoId);
+            if (!videoElement) {
+                videoElement = document.createElement('video');
             }
     
             let videoConstraint = constraints[resolution];
@@ -248,12 +205,12 @@
     
             navigator.mediaDevices.getUserMedia({video: videoConstraint, audio: false})
                 .then(function(stream) {
-                    video.srcObject = stream;
-                    video.play();
-                    self.video = video;
+                    videoElement.srcObject = stream;
+                    videoElement.play();
+                    self.video = videoElement;
                     self.stream = stream;
                     self.onCameraStartedCallback = callback;
-                    video.addEventListener('canplay', onVideoCanPlay, false);
+                    videoElement.addEventListener('canplay', onVideoCanPlay, false);
                 })
                 .catch(function(err) {
                     self.printError('Camera Error: ' + err.name + ' ' + err.message);
@@ -314,6 +271,73 @@
         });
     });
     
-</script>
-{% endblock %}
 
+    const FACE_SAMPLE_COUNT = 30;
+
+    
+    let video = document.getElementById('videoInput');
+    let src = new cv.Mat(canvasOutputElement.height, canvasOutputElement.width, cv.CV_8UC4);
+    let dst = new cv.Mat(canvasOutputElement.height, canvasOutputElement.width, cv.CV_8UC4);
+    let gray = new cv.Mat();
+    let cap = new cv.VideoCapture(canvasOutputElement);
+    let faces = new cv.RectVector();
+    let classifier = new cv.CascadeClassifier();
+    
+    // load pre-trained classifiers
+    faceDetectorClassifier.load("haarcascade_frontalface_default.xml");
+    
+    var faceImages =[];
+
+    const FPS = 30;
+    function processVideo() {
+        try {
+            if (!streaming) {
+                // clean and stop.
+                src.delete();
+                dst.delete();
+                gray.delete();
+                faces.delete();
+                faceDetectorClassifier.delete();
+                return;
+            }
+            let begin = Date.now();
+            // start processing.
+            videoCapture.read(src);
+            src.copyTo(dst);
+            cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
+            // detect faces.
+            faceDetectorClassifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+
+            console.log("# Faces found: "+faces.size());
+            if(faces.size() == 0)
+            {
+                console.log("Error: No face detected");
+            }
+    
+            if(faces.size() > 1)
+            {
+                console.log("Error: More than one face detected");
+            }
+
+            // draw faces.
+            for (let i = 0; i < faces.size(); ++i) {
+                let face = faces.get(i);
+                let point1 = new cv.Point(face.x, face.y);
+                let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+                cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+                while(faceImages.Length < FACE_SAMPLE_COUNT)
+                {
+                    faceImages.push(dst);
+                }
+            }
+            cv.imshow('canvasOutput', dst);
+            // schedule the next one.
+            let delay = 1000/FPS - (Date.now() - begin);
+            setTimeout(processVideo, delay);
+        } catch (err) {
+            utils.printError(err);
+        }
+    };
+    
+    // schedule the first one.
+    setTimeout(processVideo, 0);

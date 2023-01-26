@@ -2,7 +2,8 @@ import cv2
 from django.shortcuts import get_object_or_404, render
 
 from django.http import HttpResponse
-from .models import Location, UserAccount
+from numpy import ndarray
+from .models import Location, UserAccount, get_user_face
 
 def index(request):
     return render(request, 'website/index.html')
@@ -22,7 +23,29 @@ def setup_facial_recognition(request):
 def test(request):
    return render(request, 'user-accounts/test.html')
 
+
 def upload_facial_data(request):
+    data = request.data
+    # get loggedInUser
+    user_account_id:int = 1
+
+    if user_account_id != data['user-account-id']:
+        return HttpResponse('Unauthorized', status=401)
+    
+    _ = get_object_or_404(UserAccount, pk=user_account_id)
+    
+    image = data['image']
+    image_number = data['image-number']
+
+    
+    success = get_user_face(user_account_id, image, image_number)
+    if success:
+        return HttpResponse('OK', status=200)
+    else:
+        return HttpResponse('Error', status=500)
+
+            
+def upload_facial_data2(request):
     data = request.data
     # get loggedInUser
     user_account_id:int = 1

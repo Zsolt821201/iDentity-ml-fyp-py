@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<h2>User Facial Regonition Setup</h2>
+<h2>User Facial Recognition Setup</h2>
 
 <p>Please look directly at the camera until your face is detected and profile recorded.</p>
 
@@ -14,11 +14,11 @@
 {% endblock %}
 
 {% block scripts%}
-<script aysc src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>
 <script src="{% static "js/setup-facial-recognition.js" %}"></script>
 <script type="text/javascript">
-    startCamera('qvga', 'videoInput');
-    setUpFacialRecognition();
+    startCamera(VideoResolutionFormats.QVGA, 'videoInput');
+    takeFacePictures();
 </script>
 {% endblock %}
 

@@ -1,0 +1,58 @@
+---
+title: Identity Class Diagram
+---
+classDiagram 
+
+class Location{
+== Attributes ==
+    +int id
+    +String address
+    +String description
+    +String email
+    +String name
+    +String phone
+}
+class LocationPermission {
+== Attributes ==
+        +int locationId
+        +int userAccountId
+    }
+class Roster{
+== Attributes ==
+    +int id
+    +int locationId
+    +string signInDateTime
+    +string signOutDateTime
+    +int userAccountId
+}
+class Role{
+== Attributes ==
+    +int id
+    +string name
+    +string description
+}
+class UserAccount{
+== Attributes ==
+    +int id
+    +string email
+    +boolean enabled
+    +boolean faceRecognitionEnabled
+    +string firstName
+    +boolean isTwin
+    +string lastName
+    +string password
+    +string telephone
+    +string username
+}
+class UserAccountRole{
+== Attributes ==
+    +int userAccountId
+    +int roleId   
+}
+
+Location "1" *-- "1..*" LocationPermission : has
+Roster "1" *-- "1..*" Location : has
+UserAccount "1" *-- "1..*" Roster : has
+UserAccount "1" *-- "1..*" UserAccountRole : has
+UserAccountRole "1" *-- "1..*" Role : has
+LocationPermission "1" *-- "1..*" UserAccount : has

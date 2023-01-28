@@ -1,9 +1,11 @@
 import cv2
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 
 from django.http import HttpResponse
 from numpy import ndarray
 from .models import Location, UserAccount, get_user_face
+from PIL import Image
 
 def index(request):
     return render(request, 'website/index.html')
@@ -23,22 +25,42 @@ def setup_facial_recognition(request):
 def test(request):
    return render(request, 'user-accounts/test.html')
 
+def test_client_using_server(request):
+   video_capture = cv2.VideoCapture(0)
+   while True:
+       _, img = video_capture.read()
+       cv2.imshow('camera', img)
 
+@csrf_exempt
+#@api_view(['POST'])
 def upload_facial_data(request):
-    data = request.data
+    request_data = request.POST;
+    
+    request_user_id = request_data['user-account-id']
+    
     # get loggedInUser
-    user_account_id:int = 1
+    session_user_account_id = '1'
 
-    if user_account_id != data['user-account-id']:
+    if session_user_account_id != request_user_id:
         return HttpResponse('Unauthorized', status=401)
     
-    _ = get_object_or_404(UserAccount, pk=user_account_id)
+    _ = get_object_or_404(UserAccount, pk=session_user_account_id)
     
-    image = data['image']
-    image_number = data['image-number']
+    request_image =  request.POST['image']
+    image_number = request_data['image-number']
+    print(f"image_number: {image_number}")
+
+    print(str(request_image))
+    #image = cv2.imdecode(np.fromstring(request_image.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+
+    import numpy as np
+    pil_img = Image.open(request_image)
+    cv_img = np.array(pil_img)
+
+    #image = np.frombuffer(request_image, np.uint8)
 
     
-    success = get_user_face(user_account_id, image, image_number)
+    success = get_user_face(session_user_account_id, cv_img, image_number)
     if success:
         return HttpResponse('OK', status=200)
     else:

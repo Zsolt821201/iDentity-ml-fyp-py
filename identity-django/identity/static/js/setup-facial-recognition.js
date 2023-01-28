@@ -1,4 +1,4 @@
-const FACE_SAMPLE_COUNT = 30;
+const FACE_SAMPLE_COUNT = 1;
 
 
 function takeFacePictures() {
@@ -7,11 +7,12 @@ function takeFacePictures() {
     let videoCapture = new cv.VideoCapture(videoElement);
 
     let imageNumber = 1;     
+    const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
     while (imageNumber <= FACE_SAMPLE_COUNT) {
         let image = new cv.Mat(videoElement.height, videoElement.width, cv.CV_8UC4);
         videoCapture.read(image);
     
-        let responseOk = postImageToServer(image, imageNumber);
+        let responseOk = postImageToServer(image, imageNumber, csrfToken);
 
         if (!responseOk) {//OK
             imageNumber++;
@@ -21,24 +22,25 @@ function takeFacePictures() {
     //messageUser("Face pictures taken");
 }
 
-function postImageToServer(image, imageNumber) {
+function postImageToServer(image, imageNumber, csrfToken) {
     const userAccountId = 1;//document.getElementById("user-account-id").value;
     const formData = new FormData();
+    const headers = {
+        mode: 'same-origin',
+        'X-CSRFToken': csrfToken,
+    };
 
-    formData.append('image', image);
+    formData.append('image', image.data);//, 'image.png');
     formData.append('image-number', imageNumber);
     formData.append('user-account-id', userAccountId);
 
     const options = {
         body: formData,
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
         method: "POST",
     }
 
 
-    fetch("/upload-facial-data", options).
+    fetch("/upload-facial-data/", options).
         then((response)=>{
             return response.ok;
         });

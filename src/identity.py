@@ -214,8 +214,19 @@ def face_training():
     print("\n [INFO] {0} faces trained. Exiting Program".format(
         len(numpy.unique(ids))))
 
+# names related to ids: example ==> Marcelo: id=1,  etc
+user_names = ['None', 'Zsolt', 'Paula', 'Ilza',
+             'Z', 'W']  # TODO get from sql database
+    
+def face_recognition(user_names):
+    """
+    Face recognition
+    
 
-def face_recognition():
+    Args:
+        user_names (_type_): user names must be in the same order as in the database
+        user_names must be unique
+    """
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read(DATABASE_FACIAL_TRAINER)
 
@@ -226,14 +237,8 @@ def face_recognition():
     # iniciate id counter
     id = 0
 
-    # names related to ids: example ==> Marcelo: id=1,  etc
-    names = ['None', 'Zsolt', 'Paula', 'Ilza',
-             'Z', 'W']  # TODO get from sql database
 
-    # Initialize and start realtime video capture
     cam = cv2.VideoCapture(0)
-    # cam.set(3, 640) # set video widht
-    # cam.set(4, 480) # set video height
 
     # Define min window size to be recognized as a face
     minW = 0.1*cam.get(3)
@@ -241,7 +246,7 @@ def face_recognition():
 
     while True:
 
-        ret, img = cam.read()
+        _, img = cam.read()
         # img = cv2.flip(img, -1) # Flip vertically
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -261,7 +266,7 @@ def face_recognition():
 
             # Check if confidence is less them 100 ==> "0" is perfect match
             if (confidence < 100):
-                id = names[id]
+                id = user_names[id]
                 confidence = "  {0}%".format(round(100 - confidence))
             else:
                 id = "unknown"
@@ -345,16 +350,17 @@ class UserAccountRole:
 
 
 def main():
-    # user_registration()
+    user_registration()
     # face_training()
     # face_recognition()
 
-    admin_UserAccount = UserAccount(1, "admin@identify.com")
-    admin_UserAccount.username = "admin"
+def sql_test():
+    admin_user_account = UserAccount(1, "admin@identify.com")
+    admin_user_account.username = "admin"
 
-    print(admin_UserAccount)
-    print(admin_UserAccount.email)
-    print(admin_UserAccount.username)
+    print(admin_user_account)
+    print(admin_user_account.email)
+    print(admin_user_account.username)
 
     identify_service = IdentifyService(DATABASE_DIRECTORY)
 

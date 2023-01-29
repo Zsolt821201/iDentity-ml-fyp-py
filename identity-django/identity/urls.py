@@ -1,13 +1,11 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from . import views
+
 
 urlpatterns = [
     path('', views.index, name='index'),
-   # path('login/', views.login, name='login'),
-   # path('logout/', views.logout, name='logout'),
-    #path('change-password/', views.change_password, name='change_password'),
-    #path('roaster-logs/', views.roaster_logs, name='roaster_logs'),
+    path("login_user", views.login_user, name="login"),
     path('setup-facial-recognition/', views.setup_facial_recognition, name='setup_facial_recognition'),
     path('locations/', views.locations, name='locations'),
     path('test/', views.test, name='test'),

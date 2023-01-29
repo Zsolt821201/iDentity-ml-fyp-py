@@ -1,14 +1,36 @@
 import cv2
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
-
+from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth.forms import AuthenticationForm 
 from django.http import HttpResponse
 from numpy import ndarray
 from .models import Location, UserAccount, get_user_face
+from django.contrib import messages
+from django.shortcuts import  render, redirect
 from PIL import Image
 
 def index(request):
     return render(request, 'website/index.html')
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.info(request, f"You are logged in as {username}.")
+            return redirect('locations/index.html')
+        else:
+            messages.error(request, "Invalid username or password.")
+            return redirect('user-accounts/login.html')
+    else:
+            messages.error(request,"Invalid username or password")
+    
+    return render(request, 'user-accounts/login.html')
+            
+        
 
 
 def locations(request):

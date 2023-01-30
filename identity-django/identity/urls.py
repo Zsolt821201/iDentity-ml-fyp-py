@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path("login_user", views.login_user, name="login"),
+    path("logout_user", views.logout_user, name="logout"),
     path('setup-facial-recognition/', views.setup_facial_recognition, name='setup_facial_recognition'),
     path('locations/', views.locations, name='locations'),
     path('test/', views.test, name='test'),

@@ -29,7 +29,11 @@ def login_user(request):
             messages.error(request,"Invalid username or password")
     
     return render(request, 'user-accounts/login.html')
-            
+
+def logout_user(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect('user-accounts/login.html')           
         
 
 

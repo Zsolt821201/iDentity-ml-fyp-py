@@ -65,29 +65,6 @@ DATABASE_FACE_DIRECTORY: str = str(Path(
 DATABASE_FACIAL_TRAINER: str = str(Path(
     __file__).parent.parent / 'database/trainer.yml')
 
-def get_user_face(user_account_id, image, image_number):
-    cv2.imshow('image', image)
-    gray_scale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    face_detector_classifier = cv2.CascadeClassifier(CLASSIFIER_CONFIGURATION)
-    faces: ndarray = face_detector_classifier.detectMultiScale(
-        gray_scale_image, 1.3, 5)
-
-    if len(faces) == 0:
-        print("Error: No face detected")
-        return False
-
-    if len(faces) > 1:
-        print("Error: More than one face detected")
-        return False
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-        image_path: str = f"{DATABASE_FACE_DIRECTORY}/user.{user_account_id}.{image_number}.jpg"
-        cv2.imwrite(image_path, gray_scale_image[y:y+h, x:x+w])
-
-        cv2.imshow('image', image)
-    return True
 
 def get_images_and_labels(path):
 

@@ -4,8 +4,9 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout, authenticate 
 from django.contrib.auth.forms import AuthenticationForm 
 from django.http import HttpResponse
+from .utilities import stream_image, get_user_face
 from numpy import ndarray
-from .models import Location, UserAccount, get_user_face
+from .models import Location, UserAccount
 from django.contrib import messages
 from django.shortcuts import  render, redirect
 from PIL import Image
@@ -21,12 +22,12 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.info(request, f"You are logged in as {username}.")
-            return redirect('locations/index.html')
+            return redirect('/locations/')
         else:
             messages.error(request, "Invalid username or password.")
-            return redirect('user-accounts/login.html')
+            return redirect('/user-accounts/')
     else:
-            messages.error(request,"Invalid username or password")
+        messages.error(request,"Invalid username or password")
     
     return render(request, 'user-accounts/login.html')
 
@@ -72,18 +73,14 @@ def upload_facial_data(request):
     
     _ = get_object_or_404(UserAccount, pk=session_user_account_id)
     
-    request_image =  request.POST['image']
+    request_image = stream_image(request_data['image-base64'])
     image_number = request_data['image-number']
     print(f"image_number: {image_number}")
-
-    print(str(request_image))
-    #image = cv2.imdecode(np.fromstring(request_image.read(), np.uint8), cv2.IMREAD_UNCHANGED)
 
     import numpy as np
     pil_img = Image.open(request_image)
     cv_img = np.array(pil_img)
 
-    #image = np.frombuffer(request_image, np.uint8)
 
     
     success = get_user_face(session_user_account_id, cv_img, image_number)

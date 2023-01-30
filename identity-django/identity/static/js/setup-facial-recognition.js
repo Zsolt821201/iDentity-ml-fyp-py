@@ -1,20 +1,23 @@
-const FACE_SAMPLE_COUNT = 1;
+const FACE_SAMPLE_COUNT = 30;
 
 
 function takeFacePictures() {
 
     let videoElement = document.getElementById('videoInput');
-    let videoCapture = new cv.VideoCapture(videoElement);
+
 
     let imageNumber = 1;     
     const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
     while (imageNumber <= FACE_SAMPLE_COUNT) {
-        let image = new cv.Mat(videoElement.height, videoElement.width, cv.CV_8UC4);
-        videoCapture.read(image);
-    
-        let responseOk = postImageToServer(image, imageNumber, csrfToken);
 
-        if (!responseOk) {//OK
+        var canvas = document.createElement("canvas");
+        canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+        let imageBase64Encoding = canvas.toDataURL();
+
+            
+        let response = postImageToServer(imageBase64Encoding, imageNumber, csrfToken);
+
+        if(response == Response.ok){
             imageNumber++;
         }
     }
@@ -22,7 +25,7 @@ function takeFacePictures() {
     //messageUser("Face pictures taken");
 }
 
-function postImageToServer(image, imageNumber, csrfToken) {
+function postImageToServer(imageBase64Encoding, imageNumber, csrfToken) {
     const userAccountId = 1;//document.getElementById("user-account-id").value;
     const formData = new FormData();
     const headers = {
@@ -30,7 +33,7 @@ function postImageToServer(image, imageNumber, csrfToken) {
         'X-CSRFToken': csrfToken,
     };
 
-    formData.append('image', image.data);//, 'image.png');
+    formData.append('image-base64', imageBase64Encoding);//, 'image.png');
     formData.append('image-number', imageNumber);
     formData.append('user-account-id', userAccountId);
 
@@ -40,9 +43,9 @@ function postImageToServer(image, imageNumber, csrfToken) {
     }
 
 
-    fetch("/upload-facial-data/", options).
+    return fetch("/upload-facial-data/", options).
         then((response)=>{
-            return response.ok;
+            return response;
         });
 }
 

@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from . import views
+from .import views
+from .views import UserEditView
 
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path('setup-facial-recognition/', views.setup_facial_recognition, name='setup_facial_recognition'),
     path('test/', views.test, name='test'),
     path('upload-facial-data/', views.upload_facial_data, name="upload-facial-data"),
+    path('edit_user_profile/', UserEditView.as_view(), name="edit_user_profile"),
 ]

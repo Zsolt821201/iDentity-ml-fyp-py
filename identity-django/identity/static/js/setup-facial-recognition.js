@@ -40,6 +40,7 @@ function postImageToServer(imageBase64Encoding, imageNumber, csrfToken) {
     const options = {
         body: formData,
         method: "POST",
+        headers: headers
     }
 
 

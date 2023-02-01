@@ -1,14 +1,17 @@
 import cv2
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout, authenticate 
 from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth.forms import UserChangeForm
 from django.http import HttpResponse
 from .utilities import stream_image, get_user_face
 from numpy import ndarray
 from .models import Location, UserAccount
 from django.contrib import messages
 from django.shortcuts import  render, redirect
+from django.views import generic
 from PIL import Image
 
 def index(request):
@@ -36,7 +39,14 @@ def logout_user(request):
     messages.info(request, "Logged out successfully!")
     return redirect('user-accounts/login.html')           
         
-
+class UserEditView(generic.UpdateView):
+    form_class = UserChangeForm
+    template_name = 'user-accounts/edit-user-profile.html'
+    success_url = reverse_lazy('user-accounts/setup-facial-recognition.html')
+    
+    def get_object(self):
+        return self.request.user
+    
 
 def locations(request):
     locations: list(Location) = Location.objects.order_by('-name')

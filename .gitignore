@@ -359,5 +359,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/microsoftoffice,windows,python,jupyternotebooks,visualstudiocode,pycharm
-database/identity_face_dataset/*
-database/trainer.yml
+
+# Database Files
+/identity-django/database/*
+/database/*

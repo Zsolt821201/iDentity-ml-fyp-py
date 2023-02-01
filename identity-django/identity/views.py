@@ -6,13 +6,14 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.forms import UserChangeForm
 from django.http import HttpResponse
-from .utilities import stream_image, get_user_face
-from numpy import ndarray
+from .utilities import face_training, stream_image, detect_and_save_user_face
+import numpy as numpy
 from .models import Location, UserAccount
 from django.contrib import messages
 from django.shortcuts import  render, redirect
 from django.views import generic
 from PIL import Image
+from django.contrib.sessions.models import Session
 
 def index(request):
     return render(request, 'website/index.html')
@@ -57,68 +58,50 @@ def location_details(request, location_id):
     return render(request, 'locations/details.html', {'location': location})
 
 def setup_facial_recognition(request):
-    return render(request, 'user-accounts/setup-facial-recognition.html')
+    return render(request, 'user-accounts/setup-facial-recognition.html', {'user_account_id': request.user.id})
 
 def test(request):
-   return render(request, 'user-accounts/test.html')
+    face_training()
+    return render(request, 'user-accounts/test.html')
 
-def test_client_using_server(request):
-   video_capture = cv2.VideoCapture(0)
-   while True:
-       _, img = video_capture.read()
-       cv2.imshow('camera', img)
+def facial_login(request):
+    return render(request, 'user-accounts/facial-login.html')
+
+def perform_facial_login(request):
+    request_data = request.POST;
+   
+    image_bytes = stream_image(request_data['image-base64'])
+    #image_number = request_data['image-number']
+
+    open_cv_image = numpy.array(Image.open(image_bytes))
+
+    if face_found:
+        #user = authenticate(request, username=username, password=password)
+    
+    face_found = detect_and_save_user_face(session_user_account_id, open_cv_image, image_number)
+    
 
 @csrf_exempt
-#@api_view(['POST'])
 def upload_facial_data(request):
     request_data = request.POST;
-    
     request_user_id = request_data['user-account-id']
-    
-    # get loggedInUser
-    session_user_account_id = '1'
+    session_user_account_id = str(request.user.id)  # get loggedInUser
 
     if session_user_account_id != request_user_id:
         return HttpResponse('Unauthorized', status=401)
     
-    _ = get_object_or_404(UserAccount, pk=session_user_account_id)
+    _ = get_object_or_404(UserAccount, pk=session_user_account_id) # Confirm that the user exists
     
-    request_image = stream_image(request_data['image-base64'])
+    image_bytes = stream_image(request_data['image-base64'])
     image_number = request_data['image-number']
-    print(f"image_number: {image_number}")
 
-    import numpy as np
-    pil_img = Image.open(request_image)
-    cv_img = np.array(pil_img)
-
+    open_cv_image = numpy.array(Image.open(image_bytes))
 
     
-    success = get_user_face(session_user_account_id, cv_img, image_number)
-    if success:
+    face_found = detect_and_save_user_face(session_user_account_id, open_cv_image, image_number)
+    if face_found:
         return HttpResponse('OK', status=200)
     else:
-        return HttpResponse('Error', status=500)
-
-            
-def upload_facial_data2(request):
-    data = request.data
-    # get loggedInUser
-    user_account_id:int = 1
-
-    if user_account_id != data['user-account-id']:
-        return HttpResponse('Unauthorized', status=401)
-    
-    user_account = get_object_or_404(UserAccount, pk=user_account_id)
-    face_images = data['images']
-    user_account.is_face_recognition_enabled = True
-    UserAccount.save(user_account, face_images)
-    
-    face_count: int = 0
-    
-    for face_image in face_images:
-        image_path: str = f"{DATABASE_FACE_DIRECTORY}/user.{user_account_id}.{face_count}.jpg"
-        cv2.imwrite(image_path, face_image)
-
-    return HttpResponse('OK', status=200)
+        return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
     
 

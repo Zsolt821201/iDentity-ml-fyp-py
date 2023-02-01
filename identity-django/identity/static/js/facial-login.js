@@ -1,34 +1,28 @@
-const FACE_SAMPLE_COUNT = 30;
-
 async function streamLoginVideo() {
-
     let videoElement = document.getElementById('videoInput');
-
-
-    let imageNumber = 1;
+    let imageNumber = 0;
     const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
-    const userAccountId = document.getElementById("user-account-id").value;
-    while (imageNumber <= FACE_SAMPLE_COUNT) {
+    let responseCode;
+    do 
+    {
 
         var canvas = document.createElement("canvas");
         canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
         let imageBase64Encoding = canvas.toDataURL();
 
 
-        let responseCode = await postImageToServer(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
-
-        if (responseCode == 418)
-            continue;
-        else if (responseCode == 200)
-            imageNumber++;
-        else
-            break;
+        //wait one second before taking the next picture
+        await new Promise(r => setTimeout(r, 1000));
+        responseCode = await postLoginImageToServer(imageBase64Encoding, ++imageNumber, csrfToken);
     }
-
-    //messageUser("Face pictures taken");
+    while (responseCode == 418)
+    if(responseCode == 200)
+        redirectUserToDashboard();
+    else
+        console.log("Error: " + responseCode);
 }
 
-async function postImageToServer(imageBase64Encoding, imageNumber, userAccountId, csrfToken) {
+async function postLoginImageToServer(imageBase64Encoding, imageNumber, csrfToken) {
     const formData = new FormData();
     const headers = {
         mode: 'same-origin',
@@ -37,14 +31,13 @@ async function postImageToServer(imageBase64Encoding, imageNumber, userAccountId
 
     formData.append('image-base64', imageBase64Encoding);
     formData.append('image-number', imageNumber);
-    formData.append('user-account-id', userAccountId);
 
     const options = {
         body: formData,
         method: "POST",
         //headers: headers
     }
-    const url = "/upload-facial-data/";
+    const url = "/perform-facial-login/";
 
 
     let responseCode = await executeRequest(url, options);

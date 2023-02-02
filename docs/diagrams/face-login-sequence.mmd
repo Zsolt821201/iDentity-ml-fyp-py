@@ -1,0 +1,17 @@
+sequenceDiagram
+
+Actor unauthenticatedUser as Unauthenticated User
+Participant website as Website
+Participant views as Views
+
+unauthenticatedUser->>website: /login
+website->>unauthenticatedUser: Login page
+unauthenticatedUser->>website: send image top /perform-facial-login
+website->>views: perform_facial_login(request)
+views-->utilities: detect_and_save_user_face(requestImage)
+break when face_found is False i.e. no user for image given exists
+views->website: show failure
+utilities-->views: face_found, login(user, location)
+views->website: HttpResponse('OK', status=200)
+website->>unauthenticatedUser: show login confirmation
+end

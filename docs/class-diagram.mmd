@@ -1,38 +1,31 @@
----
-title: Identity Class Diagram
----
 classDiagram 
+direction RL
 
-class Location{
-== Attributes ==
-    +int id
-    +String address
-    +String description
-    +String email
-    +String name
-    +String phone
+class Location {
+    int id
+    String address
+    String description
+    String email
+    String name
+    String phone
 }
 class LocationPermission {
-== Attributes ==
-        +int locationId
-        +int userAccountId
+    +Location locationId
+    +int userAccountId
     }
-class Roster{
-== Attributes ==
+class Roster {
     +int id
     +int locationId
     +string signInDateTime
     +string signOutDateTime
     +int userAccountId
 }
-class Role{
-== Attributes ==
+class Role {
     +int id
     +string name
     +string description
 }
-class UserAccount{
-== Attributes ==
+class UserAccount {
     +int id
     +string email
     +boolean enabled
@@ -44,15 +37,15 @@ class UserAccount{
     +string telephone
     +string username
 }
-class UserAccountRole{
-== Attributes ==
+class UserAccountRole {
     +int userAccountId
-    +int roleId   
+    +int roleId
 }
 
 Location "1" *-- "1..*" LocationPermission : has
+LocationPermission "1..*" *-- "1" UserAccount : has
 Roster "1" *-- "1..*" Location : has
 UserAccount "1" *-- "1..*" Roster : has
 UserAccount "1" *-- "1..*" UserAccountRole : has
-UserAccountRole "1" *-- "1..*" Role : has
-LocationPermission "1" *-- "1..*" UserAccount : has
+UserAccountRole "1..*" -- "1" Role : has
+

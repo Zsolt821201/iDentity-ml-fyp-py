@@ -363,3 +363,4 @@ $RECYCLE.BIN/
 # Database Files
 /identity-django/database/*
 /database/*
+identity-django/identity/tests/secret/*

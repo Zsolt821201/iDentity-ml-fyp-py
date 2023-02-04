@@ -7,7 +7,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.forms import UserChangeForm
 from django.http import HttpResponse
-from .utilities import face_recognition_web, face_training, stream_image, detect_and_save_user_face
+from .utilities import face_recognition_web
+from .utilities import face_training
+from .utilities import stream_image
+from .utilities import detect_and_save_user_face
 import numpy as numpy
 from .models import Location, Roster, UserAccount
 from django.contrib import messages
@@ -69,7 +72,7 @@ def facial_login(request):
     return render(request, 'user-accounts/facial-login.html')
 
 def perform_facial_login(request):
-    request_data = request.POST;
+    request_data = request.POST
    
     image_bytes = stream_image(request_data['image-base64'])
     location_id = request_data['location-id']
@@ -78,14 +81,15 @@ def perform_facial_login(request):
 
     open_cv_image = numpy.array(Image.open(image_bytes))
 
-    user_accounts: list[UserAccount] = UserAccount.objects.order_by('-id')
-    confidence, user_account = face_recognition_web(user_accounts, open_cv_image)
+    user_id, confidence = face_recognition_web(open_cv_image)
+    
+    
     
     face_found = confidence > 100
     if face_found:
+        user_account = UserAccount.objects.get(pk=user_id)
         login_at_location(user_account, location, datetime.now())
-        return HttpResponse('OK', status=200)
-        
+        return HttpResponse('OK', status=200)    
     else:
         return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
     
@@ -96,7 +100,7 @@ def login_at_location(user_account: UserAccount, location: Location, sign_in_dat
 
 @csrf_exempt
 def upload_facial_data(request):
-    request_data = request.POST;
+    request_data = request.POST
     request_user_id = request_data['user-account-id']
     session_user_account_id = str(request.user.id)  # get loggedInUser
 

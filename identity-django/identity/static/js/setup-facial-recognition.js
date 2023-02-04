@@ -1,6 +1,6 @@
 const FACE_SAMPLE_COUNT = 30;
 
-async function streamLoginVideo() {
+async function takeFacePictures() {
 
     let videoElement = document.getElementById('videoInput');
 

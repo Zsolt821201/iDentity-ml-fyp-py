@@ -1,0 +1,15 @@
+flowchart TD;
+   %% Trigger event
+   TRIGGER([The user asks the system to setup their facial regonition profile in])-->S1;
+   style TRIGGER fill:#ccf
+ 
+   %% Main success scenario
+   S1[The system renders the setup screen<br /> and asks the user to look at the camera]-->S2;
+   S2[The system takes multiple pictures of the user's face]-->S3;
+   S3[The system processes the pictures and stores the facial regonition profile]-->S4;
+   S4[The systems asks the user to confirm the profile is correct]-->S5;
+   S5[The system compiles and stores the facial regonition profile trainer.yml]-->S6;
+   S6[The system displays a success message]-->SUCCESS;
+
+  SUCCESS([System creates the user's facial regonition profile]);
+   style SUCCESS fill:#cfc

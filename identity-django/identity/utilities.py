@@ -35,24 +35,29 @@ def base64_file(data, name=None):
         name = _name.split(":")[-1]
     return ContentFile(base64.b64decode(_img_str), name='{}.{}'.format(name, ext))
 
-
 def detect_user_face(gray_scale_image):
+    """Detects a single face in the image and returns the face coordinates
+    The face_detector_classifier detects any faces found in a image.  It returns a flag found as True with the face is detected.
+    If no face is detected, the flag found is False.  If more than one face is detected, the flag found is False.
+    """
+    
     face_detector_classifier = cv2.CascadeClassifier(CLASSIFIER_CONFIGURATION)
     faces: ndarray = face_detector_classifier.detectMultiScale(
         gray_scale_image, 1.3, 5)
 
     if len(faces) == 0:
         print("Error: No face detected")
-        return False, faces
+        return False, None
 
     if len(faces) > 1:
         print("Error: More than one face detected")
-        return False, faces
+        return False, None
 
     return True, faces[0]
 
 
 def detect_and_save_user_face(user_account_id, image, image_number):
+    """Detects a single face in the image and saves it to the database"""
     gray_scale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     face_found, face = detect_user_face(gray_scale_image)

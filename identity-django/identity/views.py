@@ -1,3 +1,4 @@
+import datetime
 import cv2
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -6,9 +7,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.forms import UserChangeForm
 from django.http import HttpResponse
-from .utilities import face_training, stream_image, detect_and_save_user_face
+from .utilities import face_recognition_web, face_training, stream_image, detect_and_save_user_face
 import numpy as numpy
-from .models import Location, UserAccount
+from .models import Location, Roster, UserAccount
 from django.contrib import messages
 from django.shortcuts import  render, redirect
 from django.views import generic
@@ -71,14 +72,26 @@ def perform_facial_login(request):
     request_data = request.POST;
    
     image_bytes = stream_image(request_data['image-base64'])
+    location_id = request_data['location-id']
+    location = Location.objects.get(pk=location_id)
     #image_number = request_data['image-number']
 
     open_cv_image = numpy.array(Image.open(image_bytes))
 
-    if face_found:
-        #user = authenticate(request, username=username, password=password)
+    user_accounts: list[UserAccount] = UserAccount.objects.order_by('-id')
+    confidence, user_account = face_recognition_web(user_accounts, open_cv_image)
     
-    face_found = detect_and_save_user_face(session_user_account_id, open_cv_image, image_number)
+    face_found = confidence > 100
+    if face_found:
+        login_at_location(user_account, location, datetime.now())
+        return HttpResponse('OK', status=200)
+        
+    else:
+        return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
+    
+def login_at_location(user_account: UserAccount, location: Location, sign_in_date):
+    roster:Roster = Roster(user_account_id=user_account.id, location_id=location.id, sign_in_date=sign_in_date)
+    roster.save()
     
 
 @csrf_exempt

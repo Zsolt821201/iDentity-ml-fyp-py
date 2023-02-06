@@ -12,7 +12,7 @@ from .utilities import face_training
 from .utilities import stream_image
 from .utilities import detect_and_save_user_face
 import numpy as numpy
-from .models import Location, Roster, UserAccount
+from .models import Location, LocationPermission, Roster, UserAccount
 from django.contrib import messages
 from django.shortcuts import  render, redirect
 from django.views import generic
@@ -76,7 +76,6 @@ def sign_in(request, location_id):
 
 @csrf_exempt
 def perform_sign_in(request):
-    #//TODO: Implement facial login
     request_data = request.POST
    
     image_bytes = stream_image(request_data['image-base64'])
@@ -88,17 +87,41 @@ def perform_sign_in(request):
 
     user_id, confidence = face_recognition_web(open_cv_image)
     
-    
-    
     face_found = confidence > 70 # TODO: define system confidence level
-    if face_found:
-        user_account = UserAccount.objects.get(pk=user_id)
-        # TODO: Permission Check
-        sign_in_at_location(user_account, location)
-        return HttpResponse('OK', status=200)    
-    else:
+
+    if not face_found:
         return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
     
+    user_account = UserAccount.objects.get(pk=user_id)
+
+    if is_already_signed_in(user_account, location) :
+        return HttpResponse('Error', status=501)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
+    
+    if is_permission_denied(user_account, location) :
+        return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
+    
+    sign_in_at_location(user_account, location)
+    return HttpResponse('OK', status=200)    
+
+def is_permission_denied(user_account, location: Location) -> bool:
+    location_permission: LocationPermission.objects.filter(location_id=location, user_account_id=user_account)
+    
+    return location_permission is None
+
+
+def is_already_signed_in(user_account, location: Location) -> bool:
+    """_summary_
+
+    Args:
+        user_account (_type_): _description_
+        location (Location): _description_
+
+    Returns:
+        bool: _description_
+    """
+    roster: Roster.objects.filter(location_id=location, user_account_id=user_account, sign_out_date = "")
+    return roster is None
+            
 def sign_in_at_location(user_account: UserAccount, location: Location):
     sign_in_date = datetime.now()
     roster:Roster = Roster(user_account_id=user_account, location_id=location, sign_in_date=sign_in_date)

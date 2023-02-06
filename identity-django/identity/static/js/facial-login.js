@@ -6,6 +6,9 @@ class UrlPaths {
     static get PERFORM_SIGN_IN_URL() { return "/perform-sign-in/"; }
 }
 
+/**
+ * 
+ */
 class ResponseCodes
 {
     static get SUCCESS() { return 200; }
@@ -15,6 +18,9 @@ class ResponseCodes
 
 const FACE_SAMPLE_COUNT = 30;
 
+/**
+ * 
+ */
 async function setupUserFacialRecognition() {
 
     let videoElement = document.getElementById('videoInput');
@@ -44,6 +50,14 @@ async function setupUserFacialRecognition() {
     //messageUser("Face pictures taken");
 }
 
+/**
+ * 
+ * @param {*} imageBase64Encoding 
+ * @param {*} imageNumber 
+ * @param {*} userAccountId 
+ * @param {*} csrfToken 
+ * @returns 
+ */
 function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken) {
     const formData = new FormData();
     const headers = {
@@ -64,6 +78,9 @@ function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber
     return options;
 }
 
+/**
+ * 
+ */
 async function streamSignInVideo() {
     //TODO: Implement facial login
 
@@ -121,18 +138,23 @@ function buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfTo
     }
     return options;
 }
+
+/**
+ * Gets the response code from the request to the given url with the given options. 
+ * This function is asynchronous.
+ * A response code of 418 means the request was not successful, but should be retried
+ * A response code of 500 means the request was not successful, and should not be retried
+ * A response code of 200 means the request was successful
+ * @param {String} url The url to send the request to 
+ * @param {Object} options The options for the request 
+ * @returns 
+ */
 async function getResponseCode(url, options) {
-    let responseCode = await executeRequest(url, options);
-    return responseCode;
-}
-
-
-async function executeRequest(url, options) {
-    let responseCode = 418;//I'm a teapot
+    let responseCode = ResponseCodes.I_AM_A_TEAPOT;
     await fetch(url, options)
         .then(function (response) { responseCode = response.status; })
         .catch(function (err) {
-            responseCode = 500;//Internal Server Error
+            responseCode = ResponseCodes.ERROR;
         });
     return responseCode;
 }

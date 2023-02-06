@@ -1,4 +1,10 @@
-async function streamLoginVideo() {
+class UrlPaths
+{
+    static get UPLOAD_FACIAL_DATA_URL() { return "/upload-facial-data/"; }
+    static get PERFORM_SIGN_IN_URL() { return "/perform-sign-in/"; }
+}
+
+async function streamSignInVideo() {
     //TODO: Implement facial login
 
     let videoElement = document.getElementById('videoInput');
@@ -18,7 +24,8 @@ async function streamLoginVideo() {
         //wait one second before taking the next picture
         const fiveSeconds = 5000;
         await new Promise(handler => setTimeout(handler, fiveSeconds));
-        responseCode = await postLoginImageToServer(imageBase64Encoding, ++imageNumber, locationId, csrfToken);
+        let options = buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken);
+        responseCode = await getResponseCode(UrlPaths.PERFORM_SIGN_IN_URL, options);
     }
     while (responseCode == 418)
 
@@ -29,7 +36,7 @@ async function streamLoginVideo() {
         console.log("Error: " + responseCode);
 }
 
-async function postLoginImageToServer(imageBase64Encoding, imageNumber, locationId, csrfToken) {
+function buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken) {
     const formData = new FormData();
     const headers = {
         mode: 'same-origin',
@@ -45,11 +52,10 @@ async function postLoginImageToServer(imageBase64Encoding, imageNumber, location
         method: "POST",
         //headers: headers
     }
-    const url = "/perform-sign-in/";
-
-
+    return options;
+}
+async function getResponseCode(url, options) {
     let responseCode = await executeRequest(url, options);
-
     return responseCode;
 }
 

@@ -1,6 +1,11 @@
 const FACE_SAMPLE_COUNT = 30;
 
-async function takeFacePictures() {
+class UrlPaths
+{
+    static get UPLOAD_FACIAL_DATA_URL() { return "/upload-facial-data/"; }
+}
+
+async function setupUserFacialRecognition() {
 
     let videoElement = document.getElementById('videoInput');
 
@@ -15,7 +20,8 @@ async function takeFacePictures() {
         let imageBase64Encoding = canvas.toDataURL();
 
 
-        let responseCode = await postImageToServer(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
+        let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
+        let responseCode = await postImageToServer(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
 
         if (responseCode == 418)
             continue;
@@ -28,7 +34,7 @@ async function takeFacePictures() {
     //messageUser("Face pictures taken");
 }
 
-async function postImageToServer(imageBase64Encoding, imageNumber, userAccountId, csrfToken) {
+function buildUserFacialRecognitionSetUpFormData(imageBase64Encoding, imageNumber, userAccountId, csrfToken) {
     const formData = new FormData();
     const headers = {
         mode: 'same-origin',
@@ -43,9 +49,12 @@ async function postImageToServer(imageBase64Encoding, imageNumber, userAccountId
         body: formData,
         method: "POST",
         //headers: headers
-    }
-    const url = "/upload-facial-data/";
 
+    }
+    return options;
+}
+
+async function postImageToServer(url, options) {
 
     let responseCode = await executeRequest(url, options);
 

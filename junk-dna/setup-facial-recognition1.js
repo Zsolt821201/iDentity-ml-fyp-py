@@ -1,42 +1,15 @@
-// TODO: JavaScript 
-// Save 30 images to a request
-
-function saveImages(images)
-{
-  const userAccountId = document.getElementById("user-account-id").value;
-  const formData = new FormData();
-
-  formData.append('user-account-id', userAccountId);
-  images.forEach(image => {
-    formData.append('images', image);
-  });
-
-  const options = {
-    body: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
-    method: "POST",
-  }
-
-
-  fetch("/upload-facial-data", options)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  });
-
-}
-
-// Post the request to the server
-
-// If the server returns a success, clear the images from the canvas, alert user
-
-//This function, clearCanvasOnSuccess, takes in a response object as an argument. 
-//It checks if the status property of the response is equal to "success". 
-//If it is, it calls the clearCanvas function which has the code to clear the images from the canvas. 
-//It also alerts the user that the images have been cleared from the canvas.
-//You can call the function by passing the response from server like this : clearCanvasOnSuccess(serverResponse);
+/**
+ * Post the request to the server
+ * 
+ * If the server returns a success, clear the images from the canvas, alert user
+ * 
+ * This function, clearCanvasOnSuccess, takes in a response object as an argument. 
+ * It checks if the status property of the response is equal to "success". 
+ * If it is, it calls the clearCanvas function which has the code to clear the images from the canvas. 
+ * It also alerts the user that the images have been cleared from the canvas.
+ * You can call the function by passing the response from server like this : clearCanvasOnSuccess(serverResponse);
+ * @param {Response} response 
+ */
 function clearCanvasOnSuccess(response) {
     if (response.status === "success") {
         clearCanvas();

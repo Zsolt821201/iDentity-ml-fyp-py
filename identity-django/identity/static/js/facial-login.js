@@ -6,6 +6,63 @@ class UrlPaths {
     static get PERFORM_SIGN_IN_URL() { return "/perform-sign-in/"; }
 }
 
+class ResponseCodes
+{
+    static get SUCCESS() { return 200; }
+    static get ERROR() { return 500; }
+    static get I_AM_A_TEAPOT() { return 418; }
+}
+
+const FACE_SAMPLE_COUNT = 30;
+
+async function setupUserFacialRecognition() {
+
+    let videoElement = document.getElementById('videoInput');
+
+
+    let imageNumber = 1;
+    const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const userAccountId = document.getElementById("user-account-id").value;
+    while (imageNumber <= FACE_SAMPLE_COUNT) {
+
+        var canvas = document.createElement("canvas");
+        canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+        let imageBase64Encoding = canvas.toDataURL();
+
+
+        let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
+        let responseCode = await getResponseCode(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
+
+        if (responseCode == ResponseCodes.I_AM_A_TEAPOT)
+            continue;
+        else if (responseCode == ResponseCodes.SUCCESS)
+            imageNumber++;
+        else
+            break;
+    }
+
+    //messageUser("Face pictures taken");
+}
+
+function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken) {
+    const formData = new FormData();
+    const headers = {
+        mode: 'same-origin',
+        'X-CSRFToken': csrfToken,
+    };
+
+    formData.append('image-base64', imageBase64Encoding);
+    formData.append('image-number', imageNumber);
+    formData.append('user-account-id', userAccountId);
+
+    const options = {
+        body: formData,
+        method: "POST",
+        //headers: headers
+
+    }
+    return options;
+}
 
 async function streamSignInVideo() {
     //TODO: Implement facial login
@@ -29,9 +86,9 @@ async function streamSignInVideo() {
         let options = buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken);
         responseCode = await getResponseCode(UrlPaths.PERFORM_SIGN_IN_URL, options);
     }
-    while (responseCode == 418)
+    while (responseCode == ResponseCodes.I_AM_A_TEAPOT)
 
-    if (responseCode == 200)
+    if (responseCode == ResponseCodes.SUCCESS)
         alert("signed in completed");
     //redirectUserToDashboard();
     else // responseCode == ERROR/500

@@ -29,27 +29,27 @@
                             <span class="visually-hidden">(current)</span>
                         </a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'locations' %}">Locations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'setup_facial_recognition' %}">Setup Facial Recognition</a>
-                </li>                                   
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'test' %}">Test</a>
-                </li>
-                {% if user.is_authenticated %}
+                </li>                              
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'edit_user_profile' %}">Edit Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'setup_facial_recognition' %}">Setup Facial Recognition</a>
+                </li>   
                 {% else %}  
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
-                {% endif %}                          
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:index' %}">Admin site</a>
+                </li>                          
             </ul>
         </div>
     </div>

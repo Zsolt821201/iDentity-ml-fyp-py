@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import cv2
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -18,6 +18,8 @@ from django.shortcuts import  render, redirect
 from django.views import generic
 from PIL import Image
 from django.contrib.sessions.models import Session
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 def index(request):
     return render(request, 'website/index.html')
@@ -42,7 +44,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect('user-accounts/login.html')           
+    return redirect('/login/')           
         
 class UserEditView(generic.UpdateView):
     form_class = UserChangeForm
@@ -68,10 +70,13 @@ def test(request):
     face_training()
     return render(request, 'user-accounts/test.html')
 
-def facial_login(request):
-    return render(request, 'user-accounts/facial-login.html')
+def sign_in(request, location_id):
+    location = get_object_or_404(Location, pk=location_id)
+    return render(request, 'user-accounts/sign-in.html', {'location': location})
 
-def perform_facial_login(request):
+@csrf_exempt
+def perform_sign_in(request):
+    #//TODO: Implement facial login
     request_data = request.POST
    
     image_bytes = stream_image(request_data['image-base64'])
@@ -85,16 +90,18 @@ def perform_facial_login(request):
     
     
     
-    face_found = confidence > 100
+    face_found = confidence > 70 # TODO: define system confidence level
     if face_found:
         user_account = UserAccount.objects.get(pk=user_id)
-        login_at_location(user_account, location, datetime.now())
+        # TODO: Permission Check
+        sign_in_at_location(user_account, location)
         return HttpResponse('OK', status=200)    
     else:
         return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
     
-def login_at_location(user_account: UserAccount, location: Location, sign_in_date):
-    roster:Roster = Roster(user_account_id=user_account.id, location_id=location.id, sign_in_date=sign_in_date)
+def sign_in_at_location(user_account: UserAccount, location: Location):
+    sign_in_date = datetime.now()
+    roster:Roster = Roster(user_account_id=user_account, location_id=location, sign_in_date=sign_in_date)
     roster.save()
     
 
@@ -122,3 +129,16 @@ def upload_facial_data(request):
         return HttpResponse('Error', status=418)#https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418 I'm a teapot
     
 
+def password_change(request):
+    
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('change_password_done')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change-password.html', {
+        'form': form
+    })

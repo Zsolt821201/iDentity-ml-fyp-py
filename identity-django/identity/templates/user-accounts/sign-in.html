@@ -3,14 +3,14 @@
 
 
 {% block content %}
-<h2>User Facial Recognition Setup</h2>
+<h2>Location Sign In</h2>
 
 <p>Please look directly at the camera until your face is detected and profile recorded.</p>
 
 <video id="videoInput" width="320" height="240" ></video>
 <p id="errorMessage" class="error"></p>
-<input type="hidden" id="user-account-id" name="user-account-id" value="{{ user_account_id }}" />
-<button id="takePictureButton" class="btn btn-primary" onclick="takeFacePictures()">Take Picture</button>
+<input type="hidden" id="location-id" name="location-id" value="{{ location.id }}" />
+<button id="takePictureButton" class="btn btn-primary" onclick="streamLoginVideo()">Start Auto Login</button>
 {% endblock %}
 
 {% block scripts%}
@@ -18,7 +18,6 @@
 <script src="{% static "js/facial-login.js" %}"></script>
 <script type="text/javascript">
     startCamera(VideoResolutionFormats.QVGA, 'videoInput');
-    //takeFacePictures();
 </script>
 {% endblock %}
 

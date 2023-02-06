@@ -6,10 +6,25 @@
 <h1>Locations</h1>
 {% if locations %}
     <ul>
-    {% for location in locations %}
-        <li><a href="{% url 'details' location.id %}">{{ location.name }}</a></li>
-        <li><a href="/locations/{{ location.id }}/">{{ location.name }}</a></li>
-    {% endfor %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>e-mail</th>
+                <th>Telephone</th>
+                <th><!--Sign in command column -->&nbsp;</th>
+            </tr>
+            {% for location in locations %}
+                <tr>
+                    <td><a href="{% url 'details' location.id %}">{{ location.name }}</a></td>
+                    <td>{{ location.name }}</td>
+                    <td>{{ location.address }}</td>
+                    <td>{{ location.email }}</td>
+                    <td>{{ location.telephone }}</td>
+                    <td><a href="{% url 'sign_in' location.id %}">Sign in</a></td>
+                </tr>
+            {% endfor %}
+        </table>
     </ul>
 {% else %}
     <p>No locations are available.</p>

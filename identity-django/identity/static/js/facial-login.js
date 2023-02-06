@@ -1,6 +1,10 @@
 async function streamLoginVideo() {
+    //TODO: Implement facial login
+
     let videoElement = document.getElementById('videoInput');
     let imageNumber = 0;
+    const locationId = document.getElementById("location-id").value;
+
     const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
     let responseCode;
     do 
@@ -12,17 +16,20 @@ async function streamLoginVideo() {
 
 
         //wait one second before taking the next picture
-        await new Promise(r => setTimeout(r, 1000));
-        responseCode = await postLoginImageToServer(imageBase64Encoding, ++imageNumber, csrfToken);
+        const fiveSeconds = 5000;
+        await new Promise(handler => setTimeout(handler, fiveSeconds));
+        responseCode = await postLoginImageToServer(imageBase64Encoding, ++imageNumber, locationId, csrfToken);
     }
     while (responseCode == 418)
+
     if(responseCode == 200)
-        redirectUserToDashboard();
-    else
+        alert("signed in completed");
+        //redirectUserToDashboard();
+    else // responseCode == ERROR/500
         console.log("Error: " + responseCode);
 }
 
-async function postLoginImageToServer(imageBase64Encoding, imageNumber, csrfToken) {
+async function postLoginImageToServer(imageBase64Encoding, imageNumber, locationId, csrfToken) {
     const formData = new FormData();
     const headers = {
         mode: 'same-origin',
@@ -31,13 +38,14 @@ async function postLoginImageToServer(imageBase64Encoding, imageNumber, csrfToke
 
     formData.append('image-base64', imageBase64Encoding);
     formData.append('image-number', imageNumber);
+    formData.append('location-id', locationId);
 
     const options = {
         body: formData,
         method: "POST",
         //headers: headers
     }
-    const url = "/perform-facial-login/";
+    const url = "/perform-sign-in/";
 
 
     let responseCode = await executeRequest(url, options);

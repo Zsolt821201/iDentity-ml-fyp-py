@@ -203,13 +203,6 @@ def face_recognition_web(open_cv_image: ndarray):
 
     user_id, confidence, face = face_image_recognition(recognizer,  open_cv_image)
 
-    # Check if confidence is less them 100 ==> "0" is perfect match
-    if (confidence < 100):
-        confidence = "  {0}%".format(round(100 - confidence))
-    else:
-        user_id = None
-        confidence = "  {0}%".format(round(100 - confidence))
-
     return user_id, confidence
 
 
@@ -219,7 +212,7 @@ def face_image_recognition(recognizer, img, min_size = None):
     is_face_present, face = detect_user_face(gray_scale_image, min_size=min_size)
     
     if(not is_face_present):
-        return None, None, None
+        return None, 0, None # TODO: Investigate 0? -100 or + 100
     
     x, y, w, h = face
     user_id, confidence = recognizer.predict(gray_scale_image[y:y+h, x:x+w])

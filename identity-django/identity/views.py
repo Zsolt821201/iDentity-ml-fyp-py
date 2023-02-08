@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserChangeForm
+from .forms import UserChangeForm
 from django.http import HttpResponse
 from .utilities import face_recognition_web
 from .utilities import face_training
@@ -54,7 +54,7 @@ def logout_user(request):
 class UserEditView(generic.UpdateView):
     form_class = UserChangeForm
     template_name = 'user-accounts/edit-user-profile.html'
-    success_url = reverse_lazy('user-accounts/setup-facial-recognition')
+    success_url = reverse_lazy('edit_user_profile')
 
     def get_object(self):
         return self.request.user
@@ -79,14 +79,21 @@ def test(request):
     return render(request, 'user-accounts/test.html')
 
 
+def remove_permission(_, location_id, user_account_id):
+    instance: LocationPermission = LocationPermission.objects.get(
+        location_id__id=location_id, user_account_id__id=user_account_id)
+    instance.delete()
+    return redirect(f'/locations/{location_id}')
+
+
 def sign_in(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-in.html', {'location': location})
 
+
 def sign_out(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-out.html', {'location': location})
-
 
 
 @csrf_exempt
@@ -108,6 +115,7 @@ def perform_sign_in(request):
     sign_in_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
+
 def parse_roaster_signing_requests(request):
     request_data = request.POST
 
@@ -119,8 +127,9 @@ def parse_roaster_signing_requests(request):
     user_id, confidence = face_recognition_web(open_cv_image)
 
     face_found = confidence > 70  # TODO: define system confidence level
-    
+
     return face_found, location_id, user_id
+
 
 @csrf_exempt
 def perform_sign_out(request):
@@ -163,17 +172,20 @@ def is_on_active_roster(user_account, location: Location) -> bool:
         location_id=location, user_account_id=user_account, sign_out_date__isnull=True).first()
     return roster is not None
 
+
 def sign_in_at_location(user_account: UserAccount, location: Location):
     sign_in_date = datetime.now()
     roster: Roster = Roster(user_account_id=user_account,
                             location_id=location, sign_in_date=sign_in_date)
     roster.save()
 
+
 def sign_out_at_location(user_account: UserAccount, location: Location):
     roster: Roster = Roster.objects.filter(
         location_id=location, user_account_id=user_account, sign_out_date__isnull=True).first()
     roster.sign_out_date = datetime.now()
     roster.save()
+
 
 @csrf_exempt
 def upload_facial_data(request):

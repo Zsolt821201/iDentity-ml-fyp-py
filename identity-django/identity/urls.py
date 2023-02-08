@@ -21,6 +21,8 @@ urlpatterns = [
     path('perform-sign-in/', views.perform_sign_in, name='perform-sign-in'),
     path('sign-out/<int:location_id>/', views.sign_out, name='sign_out'),
     path('perform-sign-out/', views.perform_sign_out, name='perform-sign-out'),
+    path('remove-permission/<int:location_id>/<int:user_account_id>/', views.remove_permission, name='remove-permission'),
+    
     
     
 ]

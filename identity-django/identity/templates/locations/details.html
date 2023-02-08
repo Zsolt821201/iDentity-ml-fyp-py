@@ -6,4 +6,30 @@
 
 <h1>{{location.name}}</h1>
 
+{% if location.locationpermission_set.all %}
+    <ul>
+        <p id="mydesc">Permitted Users</p>
+        <table aria-describedby="mydesc">
+            <tr>
+                <th>Useranme</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th><!--Remove command column -->&nbsp;</th>
+            </tr>
+            {% for location_permission in location.locationpermission_set.all %}
+                <tr>
+                    <td><a href="{% url 'details' location_permission.user_account_id.id %}">{{  location_permission.user_account_id.username }}</a></td>
+                    <td>{{  location_permission.user_account_id.first_name }}</td>
+                    <td>{{  location_permission.user_account_id.last_name }}</td>
+                    <td>{{  location_permission.user_account_id.email }}</td>
+                    <td><a href="{% url 'remove-permission'  location_permission.location_id.id location_permission.user_account_id.id %}">Remove Permission</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </ul>
+{% else %}
+    <p>No Permissions are set for this location.</p>
+{% endif %}
+
 {%endblock%}

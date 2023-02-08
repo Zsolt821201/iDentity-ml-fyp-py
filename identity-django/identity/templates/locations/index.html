@@ -6,13 +6,15 @@
 <h1>Locations</h1>
 {% if locations %}
     <ul>
-        <table>
+        <p id="mydesc">Locations</p>
+        <table aria-describedby="mydesc">
             <tr>
                 <th>Name</th>
                 <th>Address</th>
                 <th>e-mail</th>
                 <th>Telephone</th>
                 <th><!--Sign in command column -->&nbsp;</th>
+                <th><!--Sign out command column -->&nbsp;</th>
             </tr>
             {% for location in locations %}
                 <tr>
@@ -22,6 +24,7 @@
                     <td>{{ location.email }}</td>
                     <td>{{ location.telephone }}</td>
                     <td><a href="{% url 'sign_in' location.id %}">Sign in</a></td>
+                    <td><a href="{% url 'sign_out' location.id %}">Sign out</a></td>
                 </tr>
             {% endfor %}
         </table>

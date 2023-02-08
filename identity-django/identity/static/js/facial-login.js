@@ -4,18 +4,26 @@
 class UrlPaths {
     static get UPLOAD_FACIAL_DATA_URL() { return "/upload-facial-data/"; }
     static get PERFORM_SIGN_IN_URL() { return "/perform-sign-in/"; }
+    static get PERFORM_SIGN_OUT_URL() { return "/perform-sign-out/"; }
 }
 
 /**
  * 
  */
-class ResponseCodes
-{
+class ResponseCodes {
     static get SUCCESS() { return 200; }
     static get ERROR() { return 500; }
     static get I_AM_A_TEAPOT() { return 418; }
 }
-
+/**
+ * Using Unclaimed HTTP Response Codes starting at 460
+ */
+class MyResponseCodes {
+    static get ALREADY_ON_ROASTER() { return 460; }
+    static get LOCATION_PERMISSION_DENIED() { return 461; }
+    static get NO_FACE_FOUND() { return 462; }
+    static get NOT_ON_ROASTER() { return 463; }
+}
 const FACE_SAMPLE_COUNT = 30;
 
 /**
@@ -39,7 +47,7 @@ async function setupUserFacialRecognition() {
         let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
         let responseCode = await getResponseCode(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
 
-        if (responseCode == ResponseCodes.I_AM_A_TEAPOT)
+        if (responseCode == ResponseCodes.NO_FACE_FOUND)
             continue;
         else if (responseCode == ResponseCodes.SUCCESS)
             imageNumber++;
@@ -81,7 +89,26 @@ function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber
 /**
  * 
  */
+
+
 async function streamSignInVideo() {
+    let responseCode = await streamRoasterSigningVideo(UrlPaths.PERFORM_SIGN_IN_URL);
+    let message = getMessage(responseCode);
+    alert(message);
+}
+
+async function streamSignOutVideo() {
+    let responseCode = await streamRoasterSigningVideo(UrlPaths.PERFORM_SIGN_OUT_URL);
+    let message = getMessage(responseCode, false);
+    alert(message);
+}
+
+/**
+ * Streams the video from the webcam to the server to be processed for signing on/off the roaster
+ * @param {String} url The url to send the request to
+ * @returns A Response Code
+ */
+async function streamRoasterSigningVideo(url) {
     //TODO: Implement facial login
 
     let videoElement = document.getElementById('videoInput');
@@ -101,15 +128,33 @@ async function streamSignInVideo() {
         const fiveSeconds = 5000;
         await new Promise(handler => setTimeout(handler, fiveSeconds));
         let options = buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken);
-        responseCode = await getResponseCode(UrlPaths.PERFORM_SIGN_IN_URL, options);
+        responseCode = await getResponseCode(url, options);
     }
-    while (responseCode == ResponseCodes.I_AM_A_TEAPOT)
+    while (responseCode == MyResponseCodes.NO_FACE_FOUND)
+    return responseCode;
+}
 
-    if (responseCode == ResponseCodes.SUCCESS)
-        alert("signed in completed");
-    //redirectUserToDashboard();
-    else // responseCode == ERROR/500
-        console.log("Error: " + responseCode);
+/**
+ * 
+ * @param {Number} responseCode 
+ * @param {boolean} signOn True if the user is signing on, false if the user is signing off
+ * @returns 
+ */
+function getMessage(responseCode, signOn=true) {
+    if (responseCode == ResponseCodes.SUCCESS) {
+        if (signOn)
+            return "Signed in completed";
+        else
+            return "Signed out completed";
+    }
+    else if (responseCode == MyResponseCodes.ALREADY_ON_ROASTER)
+        return "You are already on the roaster";
+    else if (responseCode == MyResponseCodes.LOCATION_PERMISSION_DENIED)
+        return "You do not have permission to be at this location";
+    else if (responseCode == MyResponseCodes.NOT_ON_ROASTER)
+        return "You are not on the roaster";
+    else if (responseCode >= 500) //500+ are server errors
+        return `Server Error: Response Code:${responseCode}`;
 }
 
 /**
@@ -150,9 +195,11 @@ function buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfTo
  * @returns 
  */
 async function getResponseCode(url, options) {
-    let responseCode = ResponseCodes.I_AM_A_TEAPOT;
+    let responseCode;
     await fetch(url, options)
-        .then(function (response) { responseCode = response.status; })
+        .then(function (response) {
+            responseCode = response.status;
+        })
         .catch(function (err) {
             responseCode = ResponseCodes.ERROR;
         });
@@ -164,7 +211,7 @@ async function getResponseCode(url, options) {
  */
 const VideoResolutionFormatNames = {
     QVGA: "qvga",
-    VGA:  "vga",
+    VGA: "vga",
 };
 
 /**
@@ -175,7 +222,7 @@ const VideoResolutionFormats = {
      * @type {VideoResolutionFormat}
      */
     'qvga': { width: { exact: 320 }, height: { exact: 240 } },
-    'vga':  { width: { exact: 640 }, height: { exact: 480 } },
+    'vga': { width: { exact: 640 }, height: { exact: 480 } },
 };
 
 /**

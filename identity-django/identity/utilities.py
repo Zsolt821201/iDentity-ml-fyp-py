@@ -22,6 +22,17 @@ DATABASE_FACE_DIRECTORY: str = str(
     PARENT_DIRECTORY / 'database/identity_face_dataset')
 DATABASE_FACIAL_TRAINER: str = str(PARENT_DIRECTORY / 'database/trainer.yml')
 
+class MyResponseCodes :
+    """_summary_
+    Using Unclaimed HTTP Response Codes starting at 460
+    @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses
+    @see Last paragraph of https://www.rfc-editor.org/rfc/rfc2616#section-6.1.1
+    """
+    ALREADY_ON_ROASTER: int = 460
+    LOCATION_PERMISSION_DENIED: int = 461
+    NO_FACE_FOUND: int = 462
+    NOT_ON_ROASTER: int = 463
+
 
 def decode_base64(image_base64_str):
     image_data = re.sub('^data:image/.+;base64,', '', image_base64_str)

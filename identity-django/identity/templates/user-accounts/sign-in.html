@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<h2>Location Sign In</h2>
+<h2>{{location.name}} Sign In</h2>
 
 <p>Please look directly at the camera until your face is detected and profile recorded.</p>
 
@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block scripts%}
-<script src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>
 <script src="{% static "js/facial-login.js" %}"></script>
 <script type="text/javascript">
     startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');

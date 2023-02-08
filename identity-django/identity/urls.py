@@ -19,7 +19,8 @@ urlpatterns = [
     path('change-password/', PasswordChangeView.as_view(template_name='change_password.html'), name='change_password'),
     path('sign-in/<int:location_id>/', views.sign_in, name='sign_in'),
     path('perform-sign-in/', views.perform_sign_in, name='perform-sign-in'),
-   
+    path('sign-out/<int:location_id>/', views.sign_out, name='sign_out'),
+    path('perform-sign-out/', views.perform_sign_out, name='perform-sign-out'),
     
     
 ]

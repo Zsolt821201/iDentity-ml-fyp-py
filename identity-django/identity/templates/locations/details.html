@@ -1,35 +1,69 @@
-{%extends 'master.html'%}
-
-{%block title%}{{location.name}}{%endblock%}
-
-{%block content%}
-
-<h1>{{location.name}}</h1>
-
-{% if location.locationpermission_set.all %}
-    <ul>
-        <p id="mydesc">Permitted Users</p>
-        <table aria-describedby="mydesc">
-            <tr>
-                <th>Useranme</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th><!--Remove command column -->&nbsp;</th>
-            </tr>
-            {% for location_permission in location.locationpermission_set.all %}
+{% extends "master.html" %}
+{% block title %}
+    {{ location.name }}
+{% endblock title %}
+{% block content %}
+    <h1>{{ location.name }}</h1>
+    {% if location.locationpermission_set.all %}
+        <ul>
+            <p id="my-desc">Permitted Users</p>
+            <table aria-describedby="my-desc">
                 <tr>
-                    <td><a href="{% url 'details' location_permission.user_account_id.id %}">{{  location_permission.user_account_id.username }}</a></td>
-                    <td>{{  location_permission.user_account_id.first_name }}</td>
-                    <td>{{  location_permission.user_account_id.last_name }}</td>
-                    <td>{{  location_permission.user_account_id.email }}</td>
-                    <td><a href="{% url 'remove-permission'  location_permission.location_id.id location_permission.user_account_id.id %}">Remove Permission</a></td>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>
+                        <!--Remove command column -->&nbsp;
+                    </th>
                 </tr>
-            {% endfor %}
-        </table>
-    </ul>
-{% else %}
-    <p>No Permissions are set for this location.</p>
-{% endif %}
-
-{%endblock%}
+                {% for location_permission in location.locationpermission_set.all %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'user-account-details' location_permission.user_account_id.id %}">{{ location_permission.user_account_id.username }}</a>
+                        </td>
+                        <td>{{ location_permission.user_account_id.first_name }}</td>
+                        <td>{{ location_permission.user_account_id.last_name }}</td>
+                        <td>{{ location_permission.user_account_id.email }}</td>
+                        <td>
+                            <a href="{% url 'remove-permission' location_permission.location_id.id location_permission.user_account_id.id %}">Remove Permission</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </ul>
+    {% else %}
+        <p>No Permissions are set for this location.</p>
+    {% endif %}
+    {% if location.roster_set.all %}
+        <ul>
+            <p id="roster-desc">Signed in Users</p>
+            <table aria-describedby="roster-desc">
+                <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Sign in Date/time</th>
+                    <th>
+                        <!--Sign out command column -->&nbsp;
+                    </th>
+                </tr>
+                {% for roster in location.roster_set.all %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'user-account-details' roster.user_account_id.id %}">{{ roster.user_account_id.username }}</a>
+                        </td>
+                        <td>{{ roster.user_account_id.first_name }}</td>
+                        <td>{{ roster.user_account_id.last_name }}</td>
+                        <td>{{ roster.sign_in_date }}</td>
+                        <td>
+                            <a href="{% url 'sign_out' roster.id %}">Sign out</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </ul>
+    {% else %}
+        <p>No Permissions are set for this location.</p>
+    {% endif %}
+{% endblock content %}

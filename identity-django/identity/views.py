@@ -20,8 +20,13 @@ from django.views import generic
 from PIL import Image
 from django.contrib.sessions.models import Session
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import update_session_auth_hash
 
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = 'user-accounts/change-password.html'
+    success_url = reverse_lazy('/locations/')
 
 def index(request):
     return render(request, 'website/index.html')
@@ -69,6 +74,9 @@ def location_details(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'locations/details.html', {'location': location})
 
+def user_account_details(request, user_account_id):
+    user_account = get_object_or_404(Location, pk=user_account_id)
+    return render(request, 'user-accounts/details.html', {'user_account': user_account})
 
 def setup_facial_recognition(request):
     return render(request, 'user-accounts/setup-facial-recognition.html', {'user_account_id': request.user.id})

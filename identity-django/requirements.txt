@@ -1,4 +1,6 @@
 Django==3.2.5
+django-crispy-forms==1.14.0
 numpy==1.21.5
-opencv_python==4.7.0.68
+opencv-contrib-python==4.7.0.68
 Pillow==9.4.0
+pysqlite3==0.4.6

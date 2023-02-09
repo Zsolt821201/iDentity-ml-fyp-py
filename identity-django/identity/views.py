@@ -212,14 +212,14 @@ def upload_facial_data(request):
         return HttpResponse('Error', status=MyResponseCodes.NO_FACE_FOUND)
 
 
-def password_change(request):
+def change_password(request):
 
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            return redirect('change_password_done')
+            return redirect('/')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change-password.html', {

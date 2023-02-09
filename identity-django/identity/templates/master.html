@@ -37,11 +37,14 @@
                     <a class="nav-link" href="{% url 'edit_user_profile' %}">Edit Profile</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'setup_facial_recognition' %}">Setup Facial Recognition</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                </li>  
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'setup_facial_recognition' %}">Setup Facial Recognition</a>
-                </li>   
                 {% else %}  
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>

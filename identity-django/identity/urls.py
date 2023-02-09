@@ -16,7 +16,7 @@ urlpatterns = [
     path('test/', views.test, name='test'),
     path('upload-facial-data/', views.upload_facial_data, name="upload-facial-data"),
     path('edit_user_profile/', UserEditView.as_view(), name="edit_user_profile"),
-    path('change-password/', PasswordChangeView.as_view(template_name='change_password.html'), name='change_password'),
+    path('change-password/', PasswordChangeView.as_view(), name='change_password'),
     path('sign-in/<int:location_id>/', views.sign_in, name='sign_in'),
     path('perform-sign-in/', views.perform_sign_in, name='perform-sign-in'),
     path('sign-out/<int:location_id>/', views.sign_out, name='sign_out'),

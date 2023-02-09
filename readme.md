@@ -11,3 +11,7 @@ iDentity is a Python Django web application that uses machine learning and facia
 ## Requirements
 
 ## Installation
+
+## Django Commands
+
+[

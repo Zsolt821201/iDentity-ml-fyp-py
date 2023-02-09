@@ -6,6 +6,7 @@ from .utilities import DATABASE_FACE_DIRECTORY
 from .utilities import detect_user_face
 from .utilities import get_images_and_labels
 from .utilities import stream_image , face_recognition_web
+from .utilities import build_sample_user
 
 class FaceRecognitionUtilityTests(TestCase):
 
@@ -72,4 +73,14 @@ class FaceRecognitionUtilityTests(TestCase):
 
         self.assertIsNone(user_id)
     
+    def test_build_sample_user(self):
+        """
+        detect_user_face must return a single face
+        """
+        image_path = "identity/tests/dummy-data/josha-fluke.mp4"
+        build_sample_user(image_path, 3)
+        
+        
+
+        self.assertTrue()
     

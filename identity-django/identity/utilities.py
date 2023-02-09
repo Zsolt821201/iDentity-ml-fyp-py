@@ -230,3 +230,41 @@ def face_image_recognition(recognizer, img, min_size = None):
     
     return user_id, confidence, face
     
+def build_sample_user(video_path:str, session_user_account_id:str):
+    
+    video_capture = cv2.VideoCapture(video_path)
+    face_detector_classifier = cv2.CascadeClassifier(CLASSIFIER_CONFIGURATION)
+
+    image_number: int = 0
+    FACE_SAMPLE_COUNT=30
+    ESCAPE_KEY: int = 27
+    while(image_number < FACE_SAMPLE_COUNT):
+        is_video_capture_open, open_cv_image = video_capture.read()
+
+        if not is_video_capture_open:
+            print("Error: Camera is not opened")
+            break
+
+        cv2.imshow('image', open_cv_image)
+
+        gray_scale_image = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
+
+        faces: ndarray = face_detector_classifier.detectMultiScale(
+            gray_scale_image, 1.3, 5)
+
+        face_found = detect_and_save_user_face(
+            session_user_account_id, open_cv_image, image_number)
+        if face_found:
+            image_number += 1
+
+        
+
+        for (x, y, w, h) in faces:
+            cv2.rectangle(open_cv_image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            cv2.imshow('image', open_cv_image)
+
+        if cv2.waitKey(1) == ESCAPE_KEY:
+            break
+    # Do a bit of cleanup
+    video_capture.release()
+    cv2.destroyAllWindows()

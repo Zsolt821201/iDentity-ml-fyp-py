@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
         "csrfmiddlewaretoken",
+        "describedby",
+        "endfor",
         "form",
         "frontalface",
         "haarcascade",
@@ -8,9 +10,18 @@
         "imshow",
         "imwrite",
         "LBPH",
+        "locationpermission",
+        "nbsp",
         "ndarray",
         "qvga",
+        "stylesheet",
+        "tbody",
+        "thead",
         "Toth",
+        "typeof",
         "Zsolt"
+    ],
+    "cSpell.enableFiletypes": [
+        "django-html"
     ]
 }

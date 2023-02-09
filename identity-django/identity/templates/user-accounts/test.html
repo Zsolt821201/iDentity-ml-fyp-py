@@ -1,24 +1,23 @@
-{% extends 'master.html' %}
-
-
+{% extends "master.html" %}
 {% block content %}
-    <h2>Hello OpenCV.js</h2>
-    <p id="status">OpenCV.js is loading...</p>
-<div>
-  <div class="inputoutput">
-    <img id="imageSrc" alt="No Image" />
-    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+  <h2>Hello OpenCV.js</h2>
+  <p id="status">OpenCV.js is loading...</p>
+  <div>
+    <div class="inputoutput">
+      <img id="imageSrc" alt="No Image" />
+      <div class="caption">
+        imageSrc
+        <input type="file" id="fileInput" name="file" />
+      </div>
+    </div>
+    <div class="inputoutput">
+      <canvas id="canvasOutput"></canvas>
+      <div class="caption">canvasOutput</div>
+    </div>
   </div>
-  <div class="inputoutput">
-    <canvas id="canvasOutput" ></canvas>
-    <div class="caption">canvasOutput</div>
-  </div>
-</div>
-{% endblock %}
-
-{% block scripts%}
-
-<script type="text/javascript">
+{% endblock content %}
+{% block scripts %}
+  <script type="text/javascript">
 let imgElement = document.getElementById('imageSrc');
 let inputElement = document.getElementById('fileInput');
 
@@ -38,6 +37,9 @@ var Module = {
     document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
   }
 };
-</script>
-<script aysc src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>
-{% endblock %}
+  </script>
+  <script async
+          src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js"
+          integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw="
+          crossorigin="anonymous"></script>
+{% endblock scripts %}

@@ -1,21 +1,18 @@
-{%extends "master.html" %}
-
-{% block title %}{Edit User Profile }{% endblock %}
-
+{% extends "master.html" %}
+{% load static %}
+{% block title %}
+  Edit User Profile
+{% endblock title %}
 {% block content %}
-
-<form method = "POST">
-  <div class="container" style="width: 30rem;">
-    <h1>Edit User Profile</h1>
+  <form method="post">
+    <div class="container" style="width: 30rem;">
+      <h1>Edit User Profile</h1>
       <div class="form-group">
-          {% csrf_token %}
-          {{ form.as_p }}
-
-          <br/>
-          <button class="btn btn-primary" type="submit">Update Profile</button>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <button class="btn btn-primary" type="submit">Update Profile</button>
       </div>
-  </div>
-</form>
-
-{%endblock%}
-
+    </div>
+  </form>
+{% endblock content %}

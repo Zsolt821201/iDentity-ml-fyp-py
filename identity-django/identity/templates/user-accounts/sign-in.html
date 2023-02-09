@@ -1,22 +1,24 @@
-{% extends 'master.html' %}
+{% extends "master.html" %}
 {% load static %}
-
-
 {% block content %}
-<h2>{{location.name}} Sign In</h2>
+    <h2>{{ location.name }} Sign In</h2>
+    <p>Please look directly at the camera until your face is detected and profile recorded.</p>
+    <video id="videoInput" width="320" height="240">
+    </video>
+    <p id="errorMessage" class="error"></p>
+    <input type="hidden"
+           id="location-id"
+           name="location-id"
+           value="{{ location.id }}"/>
+    <button id="takePictureButton" class="btn btn-primary">Start Auto Login</button>
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static "js/facial-login.js" %}"></script>
+    <script type="text/javascript">
+    (function () {
+        document.getElementById('takePictureButton').onClick = streamSignInVideo();
+    })();
 
-<p>Please look directly at the camera until your face is detected and profile recorded.</p>
-
-<video id="videoInput" width="320" height="240" ></video>
-<p id="errorMessage" class="error"></p>
-<input type="hidden" id="location-id" name="location-id" value="{{ location.id }}" />
-<button id="takePictureButton" class="btn btn-primary" onclick="streamSignInVideo()">Start Auto Login</button>
-{% endblock %}
-
-{% block scripts%}
-<script src="{% static "js/facial-login.js" %}"></script>
-<script type="text/javascript">
     startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');
-</script>
-{% endblock %}
-
+    </script>
+{% endblock scripts %}

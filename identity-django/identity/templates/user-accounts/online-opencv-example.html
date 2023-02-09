@@ -1,9 +1,6 @@
-{% extends 'master.html' %}
-
-
+{% extends "master.html" %}
 {% block content %}
-<script id="codeSnippet" type="text/code-snippet">
-
+    <script id="codeSnippet" type="text/code-snippet">
     const FACE_SAMPLE_COUNT = 30;
 
     
@@ -74,38 +71,43 @@
     // schedule the first one.
     setTimeout(processVideo, 0);
     </script>
-<h2>Face Detection Camera Example</h2>
-<div class="control"><button id="startAndStop">Start</button></div>
-<textarea class="code" rows="8" cols="60" id="codeEditor" spellcheck="false"></textarea>
-<p class="err" id="errorMessage"></p>
-
-<div>
-    <table border="0">
-        <caption>Face Detection Camera Example</caption>
-        <thead>
-            <tr>
-                <th>Video Input</th>
-                <th>Canvas Output</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><video id="videoInput" width="320" height="240"></video></td>
-                <td><canvas id="canvasOutput" width="320" height="240"></canvas></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-{% endblock %}
-
-{% block scripts%}
-<!--<script aysc src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>-->
-<script type="text/javascript">
+    <h2>Face Detection Camera Example</h2>
+    <div class="control">
+        <button id="startAndStop">Start</button>
+    </div>
+    <textarea class="code" rows="8" cols="60" id="codeEditor" spellcheck="false"></textarea>
+    <p class="err" id="errorMessage"></p>
+    <div>
+        <table border="0">
+            <caption>Face Detection Camera Example</caption>
+            <thead>
+                <tr>
+                    <th>Video Input</th>
+                    <th>Canvas Output</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <video id="videoInput" width="320" height="240">
+                        </video>
+                    </td>
+                    <td>
+                        <canvas id="canvasOutput" width="320" height="240"></canvas>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script async src="https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js" integrity="sha256-oh7+g+EC+hPu+ZSCzOnoHynY1Ev2DG3/b5aYZDJ8rmw=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
     function Utils(errorOutputId) { // eslint-disable-line no-unused-vars
         let self = this;
         this.errorOutput = document.getElementById(errorOutputId);
     
-        const OPENCV_URL = "https://docs.opencv.org/4.x/opencv.js" //'https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js';
+        const OpenCV_URL = "https://docs.opencv.org/4.x/opencv.js" //'https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.js';
         this.loadOpenCv = function(onloadCallback) {
             let script = document.createElement('script');
             script.setAttribute('async', '');
@@ -132,9 +134,9 @@
                 }
             });
             script.addEventListener('error', () => {
-                self.printError('Failed to load ' + OPENCV_URL);
+                self.printError('Failed to load ' + OpenCV_URL);
             });
-            script.src = OPENCV_URL;
+            script.src = OpenCV_URL;
             let node = document.getElementsByTagName('script')[0];
             node.parentNode.insertBefore(script, node);
         };
@@ -158,8 +160,8 @@
             request.send();
         };
     
-        this.loadImageToCanvas = function(url, cavansId) {
-            let canvas = document.getElementById(cavansId);
+        this.loadImageToCanvas = function(url, canvasId) {
+            let canvas = document.getElementById(canvasId);
             let ctx = canvas.getContext('2d');
             let img = new Image();
             img.crossOrigin = 'anonymous';
@@ -315,6 +317,5 @@
         });
     });
     
-</script>
-{% endblock %}
-
+    </script>
+{% endblock scripts %}

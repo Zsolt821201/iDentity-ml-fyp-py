@@ -1,9 +1,29 @@
-check 
+
+# Conda Fix
+## Check
 
 %USER%\Documents\WindowsPowerShell\profile.ps1
 
-
+```bash
 conda init powershell
+```
+
+## Visual Code Settings
+
+Open preferences (Ctrl + ,) and search for python.
+Ensure you have the following settings in your settings.json file
+
+```json
+"python.condaPath": "~/anaconda3/Scripts/conda-script.py",
+"python.defaultInterpreterPath": "~/anaconda3/python.exe",
+"python.terminal.activateEnvironment": true,
+```
+
+
+
+## Visual Code Terminal Error
+
+```bash
 
 Error 
 ```bash
@@ -18,4 +38,8 @@ At line:1 char:3
 
 Fix
 
+## PowerShell
+
+```ps1
 Set-ExecutionPolicy RemoteSigned
+```

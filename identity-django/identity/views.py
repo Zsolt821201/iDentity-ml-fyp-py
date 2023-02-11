@@ -4,9 +4,15 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.sessions.models import Session
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserChangeForm
 from django.http import HttpResponse
+from .forms import UserChangeForm
 from .utilities import face_recognition_web
 from .utilities import face_training
 from .utilities import stream_image
@@ -18,10 +24,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import generic
 from PIL import Image
-from django.contrib.sessions.models import Session
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth import update_session_auth_hash
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
@@ -56,7 +58,8 @@ def logout_user(request):
     return redirect('/login/')
 
 
-class UserEditView(generic.UpdateView):
+
+class UserEditView(LoginRequiredMixin, generic.UpdateView):
     form_class = UserChangeForm
     template_name = 'user-accounts/edit-user-profile.html'
     success_url = reverse_lazy('edit_user_profile')
@@ -65,28 +68,39 @@ class UserEditView(generic.UpdateView):
         return self.request.user
 
 
+@login_required
 def locations(request):
     locations: list(Location) = Location.objects.order_by('-name')
     return render(request, 'locations/index.html', {'locations': locations})
 
 
+@login_required
 def location_details(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'locations/details.html', {'location': location})
 
+@login_required
 def user_account_details(request, user_account_id):
     user_account = get_object_or_404(Location, pk=user_account_id)
     return render(request, 'user-accounts/details.html', {'user_account': user_account})
 
+@login_required
+@permission_required('polls.add_choice', raise_exception=True)
 def setup_facial_recognition(request):
+    user_account = get_object_or_404(UserAccount, pk=request.user.id)
+    
+    #TODO: Fix
+    if not user_account.is_face_recognition_enabled:
+        return render(request, 'user-accounts/setup-facial-recognition-denied.html', {'user_account_id': request.user.id})
+    
     return render(request, 'user-accounts/setup-facial-recognition.html', {'user_account_id': request.user.id})
 
-
+@login_required
 def test(request):
     face_training()
     return render(request, 'user-accounts/test.html')
 
-
+@login_required
 def remove_permission(_, location_id, user_account_id):
     instance: LocationPermission = LocationPermission.objects.get(
         location_id__id=location_id, user_account_id__id=user_account_id)
@@ -94,11 +108,15 @@ def remove_permission(_, location_id, user_account_id):
     return redirect(f'/locations/{location_id}')
 
 
+
+@login_required
+#TODO: @permission_required('polls.add_choice', raise_exception=True)
 def sign_in(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-in.html', {'location': location})
 
 
+@login_required
 def sign_out(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-out.html', {'location': location})

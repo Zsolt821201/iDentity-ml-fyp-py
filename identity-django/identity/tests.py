@@ -78,7 +78,7 @@ class FaceRecognitionUtilityTests(TestCase):
         detect_user_face must return a single face
         """
         image_path = "identity/tests/dummy-data/josha-fluke.mp4"
-        build_sample_user(image_path, 3)
+        build_sample_user(image_path, "3")
         
         
 

@@ -162,7 +162,7 @@ def face_recognition(user_names):
     font = cv2.FONT_HERSHEY_SIMPLEX
 
     # iniciate id counter
-    id = 0
+    user_id = 0
 
     cam = cv2.VideoCapture(0)
 

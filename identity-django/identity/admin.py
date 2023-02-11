@@ -1,11 +1,12 @@
-from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Permission
 
-from .models import Location, LocationPermission, Roster, UserAccount
+
+from .models import Location
+from .models import LocationPermission
+from .models import Roster
+from .models import UserAccount
 
 class UserAccountAdmin(UserAdmin):
     list_display = (
@@ -51,9 +52,6 @@ class UserAccountAdmin(UserAdmin):
             'fields': ('last_login', 'date_joined')
         })
     )
-    
-
-
 
 #
 # Site Registrations
@@ -63,6 +61,4 @@ admin.site.register(Location)
 admin.site.register(LocationPermission)
 admin.site.register(Roster)
 admin.site.register(UserAccount, UserAccountAdmin)  
-
-
-
+admin.site.register(Permission)

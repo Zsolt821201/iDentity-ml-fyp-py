@@ -20,3 +20,8 @@ urlpatterns = [
     path('', include('identity.urls')),
     path('admin/', admin.site.urls, name='admin'),
 ]
+
+# Configure django Admin Titles
+admin.site.site_header = "Identity Administration Page"
+admin.site.site_title = "Identity Admin Portal"
+admin.site.index_title = "Welcome to Identity Portal"

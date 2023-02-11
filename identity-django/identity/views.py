@@ -85,7 +85,6 @@ def user_account_details(request, user_account_id):
     return render(request, 'user-accounts/details.html', {'user_account': user_account})
 
 @login_required
-@permission_required('polls.add_choice', raise_exception=True)
 def setup_facial_recognition(request):
     user_account = get_object_or_404(UserAccount, pk=request.user.id)
     
@@ -110,13 +109,14 @@ def remove_permission(_, location_id, user_account_id):
 
 
 @login_required
-#TODO: @permission_required('polls.add_choice', raise_exception=True)
+@permission_required('identity.activate_sign_in', raise_exception=True)
 def sign_in(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-in.html', {'location': location})
 
 
 @login_required
+@permission_required('identity.activate_sign_off', raise_exception=True)
 def sign_out(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-out.html', {'location': location})

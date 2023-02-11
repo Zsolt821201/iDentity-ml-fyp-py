@@ -16,8 +16,8 @@ class Location(models.Model):
 
 
 class LocationPermission(models.Model):
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
-    user_account_id = models.ForeignKey(
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    user_account = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
@@ -25,11 +25,10 @@ class LocationPermission(models.Model):
 
 class Roster(models.Model):
     id = models.AutoField(primary_key=True)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     sign_in_date = models.DateTimeField('date signed in', auto_now_add=True)
-    sign_out_date = models.DateTimeField(
-        'date signed out', blank=True, null=True)
-    user_account_id = models.ForeignKey(
+    sign_out_date = models.DateTimeField('date signed out', blank=True, null=True)
+    user_account = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )

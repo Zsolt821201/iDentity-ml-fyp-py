@@ -179,7 +179,7 @@ def perform_sign_out(request):
 
 def is_permission_denied(user_account, location: Location) -> bool:
     location_permission: LocationPermission = LocationPermission.objects.filter(
-        location_id=location, user_account_id=user_account).first()
+        location=location, user_account=user_account).first()
 
     return location_permission is None
 
@@ -195,20 +195,21 @@ def is_on_active_roster(user_account, location: Location) -> bool:
         bool: _description_
     """
     roster: Roster = Roster.objects.filter(
-        location_id=location, user_account_id=user_account, sign_out_date__isnull=True).first()
+        location=location, user_account=user_account, sign_out_date__isnull=True).first()
     return roster is not None
 
 
 def sign_in_at_location(user_account: UserAccount, location: Location):
     sign_in_date = datetime.now()
-    roster: Roster = Roster(user_account_id=user_account,
-                            location_id=location, sign_in_date=sign_in_date)
+    roster: Roster = Roster(location=location, 
+                            user_account=user_account,
+                            sign_in_date=sign_in_date)
     roster.save()
 
 
 def sign_out_at_location(user_account: UserAccount, location: Location):
     roster: Roster = Roster.objects.filter(
-        location_id=location, user_account_id=user_account, sign_out_date__isnull=True).first()
+        location=location, user_account=user_account, sign_out_date__isnull=True).first()
     roster.sign_out_date = datetime.now()
     roster.save()
 

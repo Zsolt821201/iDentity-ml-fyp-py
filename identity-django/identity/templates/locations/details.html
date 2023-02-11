@@ -20,13 +20,13 @@
                 {% for location_permission in location.locationpermission_set.all %}
                     <tr>
                         <td>
-                            <a href="{% url 'user-account-details' location_permission.user_account_id.id %}">{{ location_permission.user_account_id.username }}</a>
+                            <a href="{% url 'user-account-details' location_permission.user_account.id %}">{{ location_permission.user_account.username }}</a>
                         </td>
-                        <td>{{ location_permission.user_account_id.first_name }}</td>
-                        <td>{{ location_permission.user_account_id.last_name }}</td>
-                        <td>{{ location_permission.user_account_id.email }}</td>
+                        <td>{{ location_permission.user_account.first_name }}</td>
+                        <td>{{ location_permission.user_account.last_name }}</td>
+                        <td>{{ location_permission.user_account.email }}</td>
                         <td>
-                            <a href="{% url 'remove-permission' location_permission.location_id.id location_permission.user_account_id.id %}">Remove Permission</a>
+                            <a href="{% url 'remove-permission' location_permission.location.id location_permission.user_account.id %}">Remove Permission</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,10 +51,10 @@
                 {% for roster in location.roster_set.all %}
                     <tr>
                         <td>
-                            <a href="{% url 'user-account-details' roster.user_account_id.id %}">{{ roster.user_account_id.username }}</a>
+                            <a href="{% url 'user-account-details' roster.user_account.id %}">{{ roster.user_account.username }}</a>
                         </td>
-                        <td>{{ roster.user_account_id.first_name }}</td>
-                        <td>{{ roster.user_account_id.last_name }}</td>
+                        <td>{{ roster.user_account.first_name }}</td>
+                        <td>{{ roster.user_account.last_name }}</td>
                         <td>{{ roster.sign_in_date }}</td>
                         <td>
                             <a href="{% url 'sign_out' roster.id %}">Sign out</a>

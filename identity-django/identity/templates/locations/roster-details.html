@@ -4,17 +4,16 @@
 {% endblock title %}
 {% block content %}
     <h1>{{ location.name }}</h1>
+    <h2 id="roster-desc">Signed in Users for {{ location_sign_in_date }}</h2>
+
     {% if roster_list %}
-        <p id="roster-desc">Signed in Users for {{ location_sign_in_date }} </p>
-        <table aria-describedby="roster-desc">
+        <table class="table" aria-describedby="roster-desc">
             <tr>
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Sign in Date/time</th>
-                <th>
-                    <!--Sign out command column -->&nbsp;
-                </th>
+                <th>Sign out Date/time</th>
             </tr>
             {% for roster in roster_list %}
                 <tr>
@@ -24,9 +23,7 @@
                     <td>{{ roster.user_account.first_name }}</td>
                     <td>{{ roster.user_account.last_name }}</td>
                     <td>{{ roster.sign_in_date }}</td>
-                    <td>
-                        <a href="{% url 'sign_out' roster.id %}">Sign out</a>
-                    </td>
+                    <td>{{ roster.sign_out_date }}</td>
                 </tr>
             {% endfor %}
         </table>

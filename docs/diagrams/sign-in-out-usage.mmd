@@ -1,0 +1,15 @@
+sequenceDiagram
+    Actor unauthenticatedUser1 as Unauthenticated User
+    Actor unauthenticatedUser2 as Unauthenticated User
+    Actor unauthenticatedUser3 as Unauthenticated User
+
+    Participant website as Website
+
+    unauthenticatedUser1->>website: /location/sign-in
+    website->>website: Count 5
+    website->>unauthenticatedUser1: logs in 
+    website->>unauthenticatedUser1: Display result ask to move asside
+
+    website->>website: Wait 5
+    website->>unauthenticatedUser2: logs in 
+    website->>unauthenticatedUser2: Display result ask to move asside

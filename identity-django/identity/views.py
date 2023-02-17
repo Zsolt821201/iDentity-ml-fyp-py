@@ -25,10 +25,12 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from PIL import Image
 
+
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     template_name = 'user-accounts/change-password.html'
     success_url = reverse_lazy('/locations/')
+
 
 def index(request):
     return render(request, 'website/index.html')
@@ -58,7 +60,6 @@ def logout_user(request):
     return redirect('/login/')
 
 
-
 class UserEditView(LoginRequiredMixin, generic.UpdateView):
     form_class = UserChangeForm
     template_name = 'user-accounts/edit-user-profile.html'
@@ -77,27 +78,53 @@ def locations(request):
 @login_required
 def location_details(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
-    return render(request, 'locations/details.html', {'location': location})
+    location_day_roster_logs: list = Roster.objects.filter(
+        location=location).values_list('sign_in_date__date', flat=True).distinct()
+
+    context = {
+        'location': location,
+        'location_day_roster_logs': location_day_roster_logs,
+    }
+    return render(request, 'locations/details.html', context)
+
+
+@login_required
+def location_roster_details(request, location_id, location_sign_in_date):
+    location = get_object_or_404(Location, pk=location_id)
+
+    roster_list = location.roster_set.filter(
+        sign_in_date__date=location_sign_in_date)
+
+    context = {
+        'location': location,
+        'location_sign_in_date': location_sign_in_date,
+        'roster_list': roster_list,
+    }
+    return render(request, 'locations/roster-details.html', context)
+
 
 @login_required
 def user_account_details(request, user_account_id):
     user_account = get_object_or_404(Location, pk=user_account_id)
     return render(request, 'user-accounts/details.html', {'user_account': user_account})
 
+
 @login_required
 def setup_facial_recognition(request):
     user_account = get_object_or_404(UserAccount, pk=request.user.id)
-    
+
     #TODO: Fix
     if not user_account.is_face_recognition_enabled:
         return render(request, 'user-accounts/setup-facial-recognition-denied.html', {'user_account_id': request.user.id})
-    
+
     return render(request, 'user-accounts/setup-facial-recognition.html', {'user_account_id': request.user.id})
+
 
 @login_required
 def test(request):
     face_training()
     return render(request, 'user-accounts/test.html')
+
 
 @login_required
 def remove_permission(_, location_id, user_account_id):
@@ -105,7 +132,6 @@ def remove_permission(_, location_id, user_account_id):
         location_id__id=location_id, user_account_id__id=user_account_id)
     instance.delete()
     return redirect(f'/locations/{location_id}')
-
 
 
 @login_required
@@ -201,7 +227,7 @@ def is_on_active_roster(user_account, location: Location) -> bool:
 
 def sign_in_at_location(user_account: UserAccount, location: Location):
     sign_in_date = datetime.now()
-    roster: Roster = Roster(location=location, 
+    roster: Roster = Roster(location=location,
                             user_account=user_account,
                             sign_in_date=sign_in_date)
     roster.save()

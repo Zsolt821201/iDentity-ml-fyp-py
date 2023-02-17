@@ -76,10 +76,14 @@
                 </div>
             </nav>
         </header>
-        {% block content %}
-        {% endblock content %}
-        <br/>
-        <!-- TODO: messages-->
+        <div class="container">
+            <div class="row">
+                <main>
+                    {% block content %}
+                    {% endblock content %}
+                </main>
+            </div>
+        </div>
     </body>
     {% block scripts %}
     {% endblock scripts %}

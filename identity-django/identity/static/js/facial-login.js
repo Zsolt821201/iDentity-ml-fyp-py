@@ -5,6 +5,9 @@ class UrlPaths {
     static get UPLOAD_FACIAL_DATA_URL() { return "/upload-facial-data/"; }
     static get PERFORM_SIGN_IN_URL() { return "/perform-sign-in/"; }
     static get PERFORM_SIGN_OUT_URL() { return "/perform-sign-out/"; }
+    static get IDENTIFY_USER_FROM_FACE_URL() { return "/identify-user-from-face/"; }
+
+    
 }
 
 /**
@@ -39,10 +42,7 @@ async function setupUserFacialRecognition() {
     const userAccountId = document.getElementById("user-account-id").value;
     while (imageNumber <= FACE_SAMPLE_COUNT) {
 
-        var canvas = document.createElement("canvas");
-        canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        let imageBase64Encoding = canvas.toDataURL();
-
+        let imageBase64Encoding = buildImageBase64Encoding(videoElement);
 
         let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
         let responseCode = await getResponseCode(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
@@ -94,6 +94,10 @@ function getStopButton() {
     return document.getElementById("stopButton");
 }
 
+function getStatusMessageControl() {
+    return document.getElementById("statusMessage");
+}
+
 
 /**
  * 
@@ -118,13 +122,98 @@ async function streamSignOutVideo() {
     alert(message);
 }
 
+function stopButtonOnClick() {
+    isStreaming = false;
+    getStopButton().disabled = true;
+    getAccessControl().disabled = false;
+}
+function startButtonClick() {
+    isStreaming = true;
+    //getStartButton().disabled = true;
+   // getAccessControl().disabled = true;
+    streamSignInVideo1();
+}
+
+async function streamSignInVideo1() {
+
+
+    let responseCode = await streamRoasterSigningVideo1(UrlPaths.IDENTIFY_USER_FROM_FACE_URL);
+    let message = getMessage(responseCode);
+
+    getAccessControl().textContent = getAccessControlMessage(responseCode);
+    alert(message);
+}
+isStreaming = true;
+
+async function streamRoasterSigningVideo1() {
+    let imageNumber = 1;
+    let videoElement = document.getElementById('videoInput');
+
+    while (isStreaming) {
+
+
+        let imageBase64Encoding = buildImageBase64Encoding(videoElement);
+        let options = buildSignInOptions(imageBase64Encoding, imageNumber++);
+        let json = await getResult(UrlPaths.IDENTIFY_USER_FROM_FACE_URL, options);
+        let userAccountId = json.userId; //TODO get user account id from response
+
+        if(userAccountId == 0)
+        {
+            document.getElementById("username").textContent = "No user found";
+        }
+        else
+        {
+            document.getElementById("username").textContent = json.username;
+        }
+
+
+        //let message = getMessage(responseCode, false);
+
+        //display(message);
+
+
+        await waitFiveSeconds();
+    }
+}
+
+/**
+ * Gets the response code from the request to the given url with the given options. 
+ * This function is asynchronous.
+ * A response code of 418 means the request was not successful, but should be retried
+ * A response code of 500 means the request was not successful, and should not be retried
+ * A response code of 200 means the request was successful
+ * @param {String} url The url to send the request to 
+ * @param {Object} options The options for the request 
+ * @returns 
+ */
+async function getResult(url, options) {
+    let responseCode;
+    let json;
+    await fetch(url, options)
+        .then(function (response) {
+            json = response.json()
+            responseCode = response.status;
+        })
+        .catch(function (err) {
+            responseCode = ResponseCodes.ERROR;
+        });
+    return json;
+}
+
+function display(message) {
+    getStatusMessageControl().textContent = message;
+}
+async function waitFiveSeconds() {
+    const fiveSeconds = 5000;
+    await new Promise(handler => setTimeout(handler, fiveSeconds));
+}
+
 /**
  * Streams the video from the webcam to the server to be processed for signing on/off the roaster
  * @param {String} url The url to send the request to
  * @returns A Response Code
  */
 async function streamRoasterSigningVideo(url) {
-    //TODO: Implement facial login
 
     let videoElement = document.getElementById('videoInput');
     let imageNumber = 0;
@@ -134,19 +223,20 @@ async function streamRoasterSigningVideo(url) {
     let responseCode;
     do {
 
-        var canvas = document.createElement("canvas");
-        canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        let imageBase64Encoding = canvas.toDataURL();
-
-
-        //wait one second before taking the next picture
-        const fiveSeconds = 5000;
-        await new Promise(handler => setTimeout(handler, fiveSeconds));
+        let imageBase64Encoding = buildImageBase64Encoding(videoElement);
         let options = buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken);
         responseCode = await getResponseCode(url, options);
+
+        await waitFiveSeconds();
     }
     while (responseCode == MyResponseCodes.NO_FACE_FOUND)
     return responseCode;
+}
+
+function buildImageBase64Encoding(videoElement) {
+    var canvas = document.createElement("canvas");
+    canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL();
 }
 
 /**
@@ -155,7 +245,7 @@ async function streamRoasterSigningVideo(url) {
  * @param {boolean} signOn True if the user is signing on, false if the user is signing off
  * @returns 
  */
-function getMessage(responseCode, signOn=true) {
+function getMessage(responseCode, signOn = true) {
     if (responseCode == ResponseCodes.SUCCESS) {
         if (signOn)
             return "Signed in completed";
@@ -176,7 +266,7 @@ function getMessage(responseCode, signOn=true) {
 function getAccessControlMessage(responseCode) {
     if (responseCode == ResponseCodes.SUCCESS) {
         return "go";
-      }
+    }
     else if (responseCode == MyResponseCodes.ALREADY_ON_ROASTER)
         return "stop";
     else if (responseCode == MyResponseCodes.LOCATION_PERMISSION_DENIED)
@@ -197,7 +287,7 @@ function getAccessControlMessage(responseCode) {
  * @param {String} csrfToken The CSRF token for the request
  * @returns 
  */
-function buildSignInOptions(imageBase64Encoding, imageNumber, locationId, csrfToken) {
+function buildSignInOptions(imageBase64Encoding, imageNumber, locationId="", csrfToken="") {
     const formData = new FormData();
     const headers = {
         mode: 'same-origin',

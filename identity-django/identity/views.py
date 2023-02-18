@@ -52,7 +52,6 @@ def login_user(request):
         messages.error(request, "Invalid username or password")
 
     return render(request, 'user-accounts/login.html')
-    
 
 
 def logout_user(request):
@@ -82,7 +81,6 @@ def location_details(request, location_id):
     location_active_sign_ins: list = Roster.objects.filter(
         location=location, sign_out_date__isnull=True)
 
-
     location_day_roster_logs: list = Roster.objects.filter(
         location=location).values_list('sign_in_date__date', flat=True).distinct()
 
@@ -90,7 +88,7 @@ def location_details(request, location_id):
         'location': location,
         'location_active_sign_ins': location_active_sign_ins,
         'location_day_roster_logs': location_day_roster_logs,
-        
+
     }
     return render(request, 'locations/details.html', context)
 
@@ -137,9 +135,10 @@ def test(request):
 def force_sign_out(_, roster_id):
     roster: Roster = Roster.objects.get(
         id=roster_id)
-    roster.sign_out_date =datetime.now()
+    roster.sign_out_date = datetime.now()
     roster.save()
     return redirect(f'/locations/{roster.location.id}')
+
 
 @login_required
 def remove_permission(_, location_id, user_account_id):
@@ -153,7 +152,7 @@ def remove_permission(_, location_id, user_account_id):
 @permission_required('identity.activate_sign_in', raise_exception=True)
 def sign_in(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
-    return render(request, 'user-accounts/sign-in.html', {'location': location})
+    return render(request, 'user-accounts/sign-in-new.html', {'location': location})
 
 
 @login_required
@@ -181,6 +180,19 @@ def perform_sign_in(request):
 
     sign_in_at_location(user_account, location)
     return HttpResponse('OK', status=200)
+
+
+@csrf_exempt
+def identify_user_from_face(request):
+    from django.http import JsonResponse
+    face_found, location_id, user_id = parse_roaster_signing_requests(request)
+
+    if not face_found:
+        return JsonResponse({'userId': 0})
+
+    user_account = UserAccount.objects.get(pk=user_id)
+
+    return JsonResponse({'userId': user_account.id, 'username': user_account.username, 'firstName': user_account.first_name, 'lastName': user_account.last_name, 'confidence': 100})
 
 
 def parse_roaster_signing_requests(request):

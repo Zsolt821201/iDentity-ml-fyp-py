@@ -1,0 +1,47 @@
+{% extends "master.html" %}
+{% load static %}
+{% block content %}
+    <h2>{{ location.name }} Sign In</h2>
+    <div>
+        <p>Please look directly at the camera until your face is detected.</p>
+        <video id="videoInput" width="320" height="240">
+        </video>
+        <p id="errorMessage" class="error"></p>
+        <input type="hidden"
+               id="location-id"
+               name="location-id"
+               value="{{ location.id }}"/>
+        <div id="accessControl">Wait</div>
+        <p id="statusMessage">Please wait...</p>
+    </div>
+    <div class="">
+        <table>
+            <tr>
+                <th>Username</th>
+                <td id="username"></td>
+            </tr>
+            <tr>
+                <th>First name</th>
+                <td id="firstName"></td>
+            </tr>
+            <tr>
+                <th>Last name</th>
+                <td id="lastName"></td>
+            </tr>
+        </table>
+        <div id="auto-sign-in-count-down">5</div>
+        <button id="abortButton" class="btn btn-primary">Abort</button>
+    </div>
+    <button id="startButton" class="btn btn-primary">Start Auto Login</button>
+    <button id="stopButton" class="btn btn-primary d-none">Stop Auto Login</button>
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static "js/facial-login.js" %}"></script>
+    <script type="text/javascript">
+    (function () {
+        document.getElementById('startButton').onclick  = startButtonClick;
+    })();
+
+    startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');
+    </script>
+{% endblock scripts %}

@@ -3,6 +3,10 @@
 
  A location sign-in/sign-out dates record of a user
 
+## Active Sign In
+
+ A Roster record with a sign-in date and no sign-out date.
+
 # Day Roster
 
 A collection of Roster records for a location with a sign-in dates for a given day.

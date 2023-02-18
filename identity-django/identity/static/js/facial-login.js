@@ -88,12 +88,27 @@ function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber
 
 /**
  * 
+ * @returns Button to stop the facial recognition
  */
+function getStopButton() {
+    return document.getElementById("stopButton");
+}
 
 
+/**
+ * 
+ * @returns Button to stop the facial recognition
+ */
+function getAccessControl() {
+    return document.getElementById("accessControl");
+}
 async function streamSignInVideo() {
+
+
     let responseCode = await streamRoasterSigningVideo(UrlPaths.PERFORM_SIGN_IN_URL);
     let message = getMessage(responseCode);
+
+    getAccessControl().textContent = getAccessControlMessage(responseCode);
     alert(message);
 }
 
@@ -155,6 +170,23 @@ function getMessage(responseCode, signOn=true) {
         return "You are not on the roaster";
     else if (responseCode >= 500) //500+ are server errors
         return `Server Error: Response Code:${responseCode}`;
+}
+
+
+function getAccessControlMessage(responseCode) {
+    if (responseCode == ResponseCodes.SUCCESS) {
+        return "go";
+      }
+    else if (responseCode == MyResponseCodes.ALREADY_ON_ROASTER)
+        return "stop";
+    else if (responseCode == MyResponseCodes.LOCATION_PERMISSION_DENIED)
+        return "stop";
+    else if (responseCode == MyResponseCodes.NOT_ON_ROASTER)
+        return "stop";
+    else if (responseCode >= 500) //500+ are server errors
+        return `stop`;
+
+    return `stop`;
 }
 
 /**

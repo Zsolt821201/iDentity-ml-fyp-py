@@ -10,7 +10,9 @@
            id="location-id"
            name="location-id"
            value="{{ location.id }}"/>
+    <div id="accessControl">Wait</div>
     <button id="takePictureButton" class="btn btn-primary">Start Auto Login</button>
+    <button id="stopButton" class="btn btn-primary d-none">Stop Auto Login</button>
 {% endblock content %}
 {% block scripts %}
     <script src="{% static "js/facial-login.js" %}"></script>

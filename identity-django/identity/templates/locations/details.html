@@ -4,6 +4,19 @@
 {% endblock title %}
 {% block content %}
     <h1>{{ location.name }}</h1>
+    <table class="table" aria-describedby="my-desc">
+        <tr>
+            <td>
+                <p id="my-desc">Actions</p>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'sign_in' location.id %}">Activate Sign in</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="{% url 'sign_out' location.id %}">Activate Sign out</a>
+            </td>
+        </tr>
+    </table>
     <h2 id="my-desc">Permitted Users</h2>
     {% if location.locationpermission_set.all %}
         <table class="table" aria-describedby="my-desc">
@@ -25,7 +38,8 @@
                     <td>{{ location_permission.user_account.last_name }}</td>
                     <td>{{ location_permission.user_account.email }}</td>
                     <td>
-                        <a class="btn btn-danger" href="{% url 'remove-permission' location_permission.location.id location_permission.user_account.id %}">Remove Permission</a>
+                        <a class="btn btn-danger"
+                           href="{% url 'remove-permission' location_permission.location.id location_permission.user_account.id %}">Remove Permission</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -45,7 +59,7 @@
                     <!--Sign out command column -->&nbsp;
                 </th>
             </tr>
-            {% for roster in location.roster_set.all %}
+            {% for roster in location_active_sign_ins %}
                 <tr>
                     <td>
                         <a href="{% url 'user-account-details' roster.user_account.id %}">{{ roster.user_account.username }}</a>
@@ -53,16 +67,21 @@
                     <td>{{ roster.user_account.first_name }}</td>
                     <td>{{ roster.user_account.last_name }}</td>
                     <td>{{ roster.sign_in_date }}</td>
+                    <td>{{ roster.sign_out_date }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{% url 'sign_out' roster.id %}">Sign out</a>
+                        <a class="btn btn-primary" href="{% url 'force-sign-out' roster.id %}">Sign out</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     {% else %}
-        <p>No active user sign-ins for this location.</p>
+        <p>
+            No active user sign-ins for this location.
+        </p>
     {% endif %}
-    <h2 id="day-roster-desc" class="sm">Day Roster Logs</h2>
+    <h2 id="day-roster-desc" class="sm">
+        Day Roster Logs
+    </h2>
     {% if location_day_roster_logs %}
         <ul class="list-group list-group-horizontal">
             {% for location_day_roster_log in location_day_roster_logs %}
@@ -73,6 +92,8 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>No Day Roster Logs for this location.</p>
+        <p>
+            No Day Roster Logs for this location.
+        </p>
     {% endif %}
 {% endblock content %}

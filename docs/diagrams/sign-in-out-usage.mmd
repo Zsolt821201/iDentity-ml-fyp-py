@@ -1,15 +1,38 @@
 sequenceDiagram
-    Actor unauthenticatedUser1 as Unauthenticated User
-    Actor unauthenticatedUser2 as Unauthenticated User
-    Actor unauthenticatedUser3 as Unauthenticated User
+    Actor admin as Admin
 
-    Participant website as Website
+    Actor james as James
+    Actor zsolt as Zsolt
+    Actor bob as Bob
 
-    unauthenticatedUser1->>website: /location/sign-in
-    website->>website: Count 5
-    website->>unauthenticatedUser1: logs in 
-    website->>unauthenticatedUser1: Display result ask to move asside
+    Participant website as Sign in Computer
 
-    website->>website: Wait 5
-    website->>unauthenticatedUser2: logs in 
-    website->>unauthenticatedUser2: Display result ask to move asside
+    admin->>website: activate sign in computer
+    website->>website: starts login stream
+    website->>website: Indicator(traffic light is green)
+
+    bob->>website: walks up to camera/computer
+    website->>bob: Takes Pic, idenfifes bob, Display result, if not objection, open door
+    website->>website: Indicator(traffic light is red)
+    website->>website: Wait 10 seconds
+    website->>website: Indicator(traffic light is green)
+
+
+    zsolt->>website: walks up to camera/computer
+    website->>zsolt: Takes Pic, identifes incorrectly as bob, Display result, if not objection, open door
+    zsolt->>website: objection
+    zsolt->>website: Manual confirmation of sign in
+    website->>website: Indicator(traffic light is red)
+    website->>website: Wait 10 seconds
+    website->>website: Indicator(traffic light is green)
+
+    james->>website: walks up to camera/computer
+    website->>james: Takes Pic, idenfifes james, Display result, if not objection, open door
+    james->>website: permission diend
+    website->>website: Indicator(traffic light is red)
+    website->>website: Wait 10 seconds
+    website->>website: Indicator(traffic light is green)
+
+
+    admin->>website: deactivates sign in computer
+    website->>website: stops login stream

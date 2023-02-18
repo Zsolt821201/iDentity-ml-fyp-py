@@ -79,12 +79,18 @@ def locations(request):
 @login_required
 def location_details(request, location_id):
     location = get_object_or_404(Location, pk=location_id)
+    location_active_sign_ins: list = Roster.objects.filter(
+        location=location, sign_out_date__isnull=True)
+
+
     location_day_roster_logs: list = Roster.objects.filter(
         location=location).values_list('sign_in_date__date', flat=True).distinct()
 
     context = {
         'location': location,
+        'location_active_sign_ins': location_active_sign_ins,
         'location_day_roster_logs': location_day_roster_logs,
+        
     }
     return render(request, 'locations/details.html', context)
 
@@ -126,6 +132,14 @@ def test(request):
     face_training()
     return render(request, 'user-accounts/test.html')
 
+
+@login_required
+def force_sign_out(_, roster_id):
+    roster: Roster = Roster.objects.get(
+        id=roster_id)
+    roster.sign_out_date =datetime.now()
+    roster.save()
+    return redirect(f'/locations/{roster.location.id}')
 
 @login_required
 def remove_permission(_, location_id, user_account_id):

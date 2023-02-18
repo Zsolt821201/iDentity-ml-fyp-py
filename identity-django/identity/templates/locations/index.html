@@ -3,11 +3,10 @@
     Locations
 {% endblock title %}
 {% block content %}
-    <h1>Locations</h1>
+    <h1 id="my-desc">Locations</h1>
     {% if locations %}
-        <ul>
-            <p id="my-desc">Locations</p>
-            <table class="table" aria-describedby="my-desc">
+        <table class="table" aria-describedby="my-desc">
+            <thead>
                 <tr>
                     <th>Name</th>
                     <th>Address</th>
@@ -20,6 +19,8 @@
                         <!--Sign out command column -->&nbsp;
                     </th>
                 </tr>
+            </thead>
+            <tbody>
                 {% for location in locations %}
                     <tr>
                         <td>
@@ -36,8 +37,8 @@
                         </td>
                     </tr>
                 {% endfor %}
-            </table>
-        </ul>
+            </tbody>
+        </table>
     {% else %}
         <p>No locations are available.</p>
     {% endif %}

@@ -47,11 +47,12 @@ def login_user(request):
             return redirect('/locations/')
         else:
             messages.error(request, "Invalid username or password.")
-            return redirect('/user-accounts/')
+            return redirect('/login/')
     else:
         messages.error(request, "Invalid username or password")
 
     return render(request, 'user-accounts/login.html')
+    
 
 
 def logout_user(request):
@@ -106,7 +107,7 @@ def location_roster_details(request, location_id, location_sign_in_date):
 @login_required
 def user_account_details(request, user_account_id):
     user_account = get_object_or_404(Location, pk=user_account_id)
-    return render(request, 'user-accounts/details.html', {'user_account': user_account})
+    return render(request, 'user-accounts/user-details-profile.html', {'user_account': user_account})
 
 
 @login_required

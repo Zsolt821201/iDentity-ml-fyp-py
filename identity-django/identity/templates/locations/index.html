@@ -7,7 +7,7 @@
     {% if locations %}
         <ul>
             <p id="my-desc">Locations</p>
-            <table aria-describedby="my-desc">
+            <table class="table" aria-describedby="my-desc">
                 <tr>
                     <th>Name</th>
                     <th>Address</th>
@@ -26,14 +26,13 @@
                             <a href="{% url 'details' location.id %}">{{ location.name }}</a>
                         </td>
                         <td>{{ location.name }}</td>
-                        <td>{{ location.address }}</td>
                         <td>{{ location.email }}</td>
                         <td>{{ location.telephone }}</td>
                         <td>
-                            <a href="{% url 'sign_in' location.id %}">Sign in</a>
+                            <a class="btn btn-primary" href="{% url 'sign_in' location.id %}">Activate Sign in</a>
                         </td>
                         <td>
-                            <a href="{% url 'sign_out' location.id %}">Sign out</a>
+                            <a class="btn btn-danger" href="{% url 'sign_out' location.id %}">Activate Sign out</a>
                         </td>
                     </tr>
                 {% endfor %}

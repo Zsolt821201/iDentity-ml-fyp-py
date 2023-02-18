@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}
+  User Details Profile
+{% endblock title %}
+{% block content %}
+  <form method="post">
+    <div class="container" style="width: 30rem;">
+      <h1>User Details Profile</h1>
+      <div class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <a class="btn btn-primary" href="/">Back Home</a>
+      </div>
+    </div>
+  </form>
+{% endblock content %}

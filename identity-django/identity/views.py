@@ -181,6 +181,22 @@ def perform_sign_in(request):
     sign_in_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
+@csrf_exempt
+def perform_sign_in1(request, location_id, user_id):
+
+
+
+    location = Location.objects.get(pk=location_id)
+    user_account = UserAccount.objects.get(pk=user_id)
+
+    if is_on_active_roster(user_account, location):
+        return HttpResponse('Error', status=MyResponseCodes.ALREADY_ON_ROASTER)
+
+    if is_permission_denied(user_account, location):
+        return HttpResponse('Error', status=MyResponseCodes.LOCATION_PERMISSION_DENIED)
+
+    sign_in_at_location(user_account, location)
+    return HttpResponse('OK', status=200)
 
 @csrf_exempt
 def identify_user_from_face(request):

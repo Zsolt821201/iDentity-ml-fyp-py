@@ -164,11 +164,12 @@ def sign_out(request, location_id):
 
 @csrf_exempt
 def perform_sign_in(request):
-    face_found, location_id, user_id = parse_roaster_signing_requests(request)
+    face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
         return HttpResponse('Error', status=MyResponseCodes.NO_FACE_FOUND)
 
+    location_id=1#TODO Clean
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_id)
 
@@ -182,12 +183,12 @@ def perform_sign_in(request):
     return HttpResponse('OK', status=200)
 
 @csrf_exempt
-def perform_sign_in1(request, location_id, user_id):
+def perform_sign_in1(request, location_id, user_account_id):
 
 
 
     location = Location.objects.get(pk=location_id)
-    user_account = UserAccount.objects.get(pk=user_id)
+    user_account = UserAccount.objects.get(pk=user_account_id)
 
     if is_on_active_roster(user_account, location):
         return HttpResponse('Error', status=MyResponseCodes.ALREADY_ON_ROASTER)
@@ -201,7 +202,7 @@ def perform_sign_in1(request, location_id, user_id):
 @csrf_exempt
 def identify_user_from_face(request):
     from django.http import JsonResponse
-    face_found, location_id, user_id = parse_roaster_signing_requests(request)
+    face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
         return JsonResponse({'userId': 0})
@@ -215,7 +216,6 @@ def parse_roaster_signing_requests(request):
     request_data = request.POST
 
     image_bytes = stream_image(request_data['image-base64'])
-    location_id = request_data['location-id']
 
     open_cv_image = numpy.array(Image.open(image_bytes))
 
@@ -223,16 +223,17 @@ def parse_roaster_signing_requests(request):
 
     face_found = confidence > 70  # TODO: define system confidence level
 
-    return face_found, location_id, user_id
+    return face_found, user_id
 
 
 @csrf_exempt
 def perform_sign_out(request):
-    face_found, location_id, user_id = parse_roaster_signing_requests(request)
+    face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
         return HttpResponse('Error', status=MyResponseCodes.NO_FACE_FOUND)
 
+    location_id = 1 #TODO:clean
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_id)
 
@@ -245,6 +246,19 @@ def perform_sign_out(request):
     sign_out_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
+@csrf_exempt
+def perform_sign_out1(request, location_id, user_account_id):
+    location = Location.objects.get(pk=location_id)
+    user_account = UserAccount.objects.get(pk=user_account_id)
+
+    if not is_on_active_roster(user_account, location):
+        return HttpResponse('Error', status=MyResponseCodes.NOT_ON_ROASTER)
+
+    if is_permission_denied(user_account, location):
+        return HttpResponse('Error', status=MyResponseCodes.LOCATION_PERMISSION_DENIED)
+
+    sign_out_at_location(user_account, location)
+    return HttpResponse('OK', status=200)
 
 def is_permission_denied(user_account, location: Location) -> bool:
     location_permission: LocationPermission = LocationPermission.objects.filter(

@@ -3,18 +3,45 @@
 {% block content %}
     <h2>{{ location.name }} Sign Out</h2>
     <p>Please look directly at the camera until your face is detected and profile recorded.</p>
-    <video id="videoInput" width="320" height="240">
-    </video>
-    <p id="errorMessage" class="error"></p>
-    <input type="hidden"
-           id="location-id"
-           name="location-id"
-           value="{{ location.id }}"/>
-    <button id="takePictureButton"
-            class="btn btn-primary"
-            onClick="streamSignOutVideo()">Start Auto Sign Out</button>
+    <div>
+        <video id="videoInput" width="320" height="240">
+        </video>
+        <p id="errorMessage" class="error"></p>
+        <input type="hidden"
+               id="location-id"
+               name="location-id"
+               value="{{ location.id }}"/>
+        <div id="accessControl">Wait</div>
+        <p id="statusMessage">Please wait...</p>
+    </div>
+	<div id="detectedUserPanel" class="d-none">
+		<div>
+			<div>
+				<div>Username</div>
+				<div id="username"></div>
+			</div>
+			<div>
+				<div>First name</div>
+				<div id="firstName"></div>
+			</div>
+			<div>
+				<div>Last name</div>
+				<div id="lastName"></div>
+			</div>
+		</div>
+		<div id="auto-sign-in-count-down">5</div>
+		<button id="abortButton" class="btn btn-primary">Abort</button>
+	</div>
+	<button id="startButton" class="btn btn-primary">Start Auto Sign-off</button>
+	<button id="stopButton" class="btn btn-primary">Stop Auto Sign-off</button>
 {% endblock content %}
 {% block scripts %}
     <script src="{% static "js/facial-login.js" %}"></script>
-    <script type="text/javascript">startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');</script>
+	<script type="text/javascript">
+		// This is the script that will run when the page is loaded and ready
+		$(document).ready(function () {
+			const webPageControls = new WebPageControls();
+			const manager = new Manager(webPageControls, UrlPaths.PERFORM_SIGN_OUT_URL);
+		});
+	</script>
 {% endblock scripts %}

@@ -125,15 +125,6 @@ class Manager {
 		return options;
 	}
 
-	async streamSignInVideo() {
-
-		let responseCode = await streamRoasterSigningVideo1(UrlPaths.IDENTIFY_USER_FROM_FACE_URL);
-		let message = getMessage(responseCode);
-
-		getAccessControl().textContent = getAccessControlMessage(responseCode);
-		alert(message);
-	}
-
 	stopStreamingVideoToServer() {
 		this.isStreaming = false;
 		this.stopCamera();
@@ -329,16 +320,6 @@ function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber
 		method: "POST",
 	}
 	return options;
-}
-
-async function streamSignInVideo() {
-
-
-	let responseCode = await streamRoasterSigningVideo(UrlPaths.PERFORM_SIGN_IN_URL);
-	let message = getMessage(responseCode);
-
-	getAccessControl().textContent = getAccessControlMessage(responseCode);
-	alert(message);
 }
 
 async function streamSignOutVideo() {

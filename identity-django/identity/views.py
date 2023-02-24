@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from datetime import datetime
 import cv2
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from .forms import UserChangeForm
-from .utilities import face_recognition_web
+from .utilities import face_recognition_web, is_on_active_roster, is_permission_denied, parse_roaster_signing_requests, sign_in_at_location, sign_out_at_location
 from .utilities import face_training
 from .utilities import stream_image
 from .utilities import detect_and_save_user_face
@@ -169,7 +170,7 @@ def perform_sign_in(request):
     if not face_found:
         return HttpResponse('Error', status=MyResponseCodes.NO_FACE_FOUND)
 
-    location_id=1#TODO Clean
+    location_id = 1  # TODO Clean
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_id)
 
@@ -182,10 +183,9 @@ def perform_sign_in(request):
     sign_in_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
+
 @csrf_exempt
 def perform_sign_in1(request, location_id, user_account_id):
-
-
 
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_account_id)
@@ -199,9 +199,9 @@ def perform_sign_in1(request, location_id, user_account_id):
     sign_in_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
+
 @csrf_exempt
 def identify_user_from_face(request):
-    from django.http import JsonResponse
     face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
@@ -212,18 +212,7 @@ def identify_user_from_face(request):
     return JsonResponse({'userId': user_account.id, 'username': user_account.username, 'firstName': user_account.first_name, 'lastName': user_account.last_name, 'confidence': 100})
 
 
-def parse_roaster_signing_requests(request):
-    request_data = request.POST
 
-    image_bytes = stream_image(request_data['image-base64'])
-
-    open_cv_image = numpy.array(Image.open(image_bytes))
-
-    user_id, confidence = face_recognition_web(open_cv_image)
-
-    face_found = confidence > 70  # TODO: define system confidence level
-
-    return face_found, user_id
 
 
 @csrf_exempt
@@ -233,7 +222,7 @@ def perform_sign_out(request):
     if not face_found:
         return HttpResponse('Error', status=MyResponseCodes.NO_FACE_FOUND)
 
-    location_id = 1 #TODO:clean
+    location_id = 1  # TODO:clean
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_id)
 
@@ -245,6 +234,7 @@ def perform_sign_out(request):
 
     sign_out_at_location(user_account, location)
     return HttpResponse('OK', status=200)
+
 
 @csrf_exempt
 def perform_sign_out1(request, location_id, user_account_id):
@@ -260,45 +250,18 @@ def perform_sign_out1(request, location_id, user_account_id):
     sign_out_at_location(user_account, location)
     return HttpResponse('OK', status=200)
 
-def is_permission_denied(user_account, location: Location) -> bool:
-    location_permission: LocationPermission = LocationPermission.objects.filter(
-        location=location, user_account=user_account).first()
-
-    return location_permission is None
-
-
-def is_on_active_roster(user_account, location: Location) -> bool:
-    """_summary_
-
-    Args:
-        user_account (_type_): _description_
-        location (Location): _description_
-
-    Returns:
-        bool: _description_
-    """
-    roster: Roster = Roster.objects.filter(
-        location=location, user_account=user_account, sign_out_date__isnull=True).first()
-    return roster is not None
-
-
-def sign_in_at_location(user_account: UserAccount, location: Location):
-    sign_in_date = datetime.now()
-    roster: Roster = Roster(location=location,
-                            user_account=user_account,
-                            sign_in_date=sign_in_date)
-    roster.save()
-
-
-def sign_out_at_location(user_account: UserAccount, location: Location):
-    roster: Roster = Roster.objects.filter(
-        location=location, user_account=user_account, sign_out_date__isnull=True).first()
-    roster.sign_out_date = datetime.now()
-    roster.save()
 
 
 @csrf_exempt
 def upload_facial_data(request):
+    """ Receives a base64 encoded image for a user, detects a face saves the face to the system(folder on disk)
+
+    Args:
+        request (_type_): _description_
+
+    Returns:
+        HttpResponse : _description_
+    """
     request_data = request.POST
     request_user_id = request_data['user-account-id']
     session_user_account_id = str(request.user.id)  # get loggedInUser
@@ -316,6 +279,10 @@ def upload_facial_data(request):
 
     face_found = detect_and_save_user_face(
         session_user_account_id, open_cv_image, image_number)
+    
+    if face_found and image_number == '30':
+        face_training()
+    
     if face_found:
         return HttpResponse('OK', status=200)
     else:

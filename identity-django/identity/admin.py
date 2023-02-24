@@ -13,6 +13,7 @@ class UserAccountAdmin(UserAdmin):
         'username', 'email', 'first_name', 'last_name', 'is_staff',
         'is_twin', 'is_face_recognition_enabled', 'telephone'
         )
+    # For Editing  a User
     fieldsets = (
         (None, {
             'fields': ('username', 'password')
@@ -32,10 +33,10 @@ class UserAccountAdmin(UserAdmin):
             'fields': ('last_login', 'date_joined')
         })
     )
-    
+    # For Inserting a User
     add_fieldsets  = (
         (None, {
-            'fields': ('password1', 'password2')
+            'fields': ('username', 'password1', 'password2')
         }),
         ('Personal info', {
             'fields': ('first_name', 'last_name', 'email', 'telephone', 'is_twin')

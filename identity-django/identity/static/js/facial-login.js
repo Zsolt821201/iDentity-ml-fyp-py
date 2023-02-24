@@ -279,14 +279,15 @@ async function setupUserFacialRecognition() {
 	let videoElement = document.getElementById('videoInput');
 
 
+	document.getElementById("statusMessage").textContent = "Uploading Facial Data, please stand by.";
+
 	let imageNumber = 1;
-	const csrfToken = "";//document.querySelector('[name=csrfmiddlewaretoken]').value;
 	const userAccountId = document.getElementById("user-account-id").value;
 	while (imageNumber <= FACE_SAMPLE_COUNT) {
 
 		let imageBase64Encoding = buildImageBase64Encoding(videoElement);
 
-		let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId, csrfToken);
+		let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId);
 		let responseCode = await getResponseCode(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
 
 		if (responseCode == ResponseCodes.NO_FACE_FOUND)
@@ -297,7 +298,7 @@ async function setupUserFacialRecognition() {
 			break;
 	}
 
-	//messageUser("Face pictures taken");
+	document.getElementById("statusMessage").textContent = "Done";
 }
 
 /**

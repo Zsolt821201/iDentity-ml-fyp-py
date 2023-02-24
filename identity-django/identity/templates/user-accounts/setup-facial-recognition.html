@@ -1,6 +1,7 @@
 {% extends "master.html" %}
 {% load static %}
 {% block content %}
+<div class="column">
     <h2>User Facial Recognition Setup</h2>
     <p>Please look directly at the camera until your face is detected and profile recorded.</p>
     <video id="videoInput" width="320" height="240">
@@ -10,16 +11,17 @@
            id="user-account-id"
            name="user-account-id"
            value="{{ user_account_id }}"/>
-    <button id="takePictureButton"
-            class="btn btn-primary"
+    <button id="startButton"
+            class="btn btn-primary" 
             onClick="setupUserFacialRecognition()">
         Setup User Facial Recognition
     </button>
+    <p id="statusMessage"></p>
+</div>
 {% endblock content %}
 {% block scripts %}
     <script src="{% static "js/facial-login.js" %}"></script>
-    <script type="text/javascript">
-    startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');
-    //takeFacePictures();
+	<script type="text/javascript">
+        startCamera(VideoResolutionFormatNames.QVGA, 'videoInput');
     </script>
 {% endblock scripts %}

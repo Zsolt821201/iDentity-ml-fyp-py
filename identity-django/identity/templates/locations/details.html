@@ -10,10 +10,14 @@
                 <p id="my-desc">Actions</p>
             </td>
             <td>
-                <a class="btn btn-primary" href="{% url 'sign_in' location.id %}">Activate Sign in</a>
+                {% if perms.identity.activate_sign_in %}
+                    <a class="btn btn-primary" href="{% url 'sign_in' location.id %}">Activate Sign in</a>
+                {% endif %}
             </td>
             <td>
-                <a class="btn btn-danger" href="{% url 'sign_out' location.id %}">Activate Sign out</a>
+                {% if perms.identity.activate_sign_out %}
+                    <a class="btn btn-danger" href="{% url 'sign_out' location.id %}">Activate Sign out</a>
+                {% endif %}
             </td>
         </tr>
     </table>

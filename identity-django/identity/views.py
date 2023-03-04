@@ -111,7 +111,7 @@ def location_roster_details(request, location_id, location_sign_in_date):
 
 @login_required
 def user_account_details(request, user_account_id):
-    user_account = get_object_or_404(Location, pk=user_account_id)
+    user_account = get_object_or_404(UserAccount, pk=user_account_id)
     return render(request, 'user-accounts/user-details-profile.html', {'user_account': user_account})
 
 
@@ -164,6 +164,7 @@ def sign_out(request, location_id):
 
 
 @csrf_exempt
+@permission_required('identity.activate_sign_in', raise_exception=True)
 def perform_sign_in(request):
     face_found, user_id = parse_roaster_signing_requests(request)
 
@@ -212,9 +213,6 @@ def identify_user_from_face(request):
     return JsonResponse({'userId': user_account.id, 'username': user_account.username, 'firstName': user_account.first_name, 'lastName': user_account.last_name, 'confidence': 100})
 
 
-
-
-
 @csrf_exempt
 def perform_sign_out(request):
     face_found, user_id = parse_roaster_signing_requests(request)
@@ -251,7 +249,6 @@ def perform_sign_out1(request, location_id, user_account_id):
     return HttpResponse('OK', status=200)
 
 
-
 @csrf_exempt
 def upload_facial_data(request):
     """ Receives a base64 encoded image for a user, detects a face saves the face to the system(folder on disk)
@@ -279,10 +276,10 @@ def upload_facial_data(request):
 
     face_found = detect_and_save_user_face(
         session_user_account_id, open_cv_image, image_number)
-    
+
     if face_found and image_number == '30':
         face_training()
-    
+
     if face_found:
         return HttpResponse('OK', status=200)
     else:

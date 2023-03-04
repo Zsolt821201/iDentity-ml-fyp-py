@@ -113,7 +113,7 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
 
     Args:
         gray_scale_image (_type_): _description_
-        min_size (_type_, optional): _description_. Defaults to None.
+        min_size (tuple, optional): _description_. Defaults to None.
 
     Returns:
         tuple[bool,ndarray]: _description_

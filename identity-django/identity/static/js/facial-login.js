@@ -281,24 +281,31 @@ async function setupUserFacialRecognition() {
 
 	document.getElementById("statusMessage").textContent = "Uploading Facial Data, please stand by.";
 
+	let failCount = 0;
 	let imageNumber = 1;
+	const  ATTEMPT_LIMIT= 900;
 	const userAccountId = document.getElementById("user-account-id").value;
-	while (imageNumber <= FACE_SAMPLE_COUNT) {
+	while (imageNumber <= FACE_SAMPLE_COUNT && failCount < ATTEMPT_LIMIT) {
 
 		let imageBase64Encoding = buildImageBase64Encoding(videoElement);
 
 		let options = buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId);
 		let responseCode = await getResponseCode(UrlPaths.UPLOAD_FACIAL_DATA_URL, options);
 
-		if (responseCode == ResponseCodes.NO_FACE_FOUND)
+		if (responseCode == ResponseCodes.NO_FACE_FOUND){
+			failCount++;
 			continue;
+		}
 		else if (responseCode == ResponseCodes.SUCCESS)
 			imageNumber++;
 		else
 			break;
 	}
 
-	document.getElementById("statusMessage").textContent = "Done";
+	if(imageNumber >= FACE_SAMPLE_COUNT)
+		document.getElementById("statusMessage").textContent = "Facial Data Uploaded Successfully";
+	else
+		document.getElementById("statusMessage").textContent = "An error occurred while uploading facial data, please try again later.";
 }
 
 /**

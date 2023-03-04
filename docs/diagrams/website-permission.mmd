@@ -1,0 +1,13 @@
+classDiagram 
+direction LR
+
+class DjangoWebpageController {
+    String methodName
+}
+class DjangoPermission {
+    +String name
+    +String codename
+    }
+
+
+DjangoWebpageController "1..*" <--> "1..*" DjangoPermission : has

@@ -1,0 +1,25 @@
+sequenceDiagram
+    Actor admin as Manager
+
+    Actor james as James
+    Actor zsolt as Zsolt
+
+    Participant website as Sign in Computer
+    Participant door as Door
+
+    admin->>website: activate sign in computer
+    website->>website: starts sign in stream
+
+    james->>website: walks up to camera/computer
+    website->>james: Takes Pic, identifies James, Display result
+    website->>door: Signs in James, Unlocks Door
+    website->>website: Wait 3 seconds
+
+    zsolt->>website: walks up to camera/computer
+    website->>zsolt: Takes Pic, identifies Zsolt, Display result
+    website->>door: Signs in Zsolt, Unlocks Door
+    website->>website: Wait 3 seconds
+
+
+    admin->>website: (At the end of the Day)<br/>deactivates sign in computer
+    website->>website: stops sign-in stream

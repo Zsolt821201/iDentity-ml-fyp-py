@@ -31,5 +31,10 @@
     ],
     "cSpell.enableFiletypes": [
         "django-html"
-    ]
+    ],
+    "plantuml.diagramsRoot": "docs/diagrams",
+    "plantuml.exportFormat": "png",
+	"plantuml.exportIncludeFolderHeirarchy": false,
+	"plantuml.exportOutDir": "docs/diagrams",
+	"plantuml.exportSubFolder": false,
 }

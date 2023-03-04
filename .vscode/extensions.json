@@ -9,6 +9,7 @@
         "streetsidesoftware.code-spell-checker",
         "yzhang.markdown-all-in-one",
         "davidanson.vscode-markdownlint",
-        "gruntfuggly.todo-tree"
+        "gruntfuggly.todo-tree",
+        "jebbs.plantuml"
     ]
 }

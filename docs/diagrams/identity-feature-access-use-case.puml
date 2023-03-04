@@ -1,0 +1,22 @@
+@startuml identity-feature-access-use-case
+left to right direction
+actor Worker as worker
+package  {
+  actor Manager as manager
+  actor Admin as admin
+}
+package Identity {
+  usecase "sign-in" as signOnUseCase
+  usecase "sign-off" as signOffUseCase
+  usecase "upload facial image" as uploadFacialImageUseCase
+  usecase "activate sign-in" as activateSignOnUseCase
+  usecase "activate sign-off" as activateSignOffUseCase
+}
+admin --> activateSignOnUseCase
+admin --> activateSignOffUseCase
+manager --> activateSignOffUseCase
+manager --> activateSignOnUseCase
+worker --> signOffUseCase
+worker --> signOnUseCase
+worker --> uploadFacialImageUseCase
+@enduml

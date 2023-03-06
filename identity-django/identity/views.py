@@ -89,8 +89,8 @@ def location_details(request, location_id):
         'location': location,
         'location_active_sign_ins': location_active_sign_ins,
         'location_day_roster_logs': location_day_roster_logs,
-
     }
+
     return render(request, 'locations/details.html', context)
 
 

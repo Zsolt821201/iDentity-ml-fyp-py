@@ -1,7 +1,4 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib import admin
 from .import views
 from .views import UserEditView, PasswordsChangeView
 
@@ -29,7 +26,4 @@ urlpatterns = [
     
     path('perform-sign-out/<int:location_id>/<int:user_account_id>/', views.perform_sign_out1, name='perform-sign-out'),
     path('remove-permission/<int:location_id>/<int:user_account_id>/', views.remove_permission, name='remove-permission'),
-    
-    
-    
 ]

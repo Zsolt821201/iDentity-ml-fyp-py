@@ -135,8 +135,8 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
     return True, faces[0]
 
 # Step 3 recognize faces
-def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, img, min_size = None):
-    gray_scale_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, image, min_size = None):
+    gray_scale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     is_face_present, face = detect_user_face(gray_scale_image, min_size=min_size)
     

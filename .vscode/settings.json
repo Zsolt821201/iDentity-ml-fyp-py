@@ -13,6 +13,7 @@
         "imshow",
         "imwrite",
         "LBPH",
+        "listdir",
         "locationpermission",
         "makedirs",
         "makemigrations",
@@ -29,6 +30,7 @@
         "thead",
         "Toth",
         "typeof",
+        "urlpatterns",
         "Zsolt"
     ],
     "cSpell.enableFiletypes": [

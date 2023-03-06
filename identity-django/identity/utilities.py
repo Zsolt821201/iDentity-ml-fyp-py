@@ -1,18 +1,18 @@
-import base64
+from .models import Location, LocationPermission, Roster, UserAccount
 from datetime import datetime
-import os
-import re
-from io import BytesIO
 from cv2 import CascadeClassifier
 from django.core.files.base import ContentFile
-import cv2
+from io import BytesIO
 from numpy import ndarray
-from PIL import Image
 from pathlib import Path
+from PIL import Image
 
+import base64
+import cv2
 import numpy
+import os
+import re
 
-from .models import Location, LocationPermission, Roster, UserAccount
 
 
 #CLASSIFIER_CONFIGURATION: str = str(Path(__file__).resolve().parent / 'haarcascades/haarcascade_frontalface_default.xml')
@@ -90,7 +90,7 @@ def decode_base64(image_base64_str):
     image_data = re.sub('^data:image/.+;base64,', '', image_base64_str)
     return base64.b64decode(image_data)
 
-
+# Step 1 detect faces
 def detect_and_save_user_face(user_account_id, image, image_number):
     """Detects a single face in the image and saves it to the database"""
     gray_scale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -112,7 +112,7 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
     If no face is detected, the flag found is False.  If more than one face is detected, the flag found is False.
 
     Args:
-        gray_scale_image (_type_): _description_
+        gray_scale_image (Mat): Take a gray-scale image Mat object as input
         min_size (tuple, optional): _description_. Defaults to None.
 
     Returns:
@@ -134,10 +134,7 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
 
     return True, faces[0]
 
-
-def stream_image(image_base64_str: str) -> BytesIO:
-    return BytesIO(decode_base64(image_base64_str))
-
+# Step 3 recognize faces
 def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, img, min_size = None):
     gray_scale_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -153,17 +150,6 @@ def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, img, min_siz
     
     return user_id, confidence, face
 
-def log_attempt(user_id, confidence, face):
-    """Not Working
-
-    Args:
-        user_id (_type_): _description_
-        confidence (_type_): _description_
-        face (_type_): _description_
-    """
-    file_path: str = f"{DATABASE_LOG_DIRECTORY}/{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}user-{user_id}-confidence-{confidence}.jpg"
-    os.makedirs(file_path, exist_ok=True)
-    cv2.imwrite(f"{file_path}", face)
     
 def face_recognition_web(open_cv_image: ndarray):
     """
@@ -182,6 +168,7 @@ def face_recognition_web(open_cv_image: ndarray):
 
     return user_id, confidence
 
+# Step 2 train faces
 def face_training():
     print("\n [INFO] Training faces. It will take a few seconds. Wait ...")
     faces, face_ids = get_images_and_labels(DATABASE_FACE_DIRECTORY)
@@ -230,6 +217,17 @@ def get_images_and_labels(path) -> tuple[list, list]:
 
     return face_samples, face_ids
 
+###
+# File IO
+###
+
+def stream_image(image_base64_str: str) -> BytesIO:
+    return BytesIO(decode_base64(image_base64_str))
+
+
+###
+### Support for IDentify Model API
+###
 
 def face_present_has_high_confidence(loss: float) -> bool:
     """ Determines if the face is present and identified by the loss value.
@@ -249,7 +247,6 @@ def face_present_has_high_confidence(loss: float) -> bool:
 def is_permission_denied(user_account : UserAccount, location: Location) -> bool:
     location_permission: LocationPermission = LocationPermission.objects.filter(
         location=location, user_account=user_account).first()
-
     return location_permission is None
 
 
@@ -289,20 +286,24 @@ def sign_in_at_location(user_account: UserAccount, location: Location):
                             sign_in_date=sign_in_date)
     roster.save()
 
-
 def sign_out_at_location(user_account: UserAccount, location: Location):
     roster: Roster = Roster.objects.filter(
         location=location, user_account=user_account, sign_out_date__isnull=True).first()
     roster.sign_out_date = datetime.now()
     roster.save()
 
+###
+### Logging
+###
 
+def log_attempt(user_id, confidence, face):
+    """Not Working
 
-
-
-
-
-
-
-
-    
+    Args:
+        user_id (_type_): _description_
+        confidence (_type_): _description_
+        face (_type_): _description_
+    """
+    file_path: str = f"{DATABASE_LOG_DIRECTORY}/{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}user-{user_id}-confidence-{confidence}.jpg"
+    os.makedirs(file_path, exist_ok=True)
+    cv2.imwrite(f"{file_path}", face)

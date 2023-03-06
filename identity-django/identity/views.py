@@ -14,7 +14,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from .forms import UserChangeForm
-from .utilities import face_recognition_web, is_on_active_roster, is_permission_denied, parse_roaster_signing_requests, sign_in_at_location, sign_out_at_location
+from .utilities import is_on_active_roster, is_permission_denied, parse_roaster_signing_requests, sign_in_at_location, sign_out_at_location
 from .utilities import face_training
 from .utilities import stream_image
 from .utilities import detect_and_save_user_face
@@ -142,11 +142,21 @@ def force_sign_out(_, roster_id):
 
 
 @login_required
-def remove_permission(_, location_id, user_account_id):
-    instance: LocationPermission = LocationPermission.objects.get(
-        location_id__id=location_id, user_account_id__id=user_account_id)
-    instance.delete()
-    return redirect(f'/locations/{location_id}')
+def remove_permission(request, location_id, user_account_id):
+    user_account = get_object_or_404(UserAccount, pk=request.user.id)
+    if hasPermission(user_account, location_id, 'identity.remove_permission'):
+        instance: LocationPermission = LocationPermission.objects.get(
+            location__id=location_id, user_account__id=user_account_id)
+        instance.delete()
+        return redirect(f'/locations/{location_id}')
+    else:
+        return render(request, 'user-accounts/permission-denied.html', {'user_account_id': request.user.id})
+
+
+def hasPermission(user_account: UserAccount, location_id: int, permission: str):
+    # TODO: Test
+    return True
+    # return LocationPermission.objects.filter(location_id__id=location_id, user_account_id__id=user_account.id, permission=permission).exists()
 
 
 @login_required

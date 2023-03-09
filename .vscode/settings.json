@@ -12,6 +12,7 @@
         "haarcascades",
         "imshow",
         "imwrite",
+        "kipr",
         "LBPH",
         "listdir",
         "locationpermission",

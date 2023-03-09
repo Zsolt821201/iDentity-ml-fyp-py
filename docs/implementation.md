@@ -1,4 +1,6 @@
-
+<style>
+    p { text-align: justify; }
+</style>
 # Implementation
 
 # Frameworks/Languages
@@ -30,16 +32,6 @@ python manage.py startapp identity
 ```
 
 Replace app_name with the name of your app. This command will create a new directory with the same name as your app, which will contain the basic files and folders needed to start a new Django app.
-
-## Linking the App to the Website
-
-To link the app to the website, add the app to the `INSTALLED_APPS` list in the `settings.py` file.
-
-```python
-INSTALLED_APPS = [
-    'identity.apps.IdentityConfig',
-]
-```
 
 ## The Models
 
@@ -324,7 +316,15 @@ Custom Forms are used to add additional fields to the admin site.  The custom fo
 
 ## The Forms
 
-crispy forms are used to style the forms.  The crispy forms are defined in forms.py.  The crispy forms are used in the following files:
+Not to be confused with HTML forms, Django forms are used to validate the data entered by the user.  The forms are defined in the forms.py file.
+
+Crispy Forms is a third-party Django package that allows developers to create beautiful forms with less code. It provides a simpler way to layout the HTML forms using template packs, which can be easily customized according to project requirements.
+
+The package `django-crispy-forms` is required to use the crispy forms in Django.  The package can be installed using the following command:
+
+```bash
+pip install django-crispy-forms
+```
 
 In the settings.py file, the crispy forms are added to the installed apps.
 
@@ -335,25 +335,54 @@ INSTALLED_APPS = [
 ]
 ```
 
-## The Website
-
-## User Login
-
-In the settings.py to set the login URL and the login redirect URL, add the following code.
+In the settings.py file, the crispy forms template pack is added to the template context processors.
 
 ```python
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/login/'
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # ...
+                'django.template.context_processors.request',
+            ],
+        },
+    },
+]
 ```
 
-## Using Open CV /Utilities
+Example use of the crispy forms in the template [edit-user-profile.html](../identity-django/identity/templates/user-accounts/edit-user-profile.html)
+
+```django
+{% extends "master.html" %}
+{% load static %}
+{% block title %}
+  Edit User Profile
+{% endblock title %}
+{% block content %}
+  <form method="post">
+    <div class="container" style="width: 30rem;">
+      <h1>Edit User Profile</h1>
+      <div class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <button class="btn btn-primary" type="submit">Update Profile</button>
+      </div>
+    </div>
+  </form>
+{% endblock content %}
+```
+
+ `{{ form.as_p }}` is used to render the crispy form.
+
+## Utilities
 
 I placed the Application Code for Image Processing in utilities.py
 
-haarcascades are pre-trained classifiers that are used to detect objects in images.
-The identity project used `haarcascade_frontalface_default.xml` to detect faces in images.
-
-## Constants and File Paths
+### Constants and File Paths
 
 Constants for FilePaths and application Settings are defined at the top of the `utilities.py` file.
 
@@ -372,9 +401,12 @@ FACE_CONFIDENCE_LEVEL:float = 80.0
 
 `FACE_CONFIDENCE_LEVEL` is the maximum confidence level acceptable that a face can be considered a match.  The lower the value the more confident the application is that the face is a identified correctly. File paths are defined relative to the `utilities.py` file for teh directories that are used by the application, such as the `database` directory, the `database/identity_face_dataset` directory, and the `database/trainer.yml` file.
 
-## Face Detection
+### Face Detection
 
 The [OpenCv](https://opencv.org/) library is used to detect faces in images and to train the application to identify faces.
+
+haarcascades are pre-trained classifiers that are used to detect objects in images.
+The identity project used `haarcascade_frontalface_default.xml` to detect faces in images available at [github.com/kipr/opencv](https://github.com/kipr/opencv/tree/master/data/haarcascades).
 
 ### How to use Open CV
 
@@ -386,7 +418,7 @@ Import the package using the following code in python files.
 import cv2
 ```
 
-#### How to find a face in an image
+### How to find a face in an image
 
 Given a gray-scale image Mat object as input the function `detect_user_face` returns a tuple containing a boolean flag and a numpy array.  The flag is True if a face is detected in the image and False if no face is detected.  The numpy array contains the coordinates of the face in the image.
 
@@ -431,7 +463,7 @@ def detect_and_save_user_face(user_account_id, image, image_number):
 
 The `detect_and_save_user_face` function takes a user account id, an image, and an image number as input.  The function converts the image to a gray-scale image and calls the `detect_user_face` function to detect a face in the image.  If a face is detected, the function saves the face to the database directory.  The function returns a boolean flag indicating whether a face was detected.
 
-#### How to train the model
+### How to train the model
 
 The `face_training` function trains the model using the images in the `DATABASE_FACE_DIRECTORY` directory.  The function saves the trained model to the `DATABASE_FACIAL_TRAINER` file. `recognizer = cv2.face.LBPHFaceRecognizer_create()` creates a face recognizer object.  The `recognizer.train` method takes the list of images and the list of user ids as input and trains the model. With the model trained `recognizer.write` method saves the trained model to the `DATABASE_FACIAL_TRAINER` file.
 
@@ -471,7 +503,21 @@ def get_images_and_labels(path) -> tuple[list, list]:
     return face_samples, face_ids
 ```
 
-#### How to recognize a face in an image
+### How to recognize a face in an image
+
+To recognize a face in an image, you need a trained model i.e.[trainer.yml](../identity-django/database/trainer.yml) . The `face_recognition_web` function takes an image as an input and calls the `face_image_recognition` function to recognize a face in the image.  
+
+```python
+def face_recognition_web(open_cv_image: ndarray):
+    recognizer:cv2.face.LBPHFaceRecognizer = cv2.face.LBPHFaceRecognizer_create()
+    recognizer.read(DATABASE_FACIAL_TRAINER)
+
+    user_id, confidence, face = face_image_recognition(recognizer,  open_cv_image)
+
+    return user_id, confidence
+```
+
+The `face_image_recognition` function takes a recognizer object, an image, and a minimum size as input.  The function converts the image to a gray-scale image and calls the [detect_user_face](#how-to-find-a-face-in-an-image) function to detect a face in the image.  If a face is detected, the function calls the `recognizer.predict` method to recognize the face.  The `recognizer.predict` method returns a tuple containing the user id and the confidence of the prediction.  The `face_image_recognition` function then returns a tuple containing the user id, the confidence of the prediction, and the coordinates of the face in the image.
 
 ```python
 def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, image, min_size = None):
@@ -488,18 +534,42 @@ def face_image_recognition(recognizer: cv2.face.LBPHFaceRecognizer, image, min_s
     return user_id, confidence, face
 ```
 
-```python
-def face_recognition_web(open_cv_image: ndarray):
-    recognizer:cv2.face.LBPHFaceRecognizer = cv2.face.LBPHFaceRecognizer_create()
-    recognizer.read(DATABASE_FACIAL_TRAINER)
-
-    user_id, confidence, face = face_image_recognition(recognizer,  open_cv_image)
-
-    return user_id, confidence
-```
-
 ### File Encoding
 
+To work with images in Python, you need to convert the image to a numpy array.  The `image_to_numpy_array` function takes an image file path as input and returns a numpy array.  The function uses the `PIL.Image.open` method to open the image file and the `numpy.array` method to convert the image to a numpy array.
+
+However, images sent via HTTP requests are encoded in Base64. To work with OpenCV these images need to be decoded.  The `decode_base64` function takes a Base64 encoded string as input and returns a byte array.  The function uses the `re.sub` method to remove the `data:image/.+;base64,` prefix from the string.  The `base64.b64decode` method then decodes the string. 
+
+```python
+import base64
+import re # Regular expression
+
+def decode_base64(image_base64_str):
+    image_data = re.sub('^data:image/.+;base64,', '', image_base64_str)
+    return base64.b64decode(image_data)
+```
+
+The `stream_image` function takes a Base64 encoded string as input and returns a `BytesIO` object.  The function uses the `decode_base64` function to decode the string and the `BytesIO` method to create a `BytesIO` object.
+
+```python
+from io import BytesIO
+
+def stream_image(image_base64_str: str) -> BytesIO:
+    return BytesIO(decode_base64(image_base64_str))
+```
+
+This `BytesIO` object can be passed to the `numpy.array` and `PIL.Image.open` methods to create a numpy array that can be used with the OpenCV functions.
+
+```python
+import numpy
+from PIL import Image
+
+def parse_roaster_signing_requests(request) -> tuple[bool, UserAccount]:
+    request_data = request.POST
+    image_bytes = stream_image(request_data['image-base64'])
+    open_cv_image = numpy.array(Image.open(image_bytes))
+    #...
+```
 
 ### Creating Sample users
 
@@ -546,6 +616,89 @@ def build_sample_user(video_path:str, session_user_account_id:str):
     cv2.destroyAllWindows()
 ```
 
-## Unit Testing
+## The Website
 
-### How to run the unit tests
+The website app is used to display the content on the website.  The website app is located in the website folder [identity_website](../identity-django/identity_website).
+
+### Linking the App to the Website
+
+To link the app to the website, add the app to the `INSTALLED_APPS` list in the `settings.py` file.
+
+```python
+INSTALLED_APPS = [
+    'identity.apps.IdentityConfig',
+]
+```
+
+### Configuring Login Paths
+
+In the settings.py to set the login URL and the login redirect URL, add the following code.
+
+```python
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/login/'
+```
+
+## Client Side Functionality
+
+To send a video stream from the client machine to the server, Javascript is used.
+
+There are three use cases that server listens for
+
+- User facial recognition Setup (Use case #1)
+- Location Roaster Sign in (Use case #2)
+- Location Roaster Sign out (Use case #3)
+
+### Use Case #1: User Facial Recognition Setup
+
+the first code to developed was how can a user setup their facial recognition. 
+
+The User Facial Recognition Setup was implemented as a set of procedural functions.
+
+
+Development/test of the User Facial Recognition Setup highlighted difficulties with the use of procedural functions.  The procedural functions were difficult to test and difficult to maintain.  It was generally difficult to reuse the code for the other use cases.
+
+### Location Roaster Sign in/out
+
+Both use cases 2 and 3 are similar. They both send a video stream to the server, a location id, and a user id to teh server
+The only difference between the use cases 2 and 3 is the action the server takes.  Use case 2 is a sign in and use case 3 is a sign out. In the client Javascript code, the action to either sign in or sign out is decided by the URL that the request is sent to.
+
+Given the issues with the procedural functions for use case 1, the client side Javascript code was refactored to use classes.  The classes were designed to be reusable for use cases 2 and 3 and independent of the html page elements.  This was accomplished by use of dependency injection. The html page elements are passed to the class as parameters during construction.
+
+```javascript
+const webPageControls = new WebPageControls();
+const manager = new Manager(webPageControls, UrlPaths.PERFORM_SIGN_OUT_URL);
+```
+
+WebPageControls is a class that contains the html page elements.  The class is used to abstract the html page elements from the rest of the code.  This allows the code to be reused for different html pages. The class also provides a single point of access to the html page elements.  This allows the code to be more maintainable.
+
+Manager is a class that is used to manage the video stream.  The class is used to abstract the video stream from the rest of the code.  This allows the code to be reused for different use cases. The class also provides a single point of access to the video stream.  This allows the code to be more maintainable. Manager is 'dependent' on the WebPageControls class.  The WebPageControls class is passed to the Manager class as a parameter 'injected' during construction.  Hence the term dependency injection.
+
+The second parameter to the Manager class is the URL that the video stream is sent to.  This allows the Manager class to be reused for use cases 2 and 3 by passing in the appropriate URL.
+
+[facial-login.js](../identity-django/identity/static/js/facial-login.js)
+
+### Sending a Video Stream
+
+### Receiving a Video Stream
+
+### Displaying a Video Stream
+
+### Using Javascript
+
+Events should be attached to HTML elements with javascript rather than in the HTML.
+
+Issues with Javascript include the page loading before the Javascript is loaded.  
+
+To ensure that Javascript is not run before the page is loaded, the following code is used.
+
+```javascript
+$(document).ready(function() {
+    //Your code goes here
+});
+```
+
+### Third Party Libraries
+
+- [JQuery](https://jquery.com/)
+- [Bootstrap](https://getbootstrap.com/)

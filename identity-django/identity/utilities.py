@@ -40,12 +40,23 @@ class MyResponseCodes :
     NO_FACE_FOUND: int = 462
     NOT_ON_ROASTER: int = 463
 
+###
+# File IO
+###
 def base64_file(data, name=None):
     _format, _img_str = data.split(';base64,')
     _name, ext = _format.split('/')
     if not name:
         name = _name.split(":")[-1]
     return ContentFile(base64.b64decode(_img_str), name='{}.{}'.format(name, ext))
+
+def decode_base64(image_base64_str):
+    image_data = re.sub('^data:image/.+;base64,', '', image_base64_str)
+    return base64.b64decode(image_data)
+
+def stream_image(image_base64_str: str) -> BytesIO:
+    return BytesIO(decode_base64(image_base64_str))
+
 
 def build_sample_user(video_path:str, session_user_account_id:str):
     
@@ -86,9 +97,7 @@ def build_sample_user(video_path:str, session_user_account_id:str):
     video_capture.release()
     cv2.destroyAllWindows()
 
-def decode_base64(image_base64_str):
-    image_data = re.sub('^data:image/.+;base64,', '', image_base64_str)
-    return base64.b64decode(image_data)
+
 
 # Step 1 detect faces
 def detect_and_save_user_face(user_account_id, image, image_number):
@@ -164,7 +173,7 @@ def face_recognition_web(open_cv_image: ndarray):
     recognizer:cv2.face.LBPHFaceRecognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read(DATABASE_FACIAL_TRAINER)
 
-    user_id, confidence, face = face_image_recognition(recognizer,  open_cv_image)
+    user_id, confidence, _ = face_image_recognition(recognizer,  open_cv_image)
 
     return user_id, confidence
 
@@ -217,12 +226,6 @@ def get_images_and_labels(path) -> tuple[list, list]:
 
     return face_samples, face_ids
 
-###
-# File IO
-###
-
-def stream_image(image_base64_str: str) -> BytesIO:
-    return BytesIO(decode_base64(image_base64_str))
 
 
 ###

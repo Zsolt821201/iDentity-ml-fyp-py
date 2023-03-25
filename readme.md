@@ -24,16 +24,24 @@ Identity is a Python Django web application that uses machine learning and facia
     ```
 
 2. Install dependencies
+    - With Pip
 
-    ```py
-    pip install -r requirements.txt
-    ```
+        ```bash
+        pip install -r identity-django/requirements.txt
+        ```
+
+    - With conda
+
+        ```bash
+        conda install --file identity-django/requirements.txt
+        ```
 
 3. Run the app
     Open VS Code and run the app by pressing the `F5` Key or  
     Open a terminal and run the following command:
 
     ```bash
+    cd identity-django
     python manage.py runserver
     ```
 

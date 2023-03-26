@@ -26,7 +26,7 @@ DATABASE_FACE_DIRECTORY: str = str(
 DATABASE_LOG_DIRECTORY: str = str(
     PARENT_DIRECTORY / 'database/log')
 DATABASE_FACIAL_TRAINER: str = str(PARENT_DIRECTORY / 'database/trainer.yml')
-FACE_CONFIDENCE_LEVEL:float = 80.0
+FACE_CONFIDENCE_LEVEL:float = 85.0
 
 
 class MyResponseCodes :
@@ -69,8 +69,7 @@ def build_sample_user(video_path:str, session_user_account_id:str):
     while(image_number < FACE_SAMPLE_COUNT):
         is_video_capture_open, open_cv_image = video_capture.read()
 
-        if not is_video_capture_open:
-            print("Error: Camera is not opened")
+        if not is_video_capture_open: # Camera is not opened
             break
 
         cv2.imshow('image', open_cv_image)
@@ -132,12 +131,10 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
     faces: ndarray = face_detector_classifier.detectMultiScale(
         gray_scale_image, scaleFactor=1.3, minNeighbors=5, minSize=min_size)
 
-    if len(faces) == 0:
-        print("Error: No face detected")
+    if len(faces) == 0: # No face detected
         return False, None
 
-    if len(faces) > 1:
-        print("Error: More than one face detected")
+    if len(faces) > 1: # More than one face detected
         return False, None
 
 

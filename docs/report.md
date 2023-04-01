@@ -538,7 +538,7 @@ application, Teams Description automatically
 generated](media/image5.png){width="6.3in"
 height="2.2423611111111112in"}
 
-Figure 5.1Class Diagram
+Figure .Class Diagram
 
 ## Securing application features
 
@@ -558,7 +558,7 @@ secure environment for employees and visitors.
 generated](media/image6.png){width="6.375462598425197in"
 height="3.618566272965879in"}
 
-Figure 5.2 Sign-in example
+Figure . Sign-in example
 
 A location manager or other designated users are granted permission in
 the application to start sign-in / sign-off features.
@@ -567,7 +567,7 @@ the application to start sign-in / sign-off features.
 generated](media/image7.png){width="2.325173884514436in"
 height="3.0433464566929134in"}
 
-Figure 5.3 Feature permissions
+Figure . Feature permissions
 
 ## Use cases
 
@@ -937,7 +937,7 @@ the day.
 generated](media/image11.png){width="6.3in"
 height="2.048611111111111in"}
 
-Figure 5.4Location roster day View
+Figure .Location roster day View
 
 ### Location Sign in
 
@@ -1000,7 +1000,7 @@ A User can change their password here.
 generated](media/image18.png){width="6.3in"
 height="3.004861111111111in"}
 
-Figure 5.5 change-password.html
+Figure . change-password.html
 
 ## Tools and Framework Considered
 
@@ -2621,33 +2621,49 @@ and a user identification display had to be added to the app.
 
 # Conclusion:
 
+\*\*opening sentence\*\*
+
+## Continued development
+
 Bringing a product such as 'Identity' to market, data analysis should be
 performed to make a product viable. 'Identity' as a proof of concept
-could be scaled for different types of businesses in different domains
-with different fault tolerance levels.
+could be scaled for different types of businesses with different fault
+tolerance levels in different domains.
 
-Tiers
+Security Tiers:
 
-1.  Non-issue: The consequences for misidentifying a person and granting
-    access to an authorised user are low for supermarkets.
+1.  Low consequence (low): Supermarkets have low consequences for
+    misidentifying a person and granting access to an authorised user.
 
-2.  Unitended attacks: For hospitals, the consequences of misidentifying
-    a person and granting access to an authorised user are potentially
-    lethal. An unauthorised person wandering around the hospital cannot
-    be permitted by 'Identity' entry to a live sterile ER operating
-    room.
+2.  Accidental intrusions (high): The consequences of misidentifying a
+    person and granting access to an authorised user are potentially
+    lethal for hospitals. An unauthorised person wandering around the
+    hospital cannot be permitted by 'Identity' entry to a live sterile
+    ER operating room.
 
-3.  Malicious attacks: For prisons \*\* Prevention of Malicious intent
-    \> (picture on the phone versus live/real face in stream)\*\*
+3.  Malicious attacks (high): For prisons, the consequences of
+    misidentifying a person and granting access to an authorised user
+    are always assumed to be lethal. Every authentication request is
+    assumed to be potentially malicious (e.g. A prisoner holding up a
+    photo of a guard in front of the 'Identity' station's camera),
+    requiring a higher (confidence value) burden of proof to confirm
+    user access. A prisoner cannot be permitted by 'Identity' entry or
+    unlogged access to any location in prison.
 
 Resources and time will be required for Big data Analysis and confidence
 testing to determine the optimal confidence value to use 'Identity'for
-high-security environments (Hospitals, Prisons).
+high-security tier environments (Hospitals, Prisons).
 
-For low tier (unsupervised will be enough) Low cost, low time
+## Machine learning approaches 
 
-For Unitended attacks / Malicious attacks tiers Supervised human High
-cost and time
+Unsupervised learning has low cost/time requirements and is suitable for
+the low-tier domain of low consequences.
+
+Supervised learning requires high cost and time and is needed for
+high-security tier domains like 'Accidental intrusions' & 'Malicious
+attacks'.
+
+### Aditional \*TTHINDS
 
 Testing\*
 

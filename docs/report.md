@@ -2621,14 +2621,19 @@ and a user identification display had to be added to the app.
 
 # Conclusion:
 
-\*\*opening sentence\*\*
+As the Author concludes this project, it is clear that the continued
+development of \'Identity\' as a proof of concept holds significant
+promise for meeting the needs of different businesses with varying
+levels of fault tolerance in different domains.
 
 ## Continued development
 
-Bringing a product such as 'Identity' to market, data analysis should be
-performed to make a product viable. 'Identity' as a proof of concept
-could be scaled for different types of businesses with different fault
-tolerance levels in different domains.
+Before bringing a product like \'Identity\' to market, it\'s important
+to perform data analysis to ensure its viability. However, as a proof of
+concept, \'Identity\' could be scaled to meet the needs of different
+businesses with varying levels of fault tolerance in different domains.
+This flexibility makes \'Identity\' a promising solution for businesses
+looking to enhance their security and authentication processes
 
 Security Tiers:
 
@@ -2656,14 +2661,16 @@ high-security tier environments (Hospitals, Prisons).
 
 ## Machine learning approaches 
 
-Unsupervised learning has low cost/time requirements and is suitable for
-the low-tier domain of low consequences.
+Regarding machine learning approaches, unsupervised learning is a
+cost-effective, time-efficient option and well-suited for low-tier
+domains where the consequences of misidentification are relatively low.
 
-Supervised learning requires high cost and time and is needed for
-high-security tier domains like 'Accidental intrusions' & 'Malicious
-attacks'.
+On the other hand, supervised learning is a more resource-intensive
+option better suited for high-security tier domains like those that deal
+with accidental intrusions or malicious attacks, where accuracy and
+precision are paramount.
 
-### Aditional \*TTHINDS
+### Additional \*TTHINDS
 
 Testing\*
 

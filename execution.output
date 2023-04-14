@@ -1,0 +1,36 @@
+@zsolt
+Feature: Navigation bar test coverage # behave_test/features/feature_files/login_process/login_process.feature:3
+
+  @login
+  Scenario: Navigation bar contains home link   # behave_test/features/feature_files/login_process/login_process.feature:6
+    Given application is opened                 # behave_test/features/steps/general_steps.py:8
+    When successfully logged into system        # behave_test/features/steps/login_steps.py:6
+    Then page is redirected into Locations page # behave_test/features/steps/navigation_bar.py:9
+
+  @login
+  Scenario: Navigation bar contains home link - intended to fail  # behave_test/features/feature_files/login_process/login_process.feature:13
+    Given application is opened                                   # behave_test/features/steps/general_steps.py:8
+    When successfully logged into system                          # behave_test/features/steps/login_steps.py:6
+    Then page is redirected into Doesnt exist page                # behave_test/features/steps/navigation_bar.py:9
+      Traceback (most recent call last):
+        File "C:\Users\Gazdi\anaconda3\lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\Gazdi\anaconda3\lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "behave_test\features\steps\navigation_bar.py", line 13, in redirected_into_site
+          assert app_data == where
+      AssertionError
+
+
+  @login
+  Scenario: Unauthorized user cannot access application  # behave_test/features/feature_files/login_process/login_process.feature:19
+    Given application is opened                          # behave_test/features/steps/general_steps.py:8
+    When unauthorized user is login into system          # behave_test/features/steps/login_steps.py:13
+    Then login process denied                            # behave_test/features/steps/login_steps.py:25
+
+  @login
+  Scenario: Login process failures without inserting credentials  # behave_test/features/feature_files/login_process/login_process.feature:25
+    Given application is opened                                   # behave_test/features/steps/general_steps.py:8
+    When clicking Login button without user credentials           # behave_test/features/steps/login_steps.py:19
+    Then login process denied                                     # behave_test/features/steps/login_steps.py:25
+

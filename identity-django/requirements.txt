@@ -5,3 +5,5 @@ opencv-contrib-python==4.7.0.68
 Pillow==9.4.0
 pysqlite3==0.4.5
 sqlparse==0.4.2
+behave
+selenium

@@ -11,6 +11,7 @@
         "davidanson.vscode-markdownlint",
         "gruntfuggly.todo-tree",
         "jebbs.plantuml",
-        "redhat.fabric8-analytics"
+        "redhat.fabric8-analytics",
+        "alexkrechik.cucumberautocomplete"
     ]
 }

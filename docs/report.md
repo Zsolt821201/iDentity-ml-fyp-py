@@ -1,3 +1,339 @@
+**iDentity-Biometric Face Recognition Time Management System**
+
+**Zsolt Toth**
+
+**K00253221**
+
+A Final Year Project submitted in partial fulfilment of the requirements
+of the Technological University of the Shannon for the degree of
+Bachelor of Science (Honours) in Software Development.
+
+Supervised By:
+
+Brendan Watson
+
+# Acknowledgements {#acknowledgements .Non-Heading}
+
+I want to express my deepest appreciation and gratitude to all those who
+have supported and guided me throughout the journey of completing my
+Final Year Project (FYP). This accomplishment would not have been
+possible without their encouragement, wisdom, and patience.
+
+First and foremost, I would like to extend my sincerest thanks to my FYP
+supervisor, Mr Brendan Watson, for his unwavering support and guidance
+throughout this project. His invaluable insights, expertise, and
+constructive feedback have been instrumental in shaping my work and
+helping me achieve my goals. I am truly grateful for the time and effort
+he has invested in mentoring me and the confidence he has shown in my
+abilities. I would also like to extend my deepest appreciation to my
+devoted girlfriend, Andreea, for her constant encouragement and support
+throughout this difficult time. Her forbearance, understanding, and
+unwavering confidence in me have been fortifying and motivating me. She
+has been by my side every step, providing emotional support and an ear
+to listen, for which I am forever indebted.
+
+# Ethical Declaration {#ethical-declaration .Non-Heading}
+
+I declare that this project and document is wholly my own work except
+where I have made explicit reference to the work of others. I have read
+the Department of Information Technology Final Year Project guidelines
+and relevant institutional regulations, and hereby declare that this
+document is in line With these requirements.
+
+I have discussed, agreed, and complied with whatever confidentiality or
+anonymity terms of reference were deemed appropriate by those
+participating in the research and dealt appropriately with any other
+ethical matters arising, in line with the TUS Research Ethics Guidelines
+for Undergraduate and Taught Postgraduate Programmes policy document.
+
+  -----------------------------------------------------------------------
+  [Zsolt Toth]{.underline}            [May 1, 2023]{.underline}
+  ----------------------------------- -----------------------------------
+
+  -----------------------------------------------------------------------
+
+# Table of Contents {#table-of-contents .TOC-Heading}
+
+[Acknowledgements [ii](#acknowledgements)](#acknowledgements)
+
+[Ethical Declaration [iii](#ethical-declaration)](#ethical-declaration)
+
+[List of Figures [viii](#list-of-figures)](#list-of-figures)
+
+[Abstract [ix](#abstract)](#abstract)
+
+[Chapter 1 Introduction [10](#introduction)](#introduction)
+
+[1.1 Objective [10](#objective)](#objective)
+
+[Chapter 2 Research [11](#research)](#research)
+
+[2.1 Introduction [11](#introduction-1)](#introduction-1)
+
+[2.2 Why facial recognition is popular
+[11](#why-facial-recognition-is-popular)](#why-facial-recognition-is-popular)
+
+[2.3 Facial recognition in the software industry
+[11](#facial-recognition-in-the-software-industry)](#facial-recognition-in-the-software-industry)
+
+[2.4 On-Site Software solutions in the Industry
+[13](#on-site-software-solutions-in-the-industry)](#on-site-software-solutions-in-the-industry)
+
+[2.5 Face Recognition techniques
+[14](#face-recognition-techniques)](#face-recognition-techniques)
+
+[2.6 Face detection systems may be categorised into four classes based
+on their work.
+[15](#face-detection-systems-may-be-categorised-into-four-classes-based-on-their-work.)](#face-detection-systems-may-be-categorised-into-four-classes-based-on-their-work.)
+
+[2.7 Facial recognition technology in use
+[18](#facial-recognition-technology-in-use)](#facial-recognition-technology-in-use)
+
+[2.8 Artificial Neural Network
+[18](#artificial-neural-network)](#artificial-neural-network)
+
+[2.9 Descriptions of well-known neural networks
+[21](#descriptions-of-well-known-neural-networks)](#descriptions-of-well-known-neural-networks)
+
+[2.9.1 Convolutional Neural Network CNN
+[21](#convolutional-neural-network-cnn)](#convolutional-neural-network-cnn)
+
+[2.9.2 Recurrent Neural Network RNN
+[23](#recurrent-neural-network-rnn)](#recurrent-neural-network-rnn)
+
+[Chapter 3 Analysis and Design
+[25](#analysis-and-design)](#analysis-and-design)
+
+[3.1 Application Overview
+[25](#application-overview)](#application-overview)
+
+[3.2 Data Design [25](#data-design)](#data-design)
+
+[3.3 Securing application features
+[26](#securing-application-features)](#securing-application-features)
+
+[3.4 Use cases [28](#use-cases)](#use-cases)
+
+[3.4.1 Upload facial data
+[28](#upload-facial-data)](#upload-facial-data)
+
+[3.4.2 Sign in with facial data
+[28](#sign-in-with-facial-data)](#sign-in-with-facial-data)
+
+[3.4.3 Sign out with facial data
+[29](#sign-out-with-facial-data)](#sign-out-with-facial-data)
+
+[3.4.4 Add a new user [30](#add-a-new-user)](#add-a-new-user)
+
+[3.4.5 Log in to the user account
+[31](#log-in-to-the-user-account)](#log-in-to-the-user-account)
+
+[3.4.6 Logout from the user account
+[31](#logout-from-the-user-account)](#logout-from-the-user-account)
+
+[3.4.7 Edit user profile [32](#edit-user-profile)](#edit-user-profile)
+
+[3.4.8 Change Password [33](#change-password)](#change-password)
+
+[3.5 Website Layout [34](#website-layout)](#website-layout)
+
+[3.5.1 Locations [34](#locations)](#locations)
+
+[3.5.2 Location details view
+[35](#location-details-view)](#location-details-view)
+
+[3.5.3 View the location roster's day log
+[35](#view-the-location-rosters-day-log)](#view-the-location-rosters-day-log)
+
+[3.5.4 Location Sign in [36](#location-sign-in)](#location-sign-in)
+
+[3.5.5 Location Sign off [38](#location-sign-off)](#location-sign-off)
+
+[3.5.6 Setup user face recognition page
+[40](#setup-user-face-recognition-page)](#setup-user-face-recognition-page)
+
+[3.5.7 Edit Profile [41](#edit-profile)](#edit-profile)
+
+[3.5.8 Change Password [41](#change-password-1)](#change-password-1)
+
+[3.6 Tools and Framework Considered
+[42](#tools-and-framework-considered)](#tools-and-framework-considered)
+
+[3.6.1 Jupiter Notebook [42](#jupiter-notebook)](#jupiter-notebook)
+
+[3.6.2 Python [44](#python)](#python)
+
+[3.6.3 TensorFlow [45](#tensorflow)](#tensorflow)
+
+[Chapter 4 Implementation [47](#implementation)](#implementation)
+
+[4.1 Introduction [47](#introduction-2)](#introduction-2)
+
+[4.2 Tools Used [47](#tools-used)](#tools-used)
+
+[4.2.1 IDE Support for Programming and Documentation
+[47](#ide-support-for-programming-and-documentation)](#ide-support-for-programming-and-documentation)
+
+[4.3 Source Control [47](#source-control)](#source-control)
+
+[4.4 To install and Run the project
+[47](#to-install-and-run-the-project)](#to-install-and-run-the-project)
+
+[4.5 Building an OpenCv application to identify user\'s faces
+[48](#building-an-opencv-application-to-identify-users-faces)](#building-an-opencv-application-to-identify-users-faces)
+
+[4.5.1 How to use Open CV
+[48](#how-to-use-open-cv)](#how-to-use-open-cv)
+
+[4.5.2 How to find a face in an image using OpenCv:
+[49](#how-to-find-a-face-in-an-image-using-opencv)](#how-to-find-a-face-in-an-image-using-opencv)
+
+[4.5.3 How to train a facial recognition model using OpenCV:
+[52](#how-to-train-a-facial-recognition-model-using-opencv)](#how-to-train-a-facial-recognition-model-using-opencv)
+
+[4.5.4 How to recognise a face in an image using a trained model in
+OpenCV
+[54](#how-to-recognise-a-face-in-an-image-using-a-trained-model-in-opencv)](#how-to-recognise-a-face-in-an-image-using-a-trained-model-in-opencv)
+
+[4.5.5 Support for OpenCv processing web inputs
+[55](#support-for-opencv-processing-web-inputs)](#support-for-opencv-processing-web-inputs)
+
+[4.6 Building Identity web project
+[57](#building-identity-web-project)](#building-identity-web-project)
+
+[4.6.1 Using Django [57](#using-django)](#using-django)
+
+[4.6.2 The Models [58](#the-models)](#the-models)
+
+[4.6.3 The Views [60](#the-views)](#the-views)
+
+[4.6.4 The URLs [65](#the-urls)](#the-urls)
+
+[4.6.5 The Admin [67](#the-admin)](#the-admin)
+
+[4.6.6 The Forms [67](#the-forms)](#the-forms)
+
+[4.6.7 Utilities [69](#utilities)](#utilities)
+
+[4.6.8 Constants and File Paths
+[69](#constants-and-file-paths)](#constants-and-file-paths)
+
+[4.6.9 Face Detection [70](#face-detection)](#face-detection)
+
+[4.7 Client Side Functionality
+[70](#client-side-functionality)](#client-side-functionality)
+
+[4.7.1 Use Case #1: User Facial Recognition Setup
+[70](#use-case-1-user-facial-recognition-setup)](#use-case-1-user-facial-recognition-setup)
+
+[4.7.2 Use Cases #2-3: Location Roaster Sign in/out
+[70](#use-cases-2-3-location-roaster-sign-inout)](#use-cases-2-3-location-roaster-sign-inout)
+
+[4.7.3 Refactoring Javascript
+[70](#refactoring-javascript)](#refactoring-javascript)
+
+[4.7.4 Incorporating Javascript into the web app
+[71](#incorporating-javascript-into-the-web-app)](#incorporating-javascript-into-the-web-app)
+
+[4.8 Bulding and deploying the Website
+[71](#bulding-and-deploying-the-website)](#bulding-and-deploying-the-website)
+
+[Chapter 5 Testing and Result
+[72](#testing-and-result)](#testing-and-result)
+
+[5.1 Introduction [72](#introduction-3)](#introduction-3)
+
+[5.2 Unit Testing [72](#unit-testing)](#unit-testing)
+
+[5.2.1 What is Unit Testing, and why is important
+[72](#what-is-unit-testing-and-why-is-important)](#what-is-unit-testing-and-why-is-important)
+
+[5.2.2 Testing Framework in Django
+[72](#testing-framework-in-django)](#testing-framework-in-django)
+
+[5.3 Unit Testing Done [73](#unit-testing-done)](#unit-testing-done)
+
+[5.4 Result Analysis: [73](#result-analysis)](#result-analysis)
+
+[5.5 Discussion of Findings
+[73](#discussion-of-findings)](#discussion-of-findings)
+
+[Chapter 6 Conclusion: [74](#conclusion)](#conclusion)
+
+[6.1 Continued development
+[74](#continued-development)](#continued-development)
+
+[6.2 Machine learning approaches
+[74](#machine-learning-approaches)](#machine-learning-approaches)
+
+[6.3 Tracking continuing developments
+[75](#tracking-continuing-developments)](#tracking-continuing-developments)
+
+[Chapter 7 Bibliography [76](#_Toc132363505)](#_Toc132363505)
+
+# List of Figures {#list-of-figures .list-paragraph}
+
+[Figure 1 A multi-layer neural network's theoretical structure
+(GeeksforGeeks, 2021). [17](#_Toc131962273)](#_Toc131962273)
+
+[Figure 2 Operation of the filter unit used by CNN (Dertat, 2017).
+[20](#_Toc131962274)](#_Toc131962274)
+
+[Figure 3. Recurrent Neural Networks (Olah, 2015).
+[22](#_Toc131962275)](#_Toc131962275)
+
+[Figure 4. An unrolled recurrent neural network (Olah, 2015).
+[22](#_Toc131962276)](#_Toc131962276)
+
+[Figure 5: Class Diagram [23](#_Toc131962277)](#_Toc131962277)
+
+[Figure 8 Sign-in example [24](#_Toc131962278)](#_Toc131962278)
+
+[Figure 9 Feature permissions [25](#_Toc131962279)](#_Toc131962279)
+
+[Figure 10 Locations list view [32](#_Toc131962280)](#_Toc131962280)
+
+[Figure 11 Security notification [32](#_Toc131962281)](#_Toc131962281)
+
+[Figure 12 Limerick location view [33](#_Toc131962282)](#_Toc131962282)
+
+[Figure 13 Location roster day View
+[33](#_Toc131962283)](#_Toc131962283)
+
+[Figure 14 Location Sign In part 1 [34](#_Toc131962284)](#_Toc131962284)
+
+[Figure 15 Location Sign In part 2 [35](#_Toc131962285)](#_Toc131962285)
+
+[Figure 16 Location Sign Out part 1
+[36](#_Toc131962286)](#_Toc131962286)
+
+[Figure 17 Location Sign Out part 2
+[37](#_Toc131962287)](#_Toc131962287)
+
+[Figure 18 Setting Up Facial recognition
+[38](#_Toc131962288)](#_Toc131962288)
+
+[Figure 19 Edit User Profile [39](#_Toc131962289)](#_Toc131962289)
+
+[Figure 20 change-password.html [39](#_Toc131962290)](#_Toc131962290)
+
+[Figure 21 Generator versus discriminator
+[73](#_Toc131962291)](#_Toc131962291)
+
+# Abstract {#abstract .list-paragraph}
+
+Managing security and roster logs in workplaces continues to be a
+challenging and costly endeavor. The complexities are heightened in
+environments that require frequent logging of employee attendance at
+multiple entry and exit points. Consequently, security measures can
+become lax, especially during peak hours with a high volume of workers.
+Identity offers an innovative solution by combining a web-based
+application and a security station equipped with a live camera feed to
+automate entry and exit of authorized personnel. By leveraging
+artificial intelligence and facial recognition technology, Identity
+streamlines security access and roster log management, enhancing
+efficiency and reducing costs.
+
 # Introduction
 
 ## Objective
@@ -24,11 +360,11 @@ lowers human error and raises general workplace efficiency.
 
 This chapter explores how various large software companies have tackled
 the challenge of facial recognition technology and the underlying
-mechanisms that power it. The Author examines the various techniques and
-methodologies these companies employ and explains their solutions. The
-primary objective of this chapter is to equip the reader with
-comprehensive knowledge of contemporary facial recognition software and
-the cutting-edge technologies that drive its operation.
+mechanisms that power it. The author examines these companies\' various
+techniques and methodologies and explains their solutions. The primary
+objective of this chapter is to equip the reader with comprehensive
+knowledge of contemporary facial recognition software and the
+cutting-edge technologies that drive its operation.
 
 ## Why facial recognition is popular
 
@@ -38,16 +374,16 @@ The technology can identify people and their traits, and thanks to
 improvements in artificial intelligence and machine learning, it is much
 more accurate than it used to be. But some concerns have been raised
 about how facial recognition affects ethics and privacy, especially
-regarding surveillance and how its algorithms might be biassed. The use
+regarding surveillance and how its algorithms might be biased. The use
 of facial recognition technology has been discussed and regulated. Some
 countries and cities have banned or limited the use of this technology.
-Still, facial recognition is likely to stay an important and widespread
+Still, facial recognition is likely an important and widespread
 technology in many areas, and more research is needed to ensure it is
 used responsibly and ethically.
 
 ## Facial recognition in the software industry
 
-**Face recognition on Facebook is handled by DeepFace.**
+**DeepFace handles face recognition on Facebook.**
 
 A Facebook research team created the deep learning facial recognition
 algorithm known as DeepFace. In digital photographs, it can identify
@@ -76,7 +412,7 @@ advantageous features.
 **How does Apple Face ID work, and what is it?**
 
 Before, a simple number password protected Apple products, but starting
-with the iPhone 5S in 2013, they were getting read off in favor of
+with the iPhone 5S in 2013, they were getting read off in favour of
 fingerprint readers in new phones. After having fun with fingerprint
 readers, Apple decided that if they were going to take unlocking to a
 new level, they needed to make it safer and faster. In 2017, they
@@ -186,7 +522,7 @@ notions is not strictly scientific in nature, the literature utilises
 them interchangeably to some degree, and they will be made separate
 throughout the remainder of the thesis.
 
-## Face detection systems may be categorised into four classes based on their work**.**
+## **Face detection systems may be categorised into four classes based on their work**.
 
 -   Knowledge-based methods
 
@@ -314,11 +650,11 @@ in the model (but none of its element numbers can be 0) (Kristof, 2002).
 
 +-----------------------------------------------------------------------+
 | ![A picture containing text, clock Description automatically          |
-| generated](media/image1.jpg){width="4.59375in"                        |
+| generated](media/image2.jpg){width="4.59375in"                        |
 | height="2.4895833333333335in"}                                        |
 |                                                                       |
-| Figure . A multi-layer neural network's theoretical structure         |
-| (GeeksforGeeks, 2021).                                                |
+| []{#_Toc131962273 .anchor}Figure 1 A multi-layer neural network's     |
+| theoretical structure (GeeksforGeeks, 2021).                          |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -433,11 +769,11 @@ is sent over the network in detail using a 100x100 pixel filter (Dertat,
 
 +-----------------------------------------------------------------------+
 | ![Diagram Description automatically                                   |
-| generated](media/image2.png){width="6.3in"                            |
+| generated](media/image3.png){width="6.3in"                            |
 | height="4.293055555555555in"}                                         |
 |                                                                       |
-| Figure ..Operation of the filter unit used by convolutional neural    |
-| networks (Dertat, 2017).                                              |
+| []{#_Toc131962274 .anchor}Figure 2 Operation of the filter unit used  |
+| by CNN (Dertat, 2017).                                                |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -476,10 +812,11 @@ networks where data may be stored indefinitely (Olah, 2015).
 
 +-----------------------------------------------------------------------+
 | ![Diagram Description automatically                                   |
-| generated](media/image3.png){width="2.8131681977252843in"             |
+| generated](media/image4.png){width="2.8131681977252843in"             |
 | height="2.358208661417323in"}                                         |
 |                                                                       |
-| Figure .. Recurrent Neural Networks (Olah, 2015).                     |
+| []{#_Toc131962275 .anchor}Figure 3: Recurrent Neural Networks (Olah,  |
+| 2015).                                                                |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -498,10 +835,11 @@ was unfolded (Olah, 2015).
 
 +-----------------------------------------------------------------------+
 | ![A picture containing text, clock Description automatically          |
-| generated](media/image4.png){width="6.3in"                            |
+| generated](media/image5.png){width="6.3in"                            |
 | height="1.5522386264216972in"}                                        |
 |                                                                       |
-| Figure .. An unrolled recurrent neural network (Olah, 2015).          |
+| []{#_Toc131962276 .anchor}Figure 4. An unrolled recurrent neural      |
+| network (Olah, 2015).                                                 |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -535,10 +873,10 @@ and ensure that only authorised individuals can access restricted areas.
 Admin Group: members of the admin group have /inherit admin privileges.
 The system must have at least one admin user.![Graphical user interface,
 application, Teams Description automatically
-generated](media/image5.png){width="6.3in"
+generated](media/image6.png){width="6.3in"
 height="2.2423611111111112in"}
 
-Figure .Class Diagram
+[]{#_Toc131962277 .anchor}Figure 5: Class Diagram
 
 ## Securing application features
 
@@ -555,19 +893,19 @@ who has access to the building. This process helps maintain a safe and
 secure environment for employees and visitors.
 
 ![Diagram, timeline Description automatically
-generated](media/image6.png){width="6.375462598425197in"
+generated](media/image7.png){width="6.375462598425197in"
 height="3.618566272965879in"}
 
-Figure . Sign-in example
+[]{#_Toc131962278 .anchor}Figure 8 Sign-in example
 
 A location manager or other designated users are granted permission in
 the application to start sign-in / sign-off features.
 
 ![Diagram Description automatically
-generated](media/image7.png){width="2.325173884514436in"
+generated](media/image8.png){width="2.325173884514436in"
 height="3.0433464566929134in"}
 
-Figure . Feature permissions
+[]{#_Toc131962279 .anchor}Figure 9 Feature permissions
 
 ## Use cases
 
@@ -861,7 +1199,7 @@ the password change page.
 
 **Trigger Event:**
 
-The user clicks on the change Password button
+The user clicks on the Change Password button
 
 **Main Success Scenario:**
 
@@ -904,15 +1242,19 @@ Clicking a location's name will give a details view of the location.
 Only authorised users, such as administrators or managers, can activate
 the sign-in /sign-off for a location
 
-![](media/image8.png){width="6.283333333333333in"
+![](media/image9.png){width="6.283333333333333in"
 height="1.9902777777777778in"}
+
+[]{#_Toc131962280 .anchor}Figure 10 Locations list view
 
 An unauthorised user who attempts to activate a location's
 sign-in/sign-off screen will receive a 403 response.
 
 ![Graphical user interface, text, application Description automatically
-generated](media/image9.png){width="5.636202974628172in"
-height="3.229617235345582in"}
+generated](media/image10.png){width="5.633858267716535in"
+height="1.720472440944882in"}
+
+[]{#_Toc131962281 .anchor}Figure 11 Security notification
 
 ### Location details view
 
@@ -925,8 +1267,10 @@ The location view displays the
 -   roster logs grouped by day
 
 ![Graphical user interface, application, email Description automatically
-generated](media/image10.png){width="6.3in"
+generated](media/image11.png){width="6.3in"
 height="3.370138888888889in"}
+
+[]{#_Toc131962282 .anchor}Figure 12 Limerick location view
 
 ### View the location roster's day log
 
@@ -934,10 +1278,10 @@ The location's roaster lists the users' sign-in and sign-out times for
 the day.
 
 ![Graphical user interface, application Description automatically
-generated](media/image11.png){width="6.3in"
+generated](media/image12.png){width="6.3in"
 height="2.048611111111111in"}
 
-Figure .Location roster day View
+[]{#_Toc131962283 .anchor}Figure 13 Location roster day View
 
 ### Location Sign in
 
@@ -945,15 +1289,19 @@ The location sign-in page takes pictures of the user and streams them to
 the server.
 
 ![Graphical user interface, text, application Description automatically
-generated](media/image12.png){width="6.3in"
+generated](media/image13.png){width="6.3in"
 height="4.356944444444444in"}
+
+[]{#_Toc131962284 .anchor}Figure 14 Location Sign In part 1
 
 If the user is recognised, the system displays the user details on the
 screen and logs the day's timestamp.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image13.png){width="6.3in"
+Description automatically generated](media/image14.png){width="6.3in"
 height="4.475694444444445in"}
+
+[]{#_Toc131962285 .anchor}Figure 15 Location Sign In part 2
 
 ### Location Sign off
 
@@ -961,8 +1309,10 @@ The location sign-off page takes pictures of the user and streams them
 to the server.
 
 ![Graphical user interface, text, application, Word Description
-automatically generated](media/image14.png){width="6.310968941382328in"
+automatically generated](media/image15.png){width="6.310968941382328in"
 height="3.5249945319335083in"}
+
+[]{#_Toc131962286 .anchor}Figure 16 Location Sign Out part 1
 
 If the user is recognised, the system logs them out from the building
 and records their finishing time as the current time. This process
@@ -970,8 +1320,10 @@ ensures the user can leave the location and accurately record their work
 hours.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image15.png){width="6.3in"
+Description automatically generated](media/image16.png){width="6.3in"
 height="5.616666666666666in"}
+
+[]{#_Toc131962287 .anchor}Figure 17 Location Sign Out part 2
 
 ### Setup user face recognition page
 
@@ -981,8 +1333,10 @@ images, trains the facial recognition model, and notifies the user of
 the setup outcome upon completion.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image16.png){width="6.3in"
+Description automatically generated](media/image17.png){width="6.3in"
 height="4.2659722222222225in"}
+
+[]{#_Toc131962288 .anchor}Figure 18 Setting Up Facial recognition
 
 ### Edit Profile
 
@@ -990,17 +1344,19 @@ This page allows users to change their personal information, such as
 their name, email address, phone number, and username, as needed
 
 ![Graphical user interface, application Description automatically
-generated](media/image17.png){width="6.3in" height="3.13125in"}
+generated](media/image18.png){width="6.3in" height="3.13125in"}
+
+[]{#_Toc131962289 .anchor}Figure 19: Edit User Profile
 
 ### Change Password
 
 A User can change their password here.
 
 ![Graphical user interface, application, Word Description automatically
-generated](media/image18.png){width="6.3in"
+generated](media/image19.png){width="6.3in"
 height="3.004861111111111in"}
 
-Figure . change-password.html
+[]{#_Toc131962290 .anchor}Figure 20: change-password.html
 
 ## Tools and Framework Considered
 
@@ -1125,23 +1481,22 @@ is the greatest way to illustrate Python's openness and accessibility.
 Let's use a classic programming example: get the terminal to say, "Hello
 World!"
 
-+----------------------+------------------------------+---------------+
-| C++                  | Java                         | Python        |
-+======================+==============================+===============+
-| #include             | class HelloWorldApp {        | print(\"Hello |
-| \<iostream\>         |                              | World\")      |
-|                      | publicstaticvoid             |               |
-| int main()           | main(String\[\] args) {      |               |
-|                      |                              |               |
-| {                    | System.out.println(\"Hello   |               |
-|                      | World!\");                   |               |
-| std::cout\<\<        |                              |               |
-| \"Hello,world!\\n\"; | }                            |               |
-|                      |                              |               |
-| return 0;            | }                            |               |
-|                      |                              |               |
-| }                    |                              |               |
-+----------------------+------------------------------+---------------+
++------------------------+-----------------------------+---------------+
+| C++                    | Java                        | Python        |
++========================+=============================+===============+
+| #include \<iostream\>  | class HelloWorldApp {       | print(\"Hello |
+|                        |                             | World\")      |
+| int main()             | publicstaticvoid            |               |
+|                        | main(String\[\] args) {     |               |
+| {                      |                             |               |
+|                        | System.out.println(\"Hello  |               |
+| std::cout\<            | World!\");                  |               |
+| \<\"Hello,world!\\n\"; |                             |               |
+|                        | }                           |               |
+| return 0;              |                             |               |
+|                        | }                           |               |
+| }                      |                             |               |
++------------------------+-----------------------------+---------------+
 
 ### TensorFlow
 
@@ -1184,41 +1539,13 @@ also created APIs for many languages. (An example is Tensorflow Java.)
 We must modify the model for both strategies, although the first can
 provide more training.
 
-The Author is choosing TensorFlow to build his System because
+The author is choosing TensorFlow to build his System because
 TensorFlow's most well-known Deep Learning framework comes with
 pre-trained models that can help with image classification. CNN is used
 to put photos into groups. Most of the time, all it takes to make a
 model is to put photos into groups to make a similar, positive image.
 The picture is then taught and retaught using a method called anchoring
 or Transfer Learning.
-
-## Code Quality
-
-### Code Style
-
-#### Javascript
-
-#### Python
-
-Python is snake_case
-
-### Architecture
-
-#### Object Orientation
-
-#### Procedural Programming
-
-#### Frameworks/ Libraries
-
-Frameworks provide a skeleton of working parts and components as a
-foundation to start your application. The application must adhere to the
-rules of the framework.
-
-Use Libraries, which are more flexible but more work
-
-### Patterns
-
-#### MVC
 
 # Implementation
 
@@ -1252,17 +1579,17 @@ libraries used.
 ### IDE Support for Programming and Documentation
 
   -----------------------------------------------------------------------
-  Anaconda            Manages the python environment and package
-                      compatibility
-  ------------------- ---------------------------------------------------
-  Pip                 Python package installer (Sometimes used instead of
-                      Anaconda)
+  Anaconda             Manages the python environment and package
+                       compatibility
+  -------------------- --------------------------------------------------
+  Pip                  Python package installer (Sometimes used instead
+                       of Anaconda)
 
-  Visual Studio Code  The IDE
+  Visual Studio Code   The IDE
 
-  Mermaid.js          Generating diagrams
+  Mermaid.js           Generating diagrams
 
-  Plant UML           Generating UML diagrams
+  Plant UML            Generating UML diagrams
   -----------------------------------------------------------------------
 
 ## Source Control
@@ -1289,7 +1616,8 @@ Open a terminal and run the following command:
 
 python manage.py runserver
 
-4\. Open the app in your browser @ <http://localhost:8000>
+4\. Open the app in your browser @
+[http://localhost:8000](http://localhost:8000/)
 
 Built-in user accounts are:
 
@@ -1928,7 +2256,7 @@ The following code, for example, provides a function named index that
 returns a rendered template called website/index.html relative to the
 templates folder.
 
-![](media/image19.emf){width="6.3in" height="0.3215277777777778in"}
+![](media/image20.emf){width="6.3in" height="0.3215277777777778in"}
 
 #### The Static Files
 
@@ -1938,7 +2266,7 @@ JavaScript files. These files are typically stored within a folder named
 directory as the views.py file to refer to a static file within a
 template; the \"static\" tag can be utilised.
 
-![](media/image20.emf){width="6.3in" height="1.3125in"}
+![](media/image21.emf){width="6.3in" height="1.3125in"}
 
 #### Passing Data to Templates(The Context)
 
@@ -2561,7 +2889,7 @@ stable and reliable.
 
 ### Testing Framework in Django
 
-The Author utilised the testing framework built into Django for the
+The author utilised the testing framework built into Django for the
 project, which offers comprehensive support for unit testing. Although
 the framework also includes functionality for integration and functional
 testing, only unit testing was employed in this case.
@@ -2621,7 +2949,7 @@ and a user identification display had to be added to the app.
 
 # Conclusion:
 
-As the Author concludes this project, it is clear that the continued
+It is the opinion of this author it is clear that the continued
 development of \'Identity\' as a proof of concept holds significant
 promise for meeting the needs of different businesses with varying
 levels of fault tolerance in different domains.
@@ -2656,7 +2984,7 @@ Security Tiers:
     unlogged access to any location in prison.
 
 Resources and time will be required for Big data Analysis and confidence
-testing to determine the optimal confidence value to use 'Identity'for
+testing to determine the optimal confidence value to use 'Identity' for
 high-security tier environments (Hospitals, Prisons).
 
 ## Machine learning approaches 
@@ -2670,24 +2998,33 @@ option better suited for high-security tier domains like those that deal
 with accidental intrusions or malicious attacks, where accuracy and
 precision are paramount.
 
-### Additional \*TTHINDS
+## Tracking continuing developments
 
-Testing\*
+Liveness detection is a security feature that aims to ensure that a
+biometric system such as 'identity' interacts with a live, real person
+rather than a static image, video, or mask. It is intended to stop
+spoofing assaults, in which a perpetrator tries to trick a facial
+recognition system by utilising a picture, video, or 3D model of the
+person\'s face (Saptarshi Chakraborty, 2014).
 
-Generator versus discreminator
+The war against 'impersonation and fraud' is never-ending. A promising
+development in combating fraud is Generative Adversarial Networks
+(GANs). GANs are a class of deep learning models that consist of two
+neural networks, a generator and a discriminator, which compete against
+each other in a process known as adversarial training. In the context of
+biometric security, GANs can enhance biometric systems\' performance,
+robustness, and security by generating synthetic biometric data or
+improving the detection of spoofing attempts.
 
-The ideas behind INSERT INDUSTRY STANDARD
+![A picture containing text, toy Description automatically
+generated](media/image22.jpeg){width="4.012900262467191in"
+height="2.5416666666666665in"}
+
+[]{#_Toc131962291 .anchor}Figure 21: Generator versus discriminator
 
 The science of image recognition will never stop. New and different
 techniques and challenges will give rise to new solutions. Continuous
 literature reviews and new solutions will always be required.
-
-Prevent racism must be bios introduced to the system
-
-Research is currently underway to determine a pattern for implementing
-LIVENESS DETECTION. The initial findings suggest that:
-
--   Difficult, developing a harscased presents techinal challanges
 
 # Bibliography
 
@@ -2697,7 +3034,7 @@ Available at:
 [https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.742.1483&rep=rep1&type=pdf]{.underline}\
 \[Accessed 12 10 2022\].
 
-Anon., n.d. *What is Google Cloud Vision?* \[Online\]\
+Anon., n.d. *What is Google Cloud Vision?.* \[Online\]\
 Available at: [www.resourcespace.com]{.underline}\
 \[Accessed 25 10 2022\].
 
@@ -2714,7 +3051,7 @@ Available at:
 [https://en.wikipedia.org/wiki/DeepFace#:\~:text=DeepFace%20is%20a%20deep%20learning]{.underline}\
 \[Accessed 23 10 2022\].
 
-Dertat, A., 2017. *towards data science.* \[Online\]\
+Dertat, A., 2017. *towardsdatascience.* \[Online\]\
 Available at:
 [https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2]{.underline}\
 \[Accessed 4 November 2022\].
@@ -2743,6 +3080,11 @@ Khan, F., 2018. Facial Expression Recognition using Facial Landmark
 Detection and Feature Extraction via Neural Networks. *ArXiv,* Volume
 abs/1812.04510, p. 7.
 
+King, D. E., 2009. *jmlr.* \[Online\]\
+Available at:
+[https://www.jmlr.org/papers/volume10/king09a/king09a.pdf]{.underline}\
+\[Accessed 6 November 2022\].
+
 Kristof, T., 2002. *researchgate.* \[Online\]\
 Available at:
 [https://www.researchgate.net/publication/283463205_A\_mesterseges_neuralis_halok_a\_jovokutatas_szolgalataban_Artificial_neural_networks_in_Futures_Studies]{.underline}\
@@ -2763,6 +3105,10 @@ Available at:
 [https://www.pocket-lint.com/phones/news/apple/142207-what-is-apple-face-id-and-how-does-it-work]{.underline}\
 \[Accessed 23 10 2022\].
 
+Saptarshi Chakraborty, D. D., 2014. An Overview of Face Liveness
+Detection. *International Journal on Information Theory,* 14 04, 3(2),
+pp. 11-25.
+
 Shanu, S., n.d. *InsideAIML.* \[Online\]\
 Available at:
 [https://www.insideaiml.com/blog/Activation-Functions-In-Neural-Network-1089]{.underline}\
@@ -2781,6 +3127,14 @@ Tang, Z. & Fishwick, P. A., 1993. *Researchgate.* \[Online\]\
 Available at:
 [https://www.researchgate.net/publication/220668844_Feedforward_Neural_Nets_as_Models_for_Time_Series_Forecasting]{.underline}\
 \[Accessed 3 November 2022\].
+
+Team, K., n.d. *Keras documentation: Backend utilities.* \[Online\]\
+Available at: [https://keras.io/api/utils/backend_utils/]{.underline}\
+\[Accessed 01 12 2022\].
+
+TensorFlow, 2019. *TensorFlow.* \[Online\]\
+Available at: [https://www.tensorflow.org]{.underline}\
+\[Accessed 01 12 2022\].
 
 Viola, P. & M.Jones, 2003. *ieeexplore.* \[Online\]\
 Available at: [https://ieeexplore.ieee.org/document/990517]{.underline}\

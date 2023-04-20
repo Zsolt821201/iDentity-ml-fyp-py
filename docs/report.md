@@ -107,7 +107,8 @@ on their work.
 [3.1 Application Overview
 [25](#application-overview)](#application-overview)
 
-[3.2 Data Design [25](#data-design)](#data-design)
+[3.2 Data Design
+[25](#software-development-process)](#software-development-process)
 
 [3.3 Securing application features
 [26](#securing-application-features)](#securing-application-features)
@@ -253,7 +254,8 @@ OpenCV
 
 [5.3 Unit Testing Done [73](#unit-testing-done)](#unit-testing-done)
 
-[5.4 Result Analysis: [73](#result-analysis)](#result-analysis)
+[5.4 Result Analysis:
+[73](#test-driven-development)](#test-driven-development)
 
 [5.5 Discussion of Findings
 [73](#discussion-of-findings)](#discussion-of-findings)
@@ -650,7 +652,7 @@ in the model (but none of its element numbers can be 0) (Kristof, 2002).
 
 +-----------------------------------------------------------------------+
 | ![A picture containing text, clock Description automatically          |
-| generated](media/image2.jpg){width="4.59375in"                        |
+| generated](./images/thesis/media/image2.jpg){width="4.59375in"        |
 | height="2.4895833333333335in"}                                        |
 |                                                                       |
 | []{#_Toc131962273 .anchor}Figure 1 A multi-layer neural network's     |
@@ -769,7 +771,7 @@ is sent over the network in detail using a 100x100 pixel filter (Dertat,
 
 +-----------------------------------------------------------------------+
 | ![Diagram Description automatically                                   |
-| generated](media/image3.png){width="6.3in"                            |
+| generated](./images/thesis/media/image3.png){width="6.3in"            |
 | height="4.293055555555555in"}                                         |
 |                                                                       |
 | []{#_Toc131962274 .anchor}Figure 2 Operation of the filter unit used  |
@@ -812,7 +814,8 @@ networks where data may be stored indefinitely (Olah, 2015).
 
 +-----------------------------------------------------------------------+
 | ![Diagram Description automatically                                   |
-| generated](media/image4.png){width="2.8131681977252843in"             |
+| gene                                                                  |
+| rated](./images/thesis/media/image4.png){width="2.8131681977252843in" |
 | height="2.358208661417323in"}                                         |
 |                                                                       |
 | []{#_Toc131962275 .anchor}Figure 3: Recurrent Neural Networks (Olah,  |
@@ -835,7 +838,7 @@ was unfolded (Olah, 2015).
 
 +-----------------------------------------------------------------------+
 | ![A picture containing text, clock Description automatically          |
-| generated](media/image5.png){width="6.3in"                            |
+| generated](./images/thesis/media/image5.png){width="6.3in"            |
 | height="1.5522386264216972in"}                                        |
 |                                                                       |
 | []{#_Toc131962276 .anchor}Figure 4. An unrolled recurrent neural      |
@@ -857,6 +860,107 @@ for accurate tracking of user movement and maintains security by
 ensuring that only authorised personnel are granted access to restricted
 areas
 
+## Software Development Process
+
+Identity was developed using a combination of Agile and Behaviour-driven
+development methodologies. As a proof-of-concept project for academia, a
+focus was kept on developing a working Minimal Viable Product (MVP)
+rather than an unfinished all-features product.
+
+### Agile
+
+Agile methodology revolutionizes project management with a focus on an
+iterative and incremental approach, emphasizing adaptability,
+collaboration, and continuous improvement. By breaking down projects
+into smaller goals, Agile empowers developers to respond quickly to
+challenges and changes, ensuring the final product aligns with
+stakeholders\' needs and expectations. Focusing on regular feedback,
+cross-functional teamwork, and open communication, Agile can deliver
+high-quality, innovative solutions that keep pace with the ever-changing
+requirements of a project.
+
+Key aspects of Agile methodology suited to this project are:
+
+-   An iterative and incremental approach to project management
+
+-   Emphasis on adaptability and flexibility
+
+-   Breaking down projects into smaller, manageable tasks
+
+-   Setting short-term goals and adjusting as needed
+
+-   Incorporating regular feedback and open communication
+
+![Text, whiteboard Description automatically
+generated](./images/thesis/media/image6.jpg){width="4.677083333333333in"
+height="2.9423108048993876in"}
+
+Figure : Agile
+
+### Behaviour-driven development
+
+Behaviour-driven development (BDD) builds upon test-driven development
+(TDD) to enhance communication and collaboration between technical and
+non-technical stakeholders. While TDD focuses on writing tests before
+implementing code, BDD takes it further by emphasizing clear, concise
+language to define requirements and acceptance criteria, ensuring a
+shared understanding of software behaviour across the team (Wynne,
+2017).
+
+Behaviour-driven development (BDD) is a methodology that bridges the gap
+between technical and non-technical stakeholders by emphasizing
+collaboration, communication and a shared understanding of the
+software\'s expected behaviour. BDD encourages using clear, concise, and
+easily understood language to define requirements and acceptance
+criteria, facilitating a common understanding among stakeholders. This
+approach promotes the development of high-quality software that meets
+user needs while minimizing misunderstandings, misinterpretations, and
+costly rework.
+
+Key aspects of Behaviour-driven development:
+
+-   Collaboration between technical and non-technical stakeholders
+
+-   Emphasis on a shared understanding of software behaviour
+
+-   A clear, concise, and easy-to-understand language for requirements
+
+-   User story-driven approach to defining features
+
+-   Specification by example to ensure accurate implementation
+
+-   Test-driven development to validate expected behaviour
+
+-   Continuous feedback and adjustment to meet user needs and
+    expectations
+
+![What is BDD? - Behavior Driven Development
+cycle.](./images/thesis/media/image7.png){width="5.270138888888889in"
+height="2.3828412073490814in"}
+
+Figure : Behaviour-driven development Cycle
+
+### Minimal viable product 
+
+A minimal viable product (MVP) is a simplified working version of a
+product for release with just enough features to satisfy early adopters
+and gather valuable user feedback.
+
+![Diagram Description automatically
+generated](./images/thesis/media/image8.png){width="5.083176946631671in"
+height="2.6458333333333335in"}
+
+Figure : MVP
+
+Gantt diagrams can be useful for keeping track of tasks and focusing on
+critical tasks for an MVP.
+
+![A screenshot of a computer Description automatically
+generated](./images/thesis/media/image9.png){width="5.905555555555556in"
+height="3.160416666666667in"}
+
+Figure : Gantt Diagram
+
 ## Data Design
 
 The application requires a system for storing important data, which
@@ -873,10 +977,10 @@ and ensure that only authorised individuals can access restricted areas.
 Admin Group: members of the admin group have /inherit admin privileges.
 The system must have at least one admin user.![Graphical user interface,
 application, Teams Description automatically
-generated](media/image6.png){width="6.3in"
+generated](./images/thesis/media/image10.png){width="6.3in"
 height="2.2423611111111112in"}
 
-[]{#_Toc131962277 .anchor}Figure 5: Class Diagram
+[]{#_Toc131962277 .anchor}Figure 9: Class Diagram
 
 ## Securing application features
 
@@ -893,19 +997,19 @@ who has access to the building. This process helps maintain a safe and
 secure environment for employees and visitors.
 
 ![Diagram, timeline Description automatically
-generated](media/image7.png){width="6.375462598425197in"
+generated](./images/thesis/media/image11.png){width="6.375462598425197in"
 height="3.618566272965879in"}
 
-[]{#_Toc131962278 .anchor}Figure 8 Sign-in example
+[]{#_Toc131962278 .anchor}Figure 10 Sign-in example
 
 A location manager or other designated users are granted permission in
 the application to start sign-in / sign-off features.
 
 ![Diagram Description automatically
-generated](media/image8.png){width="2.325173884514436in"
+generated](./images/thesis/media/image12.png){width="2.325173884514436in"
 height="3.0433464566929134in"}
 
-[]{#_Toc131962279 .anchor}Figure 9 Feature permissions
+[]{#_Toc131962279 .anchor}Figure 11 Feature permissions
 
 ## Use cases
 
@@ -1242,19 +1346,19 @@ Clicking a location's name will give a details view of the location.
 Only authorised users, such as administrators or managers, can activate
 the sign-in /sign-off for a location
 
-![](media/image9.png){width="6.283333333333333in"
+![](./images/thesis/media/image13.png){width="6.283333333333333in"
 height="1.9902777777777778in"}
 
-[]{#_Toc131962280 .anchor}Figure 10 Locations list view
+[]{#_Toc131962280 .anchor}Figure 12 Locations list view
 
 An unauthorised user who attempts to activate a location's
 sign-in/sign-off screen will receive a 403 response.
 
 ![Graphical user interface, text, application Description automatically
-generated](media/image10.png){width="5.633858267716535in"
+generated](./images/thesis/media/image14.png){width="5.633858267716535in"
 height="1.720472440944882in"}
 
-[]{#_Toc131962281 .anchor}Figure 11 Security notification
+[]{#_Toc131962281 .anchor}Figure 13 Security notification
 
 ### Location details view
 
@@ -1267,10 +1371,10 @@ The location view displays the
 -   roster logs grouped by day
 
 ![Graphical user interface, application, email Description automatically
-generated](media/image11.png){width="6.3in"
+generated](./images/thesis/media/image15.png){width="6.3in"
 height="3.370138888888889in"}
 
-[]{#_Toc131962282 .anchor}Figure 12 Limerick location view
+[]{#_Toc131962282 .anchor}Figure 14 Limerick location view
 
 ### View the location roster's day log
 
@@ -1278,10 +1382,10 @@ The location's roaster lists the users' sign-in and sign-out times for
 the day.
 
 ![Graphical user interface, application Description automatically
-generated](media/image12.png){width="6.3in"
+generated](./images/thesis/media/image16.png){width="6.3in"
 height="2.048611111111111in"}
 
-[]{#_Toc131962283 .anchor}Figure 13 Location roster day View
+[]{#_Toc131962283 .anchor}Figure 15 Location roster day View
 
 ### Location Sign in
 
@@ -1289,19 +1393,20 @@ The location sign-in page takes pictures of the user and streams them to
 the server.
 
 ![Graphical user interface, text, application Description automatically
-generated](media/image13.png){width="6.3in"
+generated](./images/thesis/media/image17.png){width="6.3in"
 height="4.356944444444444in"}
 
-[]{#_Toc131962284 .anchor}Figure 14 Location Sign In part 1
+[]{#_Toc131962284 .anchor}Figure 16 Location Sign In part 1
 
 If the user is recognised, the system displays the user details on the
 screen and logs the day's timestamp.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image14.png){width="6.3in"
+Description automatically
+generated](./images/thesis/media/image18.png){width="6.3in"
 height="4.475694444444445in"}
 
-[]{#_Toc131962285 .anchor}Figure 15 Location Sign In part 2
+[]{#_Toc131962285 .anchor}Figure 17 Location Sign In part 2
 
 ### Location Sign off
 
@@ -1309,10 +1414,11 @@ The location sign-off page takes pictures of the user and streams them
 to the server.
 
 ![Graphical user interface, text, application, Word Description
-automatically generated](media/image15.png){width="6.310968941382328in"
+automatically
+generated](./images/thesis/media/image19.png){width="6.310968941382328in"
 height="3.5249945319335083in"}
 
-[]{#_Toc131962286 .anchor}Figure 16 Location Sign Out part 1
+[]{#_Toc131962286 .anchor}Figure 18 Location Sign Out part 1
 
 If the user is recognised, the system logs them out from the building
 and records their finishing time as the current time. This process
@@ -1320,10 +1426,11 @@ ensures the user can leave the location and accurately record their work
 hours.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image16.png){width="6.3in"
+Description automatically
+generated](./images/thesis/media/image20.png){width="6.3in"
 height="5.616666666666666in"}
 
-[]{#_Toc131962287 .anchor}Figure 17 Location Sign Out part 2
+[]{#_Toc131962287 .anchor}Figure 19 Location Sign Out part 2
 
 ### Setup user face recognition page
 
@@ -1333,10 +1440,11 @@ images, trains the facial recognition model, and notifies the user of
 the setup outcome upon completion.
 
 ![Graphical user interface, text, application, chat or text message
-Description automatically generated](media/image17.png){width="6.3in"
+Description automatically
+generated](./images/thesis/media/image21.png){width="6.3in"
 height="4.2659722222222225in"}
 
-[]{#_Toc131962288 .anchor}Figure 18 Setting Up Facial recognition
+[]{#_Toc131962288 .anchor}Figure 20 Setting Up Facial recognition
 
 ### Edit Profile
 
@@ -1344,19 +1452,20 @@ This page allows users to change their personal information, such as
 their name, email address, phone number, and username, as needed
 
 ![Graphical user interface, application Description automatically
-generated](media/image18.png){width="6.3in" height="3.13125in"}
+generated](./images/thesis/media/image22.png){width="6.3in"
+height="3.13125in"}
 
-[]{#_Toc131962289 .anchor}Figure 19: Edit User Profile
+[]{#_Toc131962289 .anchor}Figure 21: Edit User Profile
 
 ### Change Password
 
 A User can change their password here.
 
 ![Graphical user interface, application, Word Description automatically
-generated](media/image19.png){width="6.3in"
+generated](./images/thesis/media/image23.png){width="6.3in"
 height="3.004861111111111in"}
 
-[]{#_Toc131962290 .anchor}Figure 20: change-password.html
+[]{#_Toc131962290 .anchor}Figure 22: change-password.html
 
 ## Tools and Framework Considered
 
@@ -2256,7 +2365,8 @@ The following code, for example, provides a function named index that
 returns a rendered template called website/index.html relative to the
 templates folder.
 
-![](media/image20.emf){width="6.3in" height="0.3215277777777778in"}
+![](./images/thesis/media/image24.emf){width="6.3in"
+height="0.3215277777777778in"}
 
 #### The Static Files
 
@@ -2266,7 +2376,7 @@ JavaScript files. These files are typically stored within a folder named
 directory as the views.py file to refer to a static file within a
 template; the \"static\" tag can be utilised.
 
-![](media/image21.emf){width="6.3in" height="1.3125in"}
+![](./images/thesis/media/image25.emf){width="6.3in" height="1.3125in"}
 
 #### Passing Data to Templates(The Context)
 
@@ -2930,11 +3040,158 @@ cv2.COLOR_BGR2GRAY)
 
 8\.         self.assertIsNotNone(face)
 
+## Test-Driven Development
+
+TDD was implemented using selenium with Cucumber (Gherkin).
+
+First, a scenario is written using Cucumber. This scenario checks if the
+locations are loaded correctly, verifying the emails in the HTML table.
+
+1\. Feature: Sign in activation feature
+
+2\.  
+
+3\. \@locations
+
+4\. Scenario: 2 default locations exist
+
+5\. Given application is opened
+
+6\. When presented in Locations site
+
+7\. Then locations with email Limerick@identify.com,Cork@identify.com
+presented
+
+behave_test\\features\\feature_files\\activate_sign_in\\activate_sign_in.feature
+
+The following Python code files support the above scenario. The code
+parse the HTML of the locations page so that the scenario can check the
+page contains the following emails; Limerick@identify.com and
+Cork@identify in the 3^rd^ column of the table.
+
+1\. label = {
+
+2\.     \'location_label\': \'#my-desc\',
+
+3\.     \'sign_in_label\': \'.container h2\'
+
+4\. }
+
+5\. header = {
+
+6\.     \'header_links\': \'.navbar-nav .nav-item .nav-link\'
+
+7\. }
+
+8\. table = {
+
+9\.     \"content\": \'.table tbody tr\'
+
+10\. }
+
+11\.  
+
+12\. def table_rows(position):
+
+13\.     return f\'.table tbody tr:nth-of-type({position})\'
+
+14\.  
+
+15\. def row_positions(row, position):
+
+16\.     return f\'.table tbody tr:nth-of-type({row})
+td:nth-of-type({position})\'
+
+behave_test\\pom\\location\\location_test.py
+
+1\. from behave_test.pom.Base import Base
+
+2\. from behave_test.pom.location.location_test import label, header,
+table, \\
+
+3\. row_positions
+
+4\.  
+
+5\.  
+
+6\. class Location(Base):
+
+7\. def \_\_init\_\_(self, driver):
+
+8\. super().\_\_init\_\_(driver)
+
+9\.  
+
+10\. def open_location(self, url):
+
+11\. self.driver.get(url)
+
+12\.  
+
+13\. def verify_redirection(self):
+
+14\. self.visibility_of_element_presented(label\[\'location_label\'\])
+
+15\. return self.return_element_value(label\[\'location_label\'\])
+
+16\.  
+
+17\. #\...
+
+18\.  
+
+19\. def search_specific_location(self, location):
+
+20\. rows = self.return_locations(table\[\'content\'\])
+
+21\. for i in range(len(rows)):
+
+22\. source_value = row_positions(i + 1, 3)
+
+23\. if self.return_element_value(source_value) == location:
+
+24\. return True
+
+25\. return False
+
+26\.  
+
+27\. #\...
+
+behave_test\\pom\\location\\Location.py
+
+The location scenario test is then called by general_steps.py
+
+1\. from behave import \*
+
+2\.  
+
+3\. from behave_test.pom.location.Location import Location
+
+4\.  
+
+5\. use_step_matcher(\"re\")
+
+6\.  
+
+7\.  
+
+8\. \@step(\"application is opened\")
+
+9\. def step_impl(context):
+
+10\. context.location = Location(context.driver)
+
+11\. context.location.open_location(f\'{context.url}locations\')
+
+behave_test\\features\\steps\\general_steps.py
+
 ## Result Analysis:
 
-From testing the function "face_recognition" the FACE_CONFIDENCE_LEVEL
-was reduced to 85.0 from 95.0 because the recogniser rejected images the
-human tester deemed acceptable.
+From unit-testing the function "face_recognition", the
+FACE_CONFIDENCE_LEVEL was reduced to 85.0 from 95.0 because the
+recogniser rejected images the human tester deemed acceptable.
 
 ## Discussion of Findings
 
@@ -3017,14 +3274,21 @@ robustness, and security by generating synthetic biometric data or
 improving the detection of spoofing attempts.
 
 ![A picture containing text, toy Description automatically
-generated](media/image22.jpeg){width="4.012900262467191in"
+generated](./images/thesis/media/image26.jpeg){width="4.012900262467191in"
 height="2.5416666666666665in"}
 
-[]{#_Toc131962291 .anchor}Figure 21: Generator versus discriminator
+[]{#_Toc131962291 .anchor}Figure 23: Generator versus discriminator
 
 The science of image recognition will never stop. New and different
 techniques and challenges will give rise to new solutions. Continuous
 literature reviews and new solutions will always be required.
+
+## Behaviour-Driven Development
+
+At a late stage of the project development, BDD and TDD were introduced
+and found to be beneficial. For further development of the project, BDD
+and TDD should be used from the outset to minimize errors, focus on
+goals and save development time.
 
 # Bibliography
 

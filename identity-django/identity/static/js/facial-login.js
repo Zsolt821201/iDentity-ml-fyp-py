@@ -1,5 +1,6 @@
 "use strict";
 /**
+ * A class representing custom response codes for various server responses.
  * Using Unclaimed HTTP Response Codes starting at 460
  */
 class MyResponseCodes {
@@ -124,12 +125,17 @@ class Manager {
 		}
 		return options;
 	}
-
+	/**
+	 * Stop streeming video to the server by setting the isStreaming flag to false and stopping the camera
+	 */
 	stopStreamingVideoToServer() {
 		this.isStreaming = false;
 		this.stopCamera();
 	}
-
+	/**
+	 * Stream video to the server by starting the camera, setting isStreaming flag to True, 
+	 * and sending image frames to the server for user identification and potential auto sign-in.
+	 */
 	async streamVideoToServer() {
 		await this.startCamera();
 		this.isStreaming = true;
@@ -166,6 +172,12 @@ class Manager {
 	/**
 	 * 
 	 * @param {Number} userAccountId 
+	 */
+	/**
+	 * Performs an auto sign-in for the user based on the sign-in url
+	 * Update the status message element with the appropriate message based on the response status.
+	 * @param {Number} userAccountId
+	 * 
 	 */
 	async userAutoSign(userAccountId) {
 		let locationId = this.webPageControls.locationField.value;
@@ -229,13 +241,20 @@ class Manager {
 
 	}
 }
-
+/**
+ * Create a base64 encoding of the image from the video element
+ * @param {*} videoElement The video element to capture an image from
+ * @returns string the base64 encoding of the image
+ */
 function buildImageBase64Encoding(videoElement) {
 	let canvas = document.createElement("canvas");
 	canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 	return canvas.toDataURL();
 }
-
+/**
+ * Display a countdown timer for 10 seconds on the given element
+ * @param {*} autoSignInCountDownElement The element to display the countdown timer on.
+ */
 async function fiveSecondTimeOut(autoSignInCountDownElement) {
 	const oneSecond = 1_000;
 	let seconds = 10;
@@ -249,7 +268,12 @@ async function fiveSecondTimeOut(autoSignInCountDownElement) {
 		seconds -= 1;
 	}, oneSecond);
 }
-
+/**
+ * Display a countdown timer on the given element
+ * @param {int} seconds The number of seconds for the countdown.
+ * @param {*} countDownElement The element to display the countdown timer on.
+ * @returns The element to display the countdown timer on.
+ */
 function progressCountdown(seconds, countDownElement) {
 	const oneSecond = 1_000;
 
@@ -309,12 +333,12 @@ async function setupUserFacialRecognition() {
 }
 
 /**
- * 
- * @param {*} imageBase64Encoding 
- * @param {*} imageNumber 
- * @param {*} userAccountId 
+ * Build the request options for the user facial recognition setup
+ * @param {String} imageBase64Encoding The base64 encoded image
+ * @param {int} imageNumber The image number
+ * @param {*} userAccountId The user account id
  * @param {*} csrfToken 
- * @returns 
+ * @returns The request options including body and method.
  */
 function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId) {
 	const formData = new FormData();
@@ -329,13 +353,19 @@ function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber
 	}
 	return options;
 }
-
+/**
+ * Asynchronously streams the sign-out video to the server and handles the response.
+ * Alerts the user with the sign-out status message.
+ */
 async function streamSignOutVideo() {
 	let responseCode = await streamRoasterSigningVideo(UrlPaths.PERFORM_SIGN_OUT_URL);
 	let message = getMessage(responseCode, false);
 	alert(message);
 }
-
+/**
+ * Handles the stop button click event by setting isStreaming to false,
+ * disabling the stop button, and enabling the access control button.
+ */
 function stopButtonOnClick() {
 	isStreaming = false;
 	getStopButton().disabled = true;
@@ -366,10 +396,17 @@ async function getResult(url, options) {
 		});
 	return json;
 }
-
+/**
+ * Updates the status message on the web page with the provided message.
+ * @param {string} message - The message to display as the status message.
+ */
 function display(message) {
 	getStatusMessageControl().textContent = message;
 }
+/**
+ * Waits for 5 seconds before resolving the Promise.
+ * @returns {Promise} A Promise that resolves after a 5-second delay.
+ */
 async function FiveSecondTimeOut() {
 	const fiveSeconds = 5000;
 	await new Promise(handler => setTimeout(handler, fiveSeconds));
@@ -402,10 +439,10 @@ async function streamRoasterSigningVideo(url) {
 
 
 /**
- * 
- * @param {Number} responseCode 
- * @param {boolean} signOn True if the user is signing on, false if the user is signing off
- * @returns 
+ * Returns a message string based on the given response code and whether the user is signing in or out.
+ * @param {number} responseCode - The response code from the server.
+ * @param {boolean} signOn - True if the user is signing in, false if signing out. Default is true.
+ * @returns {string} A message corresponding to the given response code.
  */
 function getMessage(responseCode, signOn = true) {
 	if (responseCode == ResponseCodes.SUCCESS) {
@@ -424,7 +461,11 @@ function getMessage(responseCode, signOn = true) {
 		return `Server Error: Response Code:${responseCode}`;
 }
 
-
+/**
+ * Returns a "go" or "stop" message based on the given response code.
+ * @param {number} responseCode - The response code from the server.
+ * @returns {string} "go" if the response code indicates successful access control, otherwise "stop".
+ */
 function getAccessControlMessage(responseCode) {
 	if (responseCode == ResponseCodes.SUCCESS) {
 		return "go";

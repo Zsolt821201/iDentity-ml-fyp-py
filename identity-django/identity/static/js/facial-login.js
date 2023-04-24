@@ -11,7 +11,10 @@ class MyResponseCodes {
 }
 
 /**
- * HTTP Response Codes
+ * A class representing standard HTTP response codes.
+ * Response code for a successful HTTP request. 200 OK
+ * response code for an internal server error. 500 Internal Server Error
+ * response code for a server that is refusing to brew coffee because it is, permanently, a teapot. 418 I'm a teapot
  */
 class ResponseCodes {
 	static get SUCCESS() { return 200; }
@@ -20,7 +23,8 @@ class ResponseCodes {
 }
 
 /**
- * The url paths for the facial recognition api
+ * A class representing the URL paths for various facial recognition api.
+ * 
  */
 class UrlPaths {
 	static get IDENTIFY_USER_FROM_FACE_URL() { return "/identify-user-from-face/"; }
@@ -30,14 +34,16 @@ class UrlPaths {
 }
 
 /**
+ * An object containing video resolution format names as constants
  * @typedef {String} VideoResolutionFormatNames
  */
 const VideoResolutionFormatNames = {
-	QVGA: "qvga",
-	VGA: "vga",
+	QVGA: "qvga", // Quarter Video Graphics Array resolution
+	VGA: "vga", // Video Graphics Array resolution
 };
 
 /**
+ * An object containing video resolution formats with their exact width and height values.
  * @typedef {Object} VideoResolutionFormat
  */
 const VideoResolutionFormats = {
@@ -50,6 +56,7 @@ const VideoResolutionFormats = {
 
 /**
  * WebPageControls
+ * WebPageControls class encapsulates the DOM elements used in the facial recognition web page
  * @class
  * @classdesc Accesses the required elements of the web page
  */

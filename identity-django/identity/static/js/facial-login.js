@@ -344,7 +344,6 @@ async function setupUserFacialRecognition() {
  * @param {String} imageBase64Encoding The base64 encoded image
  * @param {int} imageNumber The image number
  * @param {*} userAccountId The user account id
- * @param {*} csrfToken 
  * @returns The request options including body and method.
  */
 function buildUserFacialRecognitionSetUpOptions(imageBase64Encoding, imageNumber, userAccountId) {

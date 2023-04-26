@@ -38,7 +38,7 @@ I declare that this project and document is wholly my own work except
 where I have made explicit reference to the work of others. I have read
 the Department of Information Technology Final Year Project guidelines
 and relevant institutional regulations, and hereby declare that this
-document is in line With these requirements.
+document is in line with these requirements.
 
 I have discussed, agreed, and complied with whatever confidentiality or
 anonymity terms of reference were deemed appropriate by those
@@ -66,37 +66,51 @@ for Undergraduate and Taught Postgraduate Programmes policy document.
 
 [1.1 Objective [10](#objective)](#objective)
 
-[Chapter 2 Research [11](#research)](#research)
+[1.2 Project Scope [11](#project-scope)](#project-scope)
 
-[2.1 Introduction [11](#introduction-1)](#introduction-1)
+[1.3 Solution Developed [11](#solution-developed)](#solution-developed)
+
+[1.4 Report Structure [11](#report-structure)](#report-structure)
+
+[Chapter 2 Research [13](#research)](#research)
+
+[2.1 Introduction [13](#introduction-1)](#introduction-1)
 
 [2.2 Why facial recognition is popular
-[11](#why-facial-recognition-is-popular)](#why-facial-recognition-is-popular)
+[13](#why-facial-recognition-is-popular)](#why-facial-recognition-is-popular)
 
 [2.3 Facial recognition in the software industry
-[11](#facial-recognition-in-the-software-industry)](#facial-recognition-in-the-software-industry)
+[13](#facial-recognition-in-the-software-industry)](#facial-recognition-in-the-software-industry)
+
+[2.3.1 DeepFace handles face recognition on Facebook.
+[13](#deepface-handles-face-recognition-on-facebook.)](#deepface-handles-face-recognition-on-facebook.)
+
+[2.3.2 How does Apple Face ID work, and what is it?
+[14](#how-does-apple-face-id-work-and-what-is-it)](#how-does-apple-face-id-work-and-what-is-it)
+
+[2.3.3 How does the Google Vision API operate?
+[14](#how-does-the-google-vision-api-operate)](#how-does-the-google-vision-api-operate)
 
 [2.4 On-Site Software solutions in the Industry
-[13](#on-site-software-solutions-in-the-industry)](#on-site-software-solutions-in-the-industry)
+[15](#on-site-software-solutions-in-the-industry)](#on-site-software-solutions-in-the-industry)
 
 [2.5 Face Recognition techniques
-[14](#face-recognition-techniques)](#face-recognition-techniques)
+[16](#face-recognition-techniques)](#face-recognition-techniques)
 
 [2.6 Face detection systems may be categorised into four classes based
-on their work.
-[15](#face-detection-systems-may-be-categorised-into-four-classes-based-on-their-work.)](#face-detection-systems-may-be-categorised-into-four-classes-based-on-their-work.)
+on their work. [16](#face-detection-systems)](#face-detection-systems)
 
 [2.7 Facial recognition technology in use
 [18](#facial-recognition-technology-in-use)](#facial-recognition-technology-in-use)
 
 [2.8 Artificial Neural Network
-[18](#artificial-neural-network)](#artificial-neural-network)
+[19](#artificial-neural-network)](#artificial-neural-network)
 
 [2.9 Descriptions of well-known neural networks
 [21](#descriptions-of-well-known-neural-networks)](#descriptions-of-well-known-neural-networks)
 
 [2.9.1 Convolutional Neural Network CNN
-[21](#convolutional-neural-network-cnn)](#convolutional-neural-network-cnn)
+[22](#convolutional-neural-network-cnn)](#convolutional-neural-network-cnn)
 
 [2.9.2 Recurrent Neural Network RNN
 [23](#recurrent-neural-network-rnn)](#recurrent-neural-network-rnn)
@@ -107,90 +121,100 @@ on their work.
 [3.1 Application Overview
 [25](#application-overview)](#application-overview)
 
-[3.2 Data Design
+[3.2 Software Development Process
 [25](#software-development-process)](#software-development-process)
 
-[3.3 Securing application features
-[26](#securing-application-features)](#securing-application-features)
+[3.2.1 Agile [25](#agile)](#agile)
 
-[3.4 Use cases [28](#use-cases)](#use-cases)
+[3.2.2 Behaviour-driven development
+[26](#behaviour-driven-development)](#behaviour-driven-development)
 
-[3.4.1 Upload facial data
-[28](#upload-facial-data)](#upload-facial-data)
+[3.2.3 Minimal viable product
+[27](#minimal-viable-product)](#minimal-viable-product)
 
-[3.4.2 Sign in with facial data
-[28](#sign-in-with-facial-data)](#sign-in-with-facial-data)
+[3.3 Data Design [28](#data-design)](#data-design)
 
-[3.4.3 Sign out with facial data
-[29](#sign-out-with-facial-data)](#sign-out-with-facial-data)
+[3.4 Securing application features
+[29](#securing-application-features)](#securing-application-features)
 
-[3.4.4 Add a new user [30](#add-a-new-user)](#add-a-new-user)
+[3.5 Use cases [31](#use-cases.)](#use-cases.)
 
-[3.4.5 Log in to the user account
-[31](#log-in-to-the-user-account)](#log-in-to-the-user-account)
+[3.5.1 Upload facial data
+[31](#upload-facial-data.)](#upload-facial-data.)
 
-[3.4.6 Logout from the user account
-[31](#logout-from-the-user-account)](#logout-from-the-user-account)
+[3.5.2 Sign in with facial data
+[31](#sign-in-with-facial-data.)](#sign-in-with-facial-data.)
 
-[3.4.7 Edit user profile [32](#edit-user-profile)](#edit-user-profile)
+[3.5.3 Sign out with facial data
+[32](#sign-out-with-facial-data.)](#sign-out-with-facial-data.)
 
-[3.4.8 Change Password [33](#change-password)](#change-password)
+[3.5.4 Add a new user [33](#add-a-new-user.)](#add-a-new-user.)
 
-[3.5 Website Layout [34](#website-layout)](#website-layout)
+[3.5.5 Log in to the user account
+[34](#log-in-to-the-user-account.)](#log-in-to-the-user-account.)
 
-[3.5.1 Locations [34](#locations)](#locations)
+[3.5.6 Logout from the user account
+[34](#logout-from-the-user-account)](#logout-from-the-user-account)
 
-[3.5.2 Location details view
-[35](#location-details-view)](#location-details-view)
+[3.5.7 Edit user profile [35](#edit-user-profile.)](#edit-user-profile.)
 
-[3.5.3 View the location roster's day log
-[35](#view-the-location-rosters-day-log)](#view-the-location-rosters-day-log)
+[3.5.8 Change Password [36](#change-password)](#change-password)
 
-[3.5.4 Location Sign in [36](#location-sign-in)](#location-sign-in)
+[3.6 Website Layout [37](#website-layout)](#website-layout)
 
-[3.5.5 Location Sign off [38](#location-sign-off)](#location-sign-off)
+[3.6.1 Locations [37](#locations)](#locations)
 
-[3.5.6 Setup user face recognition page
-[40](#setup-user-face-recognition-page)](#setup-user-face-recognition-page)
+[3.6.2 Location details view
+[37](#location-details-view)](#location-details-view)
 
-[3.5.7 Edit Profile [41](#edit-profile)](#edit-profile)
+[3.6.3 View the location roster's day log
+[38](#view-the-location-rosters-day-log.)](#view-the-location-rosters-day-log.)
 
-[3.5.8 Change Password [41](#change-password-1)](#change-password-1)
+[3.6.4 Location Sign in [39](#location-sign-in)](#location-sign-in)
 
-[3.6 Tools and Framework Considered
-[42](#tools-and-framework-considered)](#tools-and-framework-considered)
+[3.6.5 Location Sign off [41](#location-sign-off.)](#location-sign-off.)
 
-[3.6.1 Jupiter Notebook [42](#jupiter-notebook)](#jupiter-notebook)
+[3.6.6 Setup user face recognition page
+[42](#setup-user-face-recognition-page)](#setup-user-face-recognition-page)
 
-[3.6.2 Python [44](#python)](#python)
+[3.6.7 Edit Profile [43](#edit-profile)](#edit-profile)
 
-[3.6.3 TensorFlow [45](#tensorflow)](#tensorflow)
+[3.6.8 Change Password [44](#change-password-1)](#change-password-1)
 
-[Chapter 4 Implementation [47](#implementation)](#implementation)
+[3.7 Tools and Framework Considered
+[44](#tools-and-framework-considered)](#tools-and-framework-considered)
 
-[4.1 Introduction [47](#introduction-2)](#introduction-2)
+[3.7.1 Jupiter Notebook [44](#jupiter-notebook)](#jupiter-notebook)
 
-[4.2 Tools Used [47](#tools-used)](#tools-used)
+[3.7.2 Python [46](#python)](#python)
+
+[3.7.3 TensorFlow [47](#tensorflow)](#tensorflow)
+
+[Chapter 4 Implementation [49](#implementation)](#implementation)
+
+[4.1 Introduction [49](#introduction-2)](#introduction-2)
+
+[4.2 Tools Used [49](#tools-used)](#tools-used)
 
 [4.2.1 IDE Support for Programming and Documentation
-[47](#ide-support-for-programming-and-documentation)](#ide-support-for-programming-and-documentation)
+[49](#ide-support-for-programming-and-documentation)](#ide-support-for-programming-and-documentation)
 
-[4.3 Source Control [47](#source-control)](#source-control)
+[4.3 Source Control [50](#source-control)](#source-control)
 
 [4.4 To install and Run the project
-[47](#to-install-and-run-the-project)](#to-install-and-run-the-project)
+[50](#to-install-and-run-the-project.)](#to-install-and-run-the-project.)
 
 [4.5 Building an OpenCv application to identify user\'s faces
-[48](#building-an-opencv-application-to-identify-users-faces)](#building-an-opencv-application-to-identify-users-faces)
+[50](#building-an-opencv-application-to-identify-users-faces.)](#building-an-opencv-application-to-identify-users-faces.)
 
 [4.5.1 How to use Open CV
-[48](#how-to-use-open-cv)](#how-to-use-open-cv)
+[50](#how-to-use-open-cv)](#how-to-use-open-cv)
 
 [4.5.2 How to find a face in an image using OpenCv:
-[49](#how-to-find-a-face-in-an-image-using-opencv)](#how-to-find-a-face-in-an-image-using-opencv)
+[50](#how-to-find-a-face-in-an-image-using-opencv)](#how-to-find-a-face-in-an-image-using-opencv)
 
 [4.5.3 How to train a facial recognition model using OpenCV:
-[52](#how-to-train-a-facial-recognition-model-using-opencv)](#how-to-train-a-facial-recognition-model-using-opencv)
+[53](#how-to-train-a-facial-recognition-model-using-opencv)](#how-to-train-a-facial-recognition-model-using-opencv)
 
 [4.5.4 How to recognise a face in an image using a trained model in
 OpenCV
@@ -206,58 +230,60 @@ OpenCV
 
 [4.6.2 The Models [58](#the-models)](#the-models)
 
-[4.6.3 The Views [60](#the-views)](#the-views)
+[4.6.3 The Views [59](#the-views)](#the-views)
 
-[4.6.4 The URLs [65](#the-urls)](#the-urls)
+[4.6.4 The URLs [63](#the-urls)](#the-urls)
 
-[4.6.5 The Admin [67](#the-admin)](#the-admin)
+[4.6.5 The Admin [65](#the-admin)](#the-admin)
 
-[4.6.6 The Forms [67](#the-forms)](#the-forms)
+[4.6.6 The Forms [65](#the-forms)](#the-forms)
 
-[4.6.7 Utilities [69](#utilities)](#utilities)
+[4.6.7 Utilities [66](#utilities)](#utilities)
 
 [4.6.8 Constants and File Paths
-[69](#constants-and-file-paths)](#constants-and-file-paths)
+[67](#constants-and-file-paths)](#constants-and-file-paths)
 
-[4.6.9 Face Detection [70](#face-detection)](#face-detection)
+[4.6.9 Face Detection [67](#face-detection)](#face-detection)
 
 [4.7 Client Side Functionality
-[70](#client-side-functionality)](#client-side-functionality)
+[67](#client-side-functionality)](#client-side-functionality)
 
 [4.7.1 Use Case #1: User Facial Recognition Setup
-[70](#use-case-1-user-facial-recognition-setup)](#use-case-1-user-facial-recognition-setup)
+[67](#use-case-1-user-facial-recognition-setup)](#use-case-1-user-facial-recognition-setup)
 
 [4.7.2 Use Cases #2-3: Location Roaster Sign in/out
-[70](#use-cases-2-3-location-roaster-sign-inout)](#use-cases-2-3-location-roaster-sign-inout)
+[68](#use-cases-2-3-location-roaster-sign-inout.)](#use-cases-2-3-location-roaster-sign-inout.)
 
 [4.7.3 Refactoring Javascript
-[70](#refactoring-javascript)](#refactoring-javascript)
+[68](#refactoring-javascript)](#refactoring-javascript)
 
 [4.7.4 Incorporating Javascript into the web app
-[71](#incorporating-javascript-into-the-web-app)](#incorporating-javascript-into-the-web-app)
+[69](#incorporating-javascript-into-the-web-app)](#incorporating-javascript-into-the-web-app)
 
 [4.8 Bulding and deploying the Website
-[71](#bulding-and-deploying-the-website)](#bulding-and-deploying-the-website)
+[69](#building-and-deploying-the-website)](#building-and-deploying-the-website)
 
-[Chapter 5 Testing and Result
-[72](#testing-and-result)](#testing-and-result)
+[Chapter 5 Testing and Results
+[70](#testing-and-results)](#testing-and-results)
 
-[5.1 Introduction [72](#introduction-3)](#introduction-3)
+[5.1 Introduction [70](#introduction-3)](#introduction-3)
 
-[5.2 Unit Testing [72](#unit-testing)](#unit-testing)
+[5.2 Unit Testing [70](#unit-testing)](#unit-testing)
 
 [5.2.1 What is Unit Testing, and why is important
-[72](#what-is-unit-testing-and-why-is-important)](#what-is-unit-testing-and-why-is-important)
+[70](#what-is-unit-testing-and-why-is-important)](#what-is-unit-testing-and-why-is-important)
 
 [5.2.2 Testing Framework in Django
-[72](#testing-framework-in-django)](#testing-framework-in-django)
+[70](#testing-framework-in-django)](#testing-framework-in-django)
 
-[5.3 Unit Testing Done [73](#unit-testing-done)](#unit-testing-done)
+[5.3 Unit Testing Done [71](#unit-testing-done)](#unit-testing-done)
 
-[5.4 Result Analysis:
-[73](#test-driven-development)](#test-driven-development)
+[5.4 Test-Driven Development
+[71](#test-driven-development)](#test-driven-development)
 
-[5.5 Discussion of Findings
+[5.5 Result Analysis: [73](#result-analysis)](#result-analysis)
+
+[5.6 Discussion of Findings
 [73](#discussion-of-findings)](#discussion-of-findings)
 
 [Chapter 6 Conclusion: [74](#conclusion)](#conclusion)
@@ -271,61 +297,73 @@ OpenCV
 [6.3 Tracking continuing developments
 [75](#tracking-continuing-developments)](#tracking-continuing-developments)
 
-[Chapter 7 Bibliography [76](#_Toc132363505)](#_Toc132363505)
+[6.4 Behaviour-Driven Development
+[76](#behaviour-driven-development-1)](#behaviour-driven-development-1)
+
+[Chapter 7 Bibliography [77](#_Toc133397093)](#_Toc133397093)
 
 # List of Figures {#list-of-figures .list-paragraph}
 
-[Figure 1 A multi-layer neural network's theoretical structure
-(GeeksforGeeks, 2021). [17](#_Toc131962273)](#_Toc131962273)
+[Figure 1 A multi-layer NN's theoretical structure (GeeksforGeeks,
+2021). [20](#_Toc133399582)](#_Toc133399582)
 
-[Figure 2 Operation of the filter unit used by CNN (Dertat, 2017).
-[20](#_Toc131962274)](#_Toc131962274)
+[Figure 2: Operation of the filter unit used by CNN (Dertat, 2017)
+[23](#_Toc133399583)](#_Toc133399583)
 
-[Figure 3. Recurrent Neural Networks (Olah, 2015).
-[22](#_Toc131962275)](#_Toc131962275)
+[Figure 3: Recurrent Neural Networks (Olah, 2015).
+[24](#_Toc133399584)](#_Toc133399584)
 
 [Figure 4. An unrolled recurrent neural network (Olah, 2015).
-[22](#_Toc131962276)](#_Toc131962276)
+[24](#_Toc133399585)](#_Toc133399585)
 
-[Figure 5: Class Diagram [23](#_Toc131962277)](#_Toc131962277)
+[Figure 5: Agile [26](#_Toc133399586)](#_Toc133399586)
 
-[Figure 8 Sign-in example [24](#_Toc131962278)](#_Toc131962278)
+[Figure 6: Behaviour-driven development Cycle
+[27](#_Toc133399587)](#_Toc133399587)
 
-[Figure 9 Feature permissions [25](#_Toc131962279)](#_Toc131962279)
+[Figure 7: MVP [27](#_Toc133399588)](#_Toc133399588)
 
-[Figure 10 Locations list view [32](#_Toc131962280)](#_Toc131962280)
+[Figure 8: Gantt Diagram [28](#_Toc133399589)](#_Toc133399589)
 
-[Figure 11 Security notification [32](#_Toc131962281)](#_Toc131962281)
+[Figure 9: Class Diagram [29](#_Toc133399590)](#_Toc133399590)
 
-[Figure 12 Limerick location view [33](#_Toc131962282)](#_Toc131962282)
+[Figure 10 Sign-in example [30](#_Toc133399591)](#_Toc133399591)
 
-[Figure 13 Location roster day View
-[33](#_Toc131962283)](#_Toc131962283)
+[Figure 11 Feature permissions [30](#_Toc133399592)](#_Toc133399592)
 
-[Figure 14 Location Sign In part 1 [34](#_Toc131962284)](#_Toc131962284)
+[Figure 12 Locations list view [37](#_Toc133399593)](#_Toc133399593)
 
-[Figure 15 Location Sign In part 2 [35](#_Toc131962285)](#_Toc131962285)
+[Figure 13 Security notification [37](#_Toc133399594)](#_Toc133399594)
 
-[Figure 16 Location Sign Out part 1
-[36](#_Toc131962286)](#_Toc131962286)
+[Figure 14 Limerick location view [38](#_Toc133399595)](#_Toc133399595)
 
-[Figure 17 Location Sign Out part 2
-[37](#_Toc131962287)](#_Toc131962287)
+[Figure 15 Location roster day view
+[38](#_Toc133399596)](#_Toc133399596)
 
-[Figure 18 Setting Up Facial recognition
-[38](#_Toc131962288)](#_Toc131962288)
+[Figure 16 Location Sign In part 1 [39](#_Toc133399597)](#_Toc133399597)
 
-[Figure 19 Edit User Profile [39](#_Toc131962289)](#_Toc131962289)
+[Figure 17 Location Sign In part 2 [40](#_Toc133399598)](#_Toc133399598)
 
-[Figure 20 change-password.html [39](#_Toc131962290)](#_Toc131962290)
+[Figure 18 Location Sign Out part 1.
+[41](#_Toc133399599)](#_Toc133399599)
 
-[Figure 21 Generator versus discriminator
-[73](#_Toc131962291)](#_Toc131962291)
+[Figure 19 Location Sign Out part 2
+[42](#_Toc133399600)](#_Toc133399600)
+
+[Figure 20 Setting Up Facial recognition.
+[43](#_Toc133399601)](#_Toc133399601)
+
+[Figure 21: Edit User Profile [43](#_Toc133399602)](#_Toc133399602)
+
+[Figure 22: change-password.html [44](#_Toc133399603)](#_Toc133399603)
+
+[Figure 23: Generator versus discriminator
+[75](#_Toc133399604)](#_Toc133399604)
 
 # Abstract {#abstract .list-paragraph}
 
 Managing security and roster logs in workplaces continues to be a
-challenging and costly endeavor. The complexities are heightened in
+challenging and costly endeavour. The complexities are heightened in
 environments that require frequent logging of employee attendance at
 multiple entry and exit points. Consequently, security measures can
 become lax, especially during peak hours with a high volume of workers.
@@ -338,23 +376,105 @@ efficiency and reducing costs.
 
 # Introduction
 
+Like other biometrics systems, facial recognition technology analyses
+and compares distinctive characteristics to identify or authenticate
+users. Facial recognition software may identify faces in photos, measure
+their characteristics, and then compare them to templates already stored
+in a database. Biometric face recognition is used extensively in various
+contexts, including applications like Facebook or smartphones,
+workplaces, airports, colleges, and banks. The wide range of potential
+uses for face-scanning biometric technology demonstrates its versatility
+(FindBiometrics, 2022).
+
 ## Objective
 
 This project aims to develop a web-based time management and user
 identification system that leverages facial recognition technology. The
-technology employs a camera to take a picture of the user's face and
-then compare it to a previously registered image in a database to verify
-the user's identity. The system grants access when the user's
-identification has been verified and logs the user's entry and exit
-times. This method may be utilised in various settings, such as
-businesses, institutions of higher learning, and healthcare facilities,
-to enhance security and time management. The article will cover the
-steps to set up such a system, including hardware and software
-prerequisites, installation, and customisation. The project's main
-objectives are to automate time management, do away with the necessity
-for keycards, and increase workplace safety, accessibility, and COVID-19
-compliance. It aims to deliver a reliable and approachable solution that
-lowers human error and raises general workplace efficiency.
+technology employs cameras to take a picture of the user's face and then
+compare it to a previously registered image in the system to verify the
+user's identity. The system grants access when the user's identification
+has been verified and logs the user's entry and exit times. This method
+may be utilised in various settings, such as businesses, institutions of
+higher learning, and healthcare facilities, to enhance security and time
+management.
+
+This solution\'s objectives are:
+
+-   To provide a system that uses biometric facial recognition
+    technology to simplify clocks in and out in a workplace.
+
+-   A layer of security for the workplace or premises by making it
+    possible to determine whether an unauthorised person is present in a
+    specific location.
+
+-   To improve and reduce administrative overload by tracking
+    employees\' working hours, i.e., we can see when an employee has
+    finished on a specific day.
+
+-   Prevent false claims of hours worked, such as overtime, instead of
+    paying employees for falsely reported hours worked.
+
+The academic objectives:
+
+-   To learn about machine learning
+
+-   To understand how biometric facial recognition works.
+
+-   To fully build and develop a professional web application with an
+    inbuild facial recognition system.
+
+-   And gain experience with academic research
+
+## Project Scope
+
+The project investigates Facial recognition technologies currently
+employed. A suitable proof-of-concept solution was designed, developed
+and tested on a small number of users. The delivered software has been
+limited to the core web application functionality. Controlling automatic
+door locks with software is outside this project\'s scope.
+
+## Solution Developed
+
+The developed solution, Identity, comprises a database-driven web
+application. The web application is written with Python/Django on the
+server side and some JavaScript. Facial recognition is achieved with the
+openCV framework. The source code for the web application can be viewed
+at <https://github.com/zsolt821201/identity-ml-fyp-py>
+
+## Report Structure
+
+This report comprises five chapters: Research, Analysis and Design,
+Implementation, Testing and Results and Conclusions.
+
+-   The research discusses the significance of facial recognition in the
+    software industry, including its popularity and various face
+    recognition techniques and detection systems. It also examines the
+    use of facial recognition technology in the industry and describes
+    artificial neural networks, such as the Convolutional Neural Network
+    and Recurrent Neural Network.
+
+-   The analysis and design section overviews the application and
+    software development process, discussing data design and securing
+    application features. It presents use cases and website layouts and
+    describes the tools and frameworks considered for the project.
+
+-   The implementation section describes the tools and source control
+    used for the project, provides instructions on how to install and
+    run the project, and details the process of building an OpenCV
+    application to identify users\' faces and the Identity web project
+    using Django. It explains client-side functionality and how
+    JavaScript was incorporated into the web app and discusses building
+    and deploying the website
+
+-   The testing and results section provides an overview of unit testing
+    and the testing framework used in Django. It presents the unit
+    testing done and the results of test-driven development, analyzing
+    the findings and results of the testing.
+
+-   Finally, the conclusion discusses continued development and machine
+    learning approaches, provides insights on tracking continuing
+    developments and Behavior-Driven Development, and critiques the
+    software and its development process.
 
 # Research
 
@@ -385,7 +505,7 @@ used responsibly and ethically.
 
 ## Facial recognition in the software industry
 
-**DeepFace handles face recognition on Facebook.**
+### DeepFace handles face recognition on Facebook.
 
 A Facebook research team created the deep learning facial recognition
 algorithm known as DeepFace. In digital photographs, it can identify
@@ -395,8 +515,8 @@ million connection weights (DeepFace, 2022). With 97% accuracy, DeepFace
 algorithms can recognise faces nearly as well as a person in an
 identical situation (DeepFace, 2022). The significant difference between
 human and machine face recognition is that a person can only maintain a
-few hundred or thousand faces in their memory. Therefore they can only
-recall a limited amount of faces. DeppFace, on the other hand,
+few hundred or thousand faces in their memory. Therefore, they can only
+recall a limited number of faces. DeepFace, on the other hand,
 identifies all 1.4 billion users, and this number is continually
 expanding. The DeepFace System comprises four parts: a 2D alignment
 module, a 3D alignment module, a frontalization module, and a neural
@@ -407,11 +527,11 @@ For instance, a face may be recognised by comparing its feature vector
 to a list of existing faces and determining which face has the highest
 resemblance to the other faces' feature vectors (DeepFace, 2022). The
 fact that the DeepFace facial recognition software learns from each new
-photo it recognises and adds what it discovers to the database in order
-to improve a person's facial profile is one of the program's most
+photo it recognises and adds what it discovers to the database to
+improve a person's facial profile is one of the program's most
 advantageous features.
 
-**How does Apple Face ID work, and what is it?**
+### How does Apple Face ID work, and what is it?
 
 Before, a simple number password protected Apple products, but starting
 with the iPhone 5S in 2013, they were getting read off in favour of
@@ -435,7 +555,7 @@ as shaving one's beard. In that case, Face ID will first verify a user's
 identification using the user password before updating the user's face
 data (Pocket-lint, 2018).
 
-**How does the Google Vision API operate?**
+### How does the Google Vision API operate?
 
 One of Google's most intriguing and least-used capabilities is
 image-based search. The typical method for finding photographs on the
@@ -453,9 +573,9 @@ With the help of pre-trained models on big-picture datasets, the Google
 Cloud Vision API employs machine learning to recognise photos. It
 divides the images into hundreds of categories to identify items,
 locations, and faces. The findings are then produced with a confidence
-value (Vision?, n.d.).
+value (Vision?, What is Google Cloud, n.d.).
 
-## On-Site Software solutions in the Industry 
+## On-Site Software solutions in the industry 
 
 Of course, in addition to cloud-based methods, on-premises solutions
 provide facial recognition by default. However, they have much more
@@ -469,24 +589,23 @@ open-source solutions that can be used for free are becoming
 increasingly popular. In this section, the two most common ways will be
 presented.
 
-**OpenCV**
+### OpenCV
 
 OpenCV is a BSD-licensed open-source, cross-platform package that is
-primarily a real transaction
+primarily a real transaction for real-time image processing and is today
+the most popular solution in the field of image analysis, especially
+since it also has native Nvidia CUDA support. Originally It was written
+in the C language by Intel engineers. Still, it is also available in C++
+and Python, and it has been extended with more language support using
+shell classes. Different wrap (Goyal, et al., 2017). In the field of
+face recognition, for detecting landmarks (Facemark API) and is suitable
+for solving related problems (e.g., finding faces, drawing landmarks),
+but it also has many other functions ( e.g., use own Face and Fischer
+face). The solution uses a Haar-Cascade classifier for face recognition,
+a machine learning-based method that uses cascading layers (Viola &
+M.Jones, 2003).
 
-for real-time image processing and is today the most popular solution in
-the field of image analysis, especially since it also has native Nvidia
-CUDA support. Originally It was written in the C language by Intel
-engineers. Still, it is also available in C++ and Python, and it has
-been extended with more language support using shell classes. Different
-wrap (Goyal, et al., 2017). In the field of face recognition, for
-detecting landmarks (Facemark API) and is suitable for solving related
-problems (e.g. finding faces, drawing landmarks), but it also has many
-other functions ( e.g. use own Face and Fischer face). The solution uses
-a Haar-Cascade classifier for face recognition, a machine learning-based
-method that uses cascading layers (Viola & M.Jones, 2003).
-
-**Dlib**
+### Dlib
 
 Dlib is a low-level cross-platform open-source software written
 primarily in C++ but also supported by Python, part of the general
@@ -512,19 +631,22 @@ develop Face recognition systems.
 ## Face Recognition techniques 
 
 This subject has a broad reach and extensive literature, and an entire
-series of expert publications deal with its particular understanding.
-Therefore, it is not surprising that although employing the same set of
-tools, the problem hides a variety of specialities: Face recognition is
-the study of figuring out the formal and shape requirements for
-recognising a person's face and separating it from the background (Khan,
-2018). Face-based identification, a subset of this, employs the former's
+series of expert publications deal with its understanding. Therefore, it
+is not surprising that although employing the same set of tools, the
+problem hides a variety of specialities: Face recognition is the study
+of figuring out the formal and shape requirements for recognising a
+person's face and separating it from the background (Khan, 2018).
+Face-based identification, a subset of this, employs the former's
 advances to determine how similar or unlike two faces are and if they
 can both belong to the same person. Although the separation of these two
 notions is not strictly scientific in nature, the literature utilises
 them interchangeably to some degree, and they will be made separate
 throughout the remainder of the thesis.
 
-## **Face detection systems may be categorised into four classes based on their work**.
+## Face detection systems
+
+Facial detection systems may be categorised into four classes based on
+their work.
 
 -   Knowledge-based methods
 
@@ -534,7 +656,7 @@ throughout the remainder of the thesis.
 
 -   Appearance-based method
 
-**Knowledge-based methods**
+Knowledge-based methods
 
 These approaches are based on shared human perceptions of a face. For
 example, in a photograph of a face, the minor intensities will be around
@@ -546,7 +668,7 @@ cheeks. The space between the eyes or the contrast in colour intensity
 between the lower zone and the eye area is a facial characteristic
 (Solanki, 2016).
 
-**Feature-invariant method**
+Feature-invariant method
 
 Such techniques involve first identifying the distinguishing features of
 the face (eyes, mouth, and nose), after which the face is recognised by
@@ -559,7 +681,7 @@ the identifying features of the face that are used in facial
 identification. The nose's size, the jaw's angle, and the space between
 the eyes (Solanki, 2016).
 
-**Template matching method**
+Template matching method
 
 These methods are based on looking for a pre-made facial pattern in a
 photograph. This may be an edged template. The problem with such
@@ -570,7 +692,7 @@ sensitive to lighting conditions. Moreover, these algorithms are
 sluggish and cannot function in real-time since you must experiment with
 multiple orientations and scalings across the image.
 
-**Appearance-based methods**
+Appearance-based methods
 
 Based on a collection of pre-made teaching samples, a "model" is built,
 and portions matching this model are sought after in the image. Most of
@@ -650,25 +772,22 @@ while a negative weight makes it less active. In today's world, the
 number of inputs in the original may be very different from the amount
 in the model (but none of its element numbers can be 0) (Kristof, 2002).
 
-+-----------------------------------------------------------------------+
-| ![A picture containing text, clock Description automatically          |
-| generated](./images/thesis/media/image2.jpg){width="4.59375in"        |
-| height="2.4895833333333335in"}                                        |
-|                                                                       |
-| []{#_Toc131962273 .anchor}Figure 1 A multi-layer neural network's     |
-| theoretical structure (GeeksforGeeks, 2021).                          |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+![A picture containing text, clock Description automatically
+generated](./images/thesis/media/image2.jpg){width="4.59375in"
+height="2.4895833333333335in"}
+
+[]{#_Toc133399582 .anchor}Figure A multi-layer NN's theoretical
+structure (GeeksforGeeks, 2021).
 
 It has been shown that this model can do general-purpose computation
-(Jain, et al., 1996)s, but since it is built on a number of
-simplifications that do not correspond to how actual neurons work, it
-has undergone multiple generalisations to reach its present state.
-Alternative activation functions are used in place of the threshold
-function. These processes and the threshold function determine how the
-given neuron will react to the input. One of the most widely utilised
-functions in use today is the sigmoid activation function (Shanu, n.d.),
-which has the following formula:
+(Jain, et al., 1996)s, but since it is built on several simplifications
+that do not correspond to how actual neurons work, it has undergone
+multiple generalisations to reach its present state. Alternative
+activation functions are used in place of the threshold function. These
+processes and the threshold function determine how the given neuron will
+react to the input. One of the most widely utilised functions in use
+today is the sigmoid activation function (Shanu, n.d.), which has the
+following formula:
 
 $$y = \frac{1}{1 + e^{- (a - 0)b}}$$
 
@@ -683,37 +802,37 @@ receives can be sent further. Each neuron in the neural network's input
 layer is linked to the intermediate layer, allowing it to continue
 transmitting the data it has received as input (Kristof, 2002). Weighted
 synapses link the neurons of the input layer to those of the inner
-layers. The significant features from the perspective of the particular
-issue are used to determine how much weight to initially assign to each
-job, which is pretty task-specific. While the neurons in the input layer
-have fixed weights, the consequences in the intermediate layer are
-dynamic, demonstrating the potential to learn. The teaching samples that
-are sent to the network influence these changes. The rules seem to be
-learned from the supplied representative sample rather than being
-explicitly provided by the researchers; in other words, neural network
-learning is simply the act of dynamically allocating weights to
-intermediate components (Jain, et al., 1996). In the early stages of
-learning, neurons provide a random response to the issue, then compare
-the outcome to the teaching sample and adjust the internal weighting
-accordingly. Despite its outstanding findings, the neural in the case of
-networks, the output provided after the process is not guaranteed to be
-the ideal result. Throughout learning, the network adapts to a
-particular local minimum value via serial mutations. Most training
-networks use supervised, unsupervised, or hybrid training methods. The
-quality of the information given to the network varies depending on
-which training method is used. In the first approach, the network aims
-to adjust the weighting to produce outputs near the set of predicted
-results (the sample with the most essential information) as feasible
-(Jain, et al., 1996). In a variant known as reinforcement learning, the
-network doesn't receive the anticipated result but instead works on a
-value obtained from the discrepancy between the actual and expected
-outcomes. Instead of producing outputs for various inputs, networks in
-unsupervised learning aim to reveal the basic patterns present in the
-training sample and their interactions. In the case of hybrid learning,
-half of the weights are mapped manually, while the other half is created
-via directed learning (Jain, et al., 1996). For neural networks to be
-used in the real world, they need to be well-trained and given data with
-a similar structure they have never seen before. They can then use the
+layers. The significant features from the perspective of the issue are
+used to determine how much weight to initially assign to each job, which
+is pretty task specific. While the neurons in the input layer have fixed
+weights, the consequences in the intermediate layer are dynamic,
+demonstrating the potential to learn. The teaching samples that are sent
+to the network influence these changes. The rules seem to be learned
+from the supplied representative sample rather than being explicitly
+provided by the researchers; in other words, neural network learning is
+simply the act of dynamically allocating weights to intermediate
+components (Jain, et al., 1996). In the early stages of learning,
+neurons provide a random response to the issue, then compare the outcome
+to the teaching sample and adjust the internal weighting accordingly.
+Despite its outstanding findings, the neural in the case of networks,
+the output provided after the process is not guaranteed to be the ideal
+result. Throughout learning, the network adapts to a particular local
+minimum value via serial mutations. Most training networks use
+supervised, unsupervised, or hybrid training methods. The quality of the
+information given to the network varies depending on which training
+method is used. In the first approach, the network aims to adjust the
+weighting to produce outputs near the set of predicted results (the
+sample with the most essential information) as feasible (Jain, et al.,
+1996). In a variant known as reinforcement learning, the network doesn't
+receive the anticipated result but instead works on a value obtained
+from the discrepancy between the actual and expected outcomes. Instead
+of producing outputs for various inputs, networks in unsupervised
+learning aim to reveal the basic patterns present in the training sample
+and their interactions. In the case of hybrid learning, half of the
+weights are mapped manually, while the other half is created via
+directed learning (Jain, et al., 1996). For neural networks to be used
+in the real world, they need to be well-trained and given data with a
+similar structure they have never seen before. They can then use the
 knowledge they gained during training to complete the task.
 
 ## Descriptions of well-known neural networks
@@ -728,7 +847,7 @@ scientific literature is hence also referred to as literature.
 
 Two main kinds of configurations often appear in the literature:
 feedforward and recurrent networks, depending on the direction in which
-information might travel between the network's neurons(). The neuronal
+information might travel between the network's neurons. The neuronal
 architecture of the earlier networks results in a non-circular graph,
 which causes the outputs to flow from the input directly to the output
 direction. In contrast, the architecture of the later networks contains
@@ -757,27 +876,23 @@ learning, although exact numbers are sometimes not explicitly provided
 
 These networks are distinguished from others because image processing is
 their major function. They are also capable of comprehending a variety
-of information types (video, audio, etc.). Our ultimate goal is to
-classify things based on the information in the picture, which is
-accomplished by transferring the data of an image (at the pixel level)
-via the network in a typical application.
+of information types (video, audio, etc.). Our goal is to classify
+things based on the information in the picture, which is accomplished by
+transferring the data of an image (at the pixel level) via the network
+in a typical application.
 
 A convolutional neural network (CNN) scans the details of incoming data
-rather than interpreting it as a whole. Using a layer of 1,000,000
-(1,000×1,000) neurons for pixel-level interpretation is not the most
-efficient when a 1,000×1,000 pixel image is the input. Instead, the data
-is sent over the network in detail using a 100x100 pixel filter (Dertat,
-2017).
+rather than interpreting it. Using a layer of 1,000,000 (1,000×1,000)
+neurons for pixel-level interpretation is not the most efficient when
+1,000 pixels ×1,000 pixels image is the input. Instead, the data is sent
+over the network in detail using a 100x100 pixel filter (Dertat, 2017).
 
-+-----------------------------------------------------------------------+
-| ![Diagram Description automatically                                   |
-| generated](./images/thesis/media/image3.png){width="6.3in"            |
-| height="4.293055555555555in"}                                         |
-|                                                                       |
-| []{#_Toc131962274 .anchor}Figure 2 Operation of the filter unit used  |
-| by CNN (Dertat, 2017).                                                |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+![Diagram Description automatically
+generated](./images/thesis/media/image3.png){width="5.905555555555556in"
+height="4.024266185476815in"}
+
+[]{#_Toc133399583 .anchor}Figure : Operation of the filter unit used by
+CNN (Dertat, 2017)
 
 The two primary components of CNNs are feature discovery and
 categorisation. During the feature detection process, averaging
@@ -812,16 +927,12 @@ consider how its parts work together.
 The problem is solved via recurrent neural networks. They are recursive
 networks where data may be stored indefinitely (Olah, 2015).
 
-+-----------------------------------------------------------------------+
-| ![Diagram Description automatically                                   |
-| gene                                                                  |
-| rated](./images/thesis/media/image4.png){width="2.8131681977252843in" |
-| height="2.358208661417323in"}                                         |
-|                                                                       |
-| []{#_Toc131962275 .anchor}Figure 3: Recurrent Neural Networks (Olah,  |
-| 2015).                                                                |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+![Diagram Description automatically
+generated](./images/thesis/media/image4.png){width="2.8131681977252843in"
+height="2.358208661417323in"}
+
+[]{#_Toc133399584 .anchor}Figure : Recurrent Neural Networks (Olah,
+2015).
 
 As seen above, a section of the neural network labelled A processes the
 input xt and returns the result h~t~. The network's information may be
@@ -836,15 +947,12 @@ following network. To gain a better understanding of RNNs, it can be
 useful to imagine what would happen if the loop in the network structure
 was unfolded (Olah, 2015).
 
-+-----------------------------------------------------------------------+
-| ![A picture containing text, clock Description automatically          |
-| generated](./images/thesis/media/image5.png){width="6.3in"            |
-| height="1.5522386264216972in"}                                        |
-|                                                                       |
-| []{#_Toc131962276 .anchor}Figure 4. An unrolled recurrent neural      |
-| network (Olah, 2015).                                                 |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+![A picture containing text, clock Description automatically
+generated](./images/thesis/media/image5.png){width="5.905555555555556in"
+height="1.4549070428696413in"}
+
+[]{#_Toc133399585 .anchor}Figure . An unrolled recurrent neural network
+(Olah, 2015).
 
 # Analysis and Design
 
@@ -855,10 +963,9 @@ then compares it with an image previously registered in the system. This
 process verifies the user's identity before allowing them access to a
 specific location, such as a building or a room. Once the user's
 identification has been verified, the system grants access and logs the
-user's entry and exit times for that particular location. This allows
-for accurate tracking of user movement and maintains security by
-ensuring that only authorised personnel are granted access to restricted
-areas
+user's entry and exit times for that location. This allows for accurate
+tracking of user movement and maintains security by ensuring that only
+authorised personnel are granted access to restricted areas.
 
 ## Software Development Process
 
@@ -895,7 +1002,7 @@ Key aspects of Agile methodology suited to this project are:
 generated](./images/thesis/media/image6.jpg){width="4.677083333333333in"
 height="2.9423108048993876in"}
 
-Figure : Agile
+[]{#_Toc133399586 .anchor}Figure : Agile
 
 ### Behaviour-driven development
 
@@ -909,7 +1016,7 @@ shared understanding of software behaviour across the team (Wynne,
 
 Behaviour-driven development (BDD) is a methodology that bridges the gap
 between technical and non-technical stakeholders by emphasizing
-collaboration, communication and a shared understanding of the
+collaboration, communication, and a shared understanding of the
 software\'s expected behaviour. BDD encourages using clear, concise, and
 easily understood language to define requirements and acceptance
 criteria, facilitating a common understanding among stakeholders. This
@@ -923,22 +1030,22 @@ Key aspects of Behaviour-driven development:
 
 -   Emphasis on a shared understanding of software behaviour
 
--   A clear, concise, and easy-to-understand language for requirements
+-   A clear, concise, and easy-to-understand language for requirements.
 
--   User story-driven approach to defining features
+-   User story-driven approach to defining features.
 
--   Specification by example to ensure accurate implementation
+-   Specification by example to ensure accurate implementation.
 
--   Test-driven development to validate expected behaviour
+-   Test-driven development to validate expected behaviour.
 
 -   Continuous feedback and adjustment to meet user needs and
-    expectations
+    expectations.
 
 ![What is BDD? - Behavior Driven Development
 cycle.](./images/thesis/media/image7.png){width="5.270138888888889in"
 height="2.3828412073490814in"}
 
-Figure : Behaviour-driven development Cycle
+[]{#_Toc133399587 .anchor}Figure : Behaviour-driven development Cycle
 
 ### Minimal viable product 
 
@@ -950,7 +1057,7 @@ and gather valuable user feedback.
 generated](./images/thesis/media/image8.png){width="5.083176946631671in"
 height="2.6458333333333335in"}
 
-Figure : MVP
+[]{#_Toc133399588 .anchor}Figure : MVP
 
 Gantt diagrams can be useful for keeping track of tasks and focusing on
 critical tasks for an MVP.
@@ -959,7 +1066,7 @@ critical tasks for an MVP.
 generated](./images/thesis/media/image9.png){width="5.905555555555556in"
 height="3.160416666666667in"}
 
-Figure : Gantt Diagram
+[]{#_Toc133399589 .anchor}Figure : Gantt Diagram
 
 ## Data Design
 
@@ -975,12 +1082,13 @@ the application can accurately track users' movement, maintain security,
 and ensure that only authorised individuals can access restricted areas.
 
 Admin Group: members of the admin group have /inherit admin privileges.
-The system must have at least one admin user.![Graphical user interface,
-application, Teams Description automatically
+The system must have at least one admin user.
+
+![Graphical user interface, application, Teams Description automatically
 generated](./images/thesis/media/image10.png){width="6.3in"
 height="2.2423611111111112in"}
 
-[]{#_Toc131962277 .anchor}Figure 9: Class Diagram
+[]{#_Toc133399590 .anchor}Figure : Class Diagram
 
 ## Securing application features
 
@@ -1000,7 +1108,7 @@ secure environment for employees and visitors.
 generated](./images/thesis/media/image11.png){width="6.375462598425197in"
 height="3.618566272965879in"}
 
-[]{#_Toc131962278 .anchor}Figure 10 Sign-in example
+[]{#_Toc133399591 .anchor}Figure Sign-in example
 
 A location manager or other designated users are granted permission in
 the application to start sign-in / sign-off features.
@@ -1009,70 +1117,70 @@ the application to start sign-in / sign-off features.
 generated](./images/thesis/media/image12.png){width="2.325173884514436in"
 height="3.0433464566929134in"}
 
-[]{#_Toc131962279 .anchor}Figure 11 Feature permissions
+[]{#_Toc133399592 .anchor}Figure Feature permissions
 
-## Use cases
+## Use cases.
 
-### Upload facial data
+### Upload facial data.
 
-**Brief Description:**
+Brief Description:
 
 This use case describes capturing and storing a user's unique facial
 features or biometric information, such as the distance between the eyes
 or the shape of the jawline.
 
-**Trigger Event:**
+Trigger Event:
 
 The user requests the system to set up their facial recognition profile.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The system renders the setup screen and asks the user to look at the
-    camera
+    camera.
 
-2.  The system takes multiple pictures of the user's face
+2.  The system takes multiple pictures of the user's face.
 
 3.  The system processes the pictures and stores the facial recognition
-    profile
+    profile.
 
 4.  The system compiles and stores the facial recognition profile for
-    all users in the trainer.yml file
+    all users in the trainer.yml file.
 
 5.  The system displays a success message.
 
-**Alternative Flows:**
+Alternative Flows:
 
-1.  The application can not find a face in the video picture stream
+1.  The application cannot find a face in the video picture stream.
 
 2.  If the application doesn't detect a face in 900 still video frames,
     the user is alerted to an error.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
-1.  IsFaceLogin enabled is true for the user
+1.  IsFaceLogin enabled is true for the user.
 
-2.  The user is logged in
+2.  The user is logged in.
 
-3.  The user is sitting in front of the camera
+3.  The user is sitting in front of the camera.
 
-**Post-Conditions:**
+Post-Conditions:
 
 Facial Data trained and stored.
 
-### Sign in with facial data
+### Sign in with facial data.
 
-**Brief Description:**
+Brief Description:
 
-This use case describes how a user logs in with their facial data
+This use case describes how a user logs in with their facial data.
 
-**Trigger Event:**
+Trigger Event:
 
-The user walks up to sign in computer and looks at the camera
+The user walks up to sign in computer and looks at the camera.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The system renders the login screen and asks the user to look at the
-    camera
+    camera.
 
 2.  The security station client streams pictures of the user's face to
     the server.
@@ -1081,45 +1189,46 @@ The user walks up to sign in computer and looks at the camera
     recognition profile and returns the result to the client station.
 
 4.  The security station client displays a success message if the user
-    is recognised
+    is recognised.
 
-**Alternative Flows:**
+Alternative Flows:
 
-1.  The application can not find a face in the video picture stream
+1.  The application cannot find a face in the video picture stream.
 
 2.  There are multiple faces in the video stream; the user is alerted to
-    an error
+    an error.
 
 3.  If the user has already logged in, the system will alert the user
-    they are already on the roster
+    they are already on the roster.
 
-**Pre-Condition:**
+Pre-Condition:
 
-1.  IsFaceLogin enabled is true for the user
+1.  IsFaceLogin enabled is true for the user.
 
-2.  The user must have a facial recognition profile stored in the system
+2.  The user must have a facial recognition profile stored in the
+    system.
 
-3.  The user must have permission to access that specific location
+3.  The user must have permission to access that specific location.
 
-**Post-Condition:**
+Post-Condition:
 
-The user is logged in and can access the building
+The user is logged in and can access the building.
 
-### Sign out with facial data
+### Sign out with facial data.
 
-**Brief Description:**
+Brief Description:
 
 The use case describes how a person signs out of a building using their
 face.
 
-**Trigger Event:**
+Trigger Event:
 
 The user walks up to sign out security station and looks at the camera.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The system renders the logout screen and asks the user to look at
-    the camera
+    the camera.
 
 2.  The client security station streams pictures of the user's face to
     the server
@@ -1132,7 +1241,7 @@ The user walks up to sign out security station and looks at the camera.
 
 5.  The security station unlocks the door.
 
-**Alternative Flows:**
+Alternative Flows:
 
 1.  The programme is unable to locate a face in the video image stream.
 
@@ -1142,135 +1251,136 @@ The user walks up to sign out security station and looks at the camera.
 3.  Users who cannot sign out with their face can manually sign out from
     the application using their username and password.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
-1.  IsFaceLogin enabled is true for the user
+1.  IsFaceLogin enabled is true for the user.
 
-2.  The user must have a facial recognition profile stored in the system
+2.  The user must have a facial recognition profile stored in the
+    system.
 
-3.  The user must have permission to access that specific location
+3.  The user must have permission to access that specific location.
 
-**Post-Conditions:**
+Post-Conditions:
 
-The user is logged out, and sign out time is recorded
+The user is logged out and sign out time is recorded.
 
-### Add a new user
+### Add a new user.
 
-**Brief Description:**
+Brief Description:
 
-The use case describes how a user is added to the system by an admin
+The use case describes how a user is added to the system by an admin.
 
-**Trigger Event:**
+Trigger Event:
 
 The administrator logs in to the admin panel and creates a new user
 account.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The system renders the add user screen and asks the admin to enter
     the user's first name. last name, email address and telephone
     number.
 
-2.  Admin creates a temporary password for the user
+2.  Admin creates a temporary password for the user.
 
 3.  The admin grants the user access to the location they will work in
     the future.
 
-**Alternative Flows:**
+Alternative Flows:
 
-The admin can not create a user because the user already exists
+The admin cannot create a user because the user already exists.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
 The admin must log in to the system.
 
-**Post-Conditions:**
+Post-Conditions:
 
 The user is added to the system and can now log in.
 
-### Log in to the user account
+### Log in to the user account.
 
-**Brief Description:**
+Brief Description:
 
 The process of a user gaining access to a system by providing their
-unique identification information, which is their username and password
+unique identification information, which is their username and password.
 
-**Trigger Event:**
+Trigger Event:
 
-The user wants to log in to the system
+The user wants to log in to the system.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The system displays the login page.
 
-2.  The user asks to enter the username and password
+2.  The user asks to enter the username and password.
 
 3.  The system displays the user's home page if the username and
     password are correct.
 
-**Alternative Flows:**
+Alternative Flows:
 
-1.  The user is not in the system
+1.  The user is not in the system.
 
 2.  The username and password are incorrect; the system displays an
     error message.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
 The user must have an account created in the system.
 
-**Post-Conditions:**
+Post-Conditions:
 
-The user is logged in, and the user's home page gets displayed
+The user is logged in, and the user's home page gets displayed.
 
 ### Logout from the user account
 
-**Brief Description:**
+Brief Description:
 
 Ending a user's access to the system and current session. Logging out is
 an essential security feature that aids in protecting sensitive data and
 preventing unauthorised access by ensuring the user's session is fully
 ended.
 
-**Trigger Event:**
+Trigger Event:
 
 The user wants to log out of the system.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
-1.  The user presses the logout button
+1.  The user presses the logout button.
 
-2.  The system logs out the user
+2.  The system logs out the user.
 
-3.  The system displays the login page
+3.  The system displays the login page.
 
-**Alternative Flows:**
+Alternative Flows:
 
 None
 
-**Pre-Conditions:**
+Pre-Conditions:
 
-The user must be logged in to the system
+The user must be logged in to the system.
 
-**Post-Conditions:**
+Post-Conditions:
 
 The user is logged out from the system, and the login page gets
-displayed
+displayed.
 
-### Edit user profile
+### Edit user profile.
 
-**Brief Description:**
+Brief Description:
 
 This feature allows users to change their personal information, such as
 their name, email address, phone number, and username, as needed.
 Modifying the profile is important for ensuring a user's information is
 current and correct.
 
-**Trigger Event:**
+Trigger Event:
 
-The user clicks on the edit profile button
+The user clicks on the edit profile button.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The user selects the Edit Profile option.
 
@@ -1278,34 +1388,34 @@ The user clicks on the edit profile button
 
 3.  The user presses the save button.
 
-**Alternative Flows:**
+Alternative Flows:
 
 The user wishes to submit the form with all fields blank. The system
 will show an error message. The profile will remain unchanged.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
-1.  The user must be logged in
+1.  The user must be logged in.
 
-2.  The user must have a profile in the system
+2.  The user must have a profile in the system.
 
-**Post-Conditions:**
+Post-Conditions:
 
-The user profile is updated
+The user profile is updated.
 
 ### Change Password
 
-**Brief Description:**
+Brief Description:
 
 Password changes are an important security measure since they safeguard
 user accounts from illegal access. Passwords can be changed by going to
 the password change page.
 
-**Trigger Event:**
+Trigger Event:
 
-The user clicks on the Change Password button
+The user clicks on the Change Password button.
 
-**Main Success Scenario:**
+Main Success Scenario:
 
 1.  The user enters his old password and his new password.
 
@@ -1313,7 +1423,7 @@ The user clicks on the Change Password button
 
 3.  The system updates the user password.
 
-**Alternative Flows:**
+Alternative Flows:
 
 1.  The user enters the wrong old password. The system will display an
     error message.
@@ -1330,11 +1440,11 @@ The user clicks on the Change Password button
 5.  The new password is less than eight characters. The system will
     display an error message.
 
-**Pre-Conditions:**
+Pre-Conditions:
 
 The user must be logged in.
 
-**Post-Conditions:**
+Post-Conditions:
 
 The user password is updated.
 
@@ -1344,12 +1454,12 @@ The user password is updated.
 
 Clicking a location's name will give a details view of the location.
 Only authorised users, such as administrators or managers, can activate
-the sign-in /sign-off for a location
+the sign-in /sign-off for a location.
 
-![](./images/thesis/media/image13.png){width="6.283333333333333in"
-height="1.9902777777777778in"}
+![](./images/thesis/media/image13.png){width="5.905555555555556in"
+height="1.8706146106736659in"}
 
-[]{#_Toc131962280 .anchor}Figure 12 Locations list view
+[]{#_Toc133399593 .anchor}Figure Locations list view
 
 An unauthorised user who attempts to activate a location's
 sign-in/sign-off screen will receive a 403 response.
@@ -1358,25 +1468,25 @@ sign-in/sign-off screen will receive a 403 response.
 generated](./images/thesis/media/image14.png){width="5.633858267716535in"
 height="1.720472440944882in"}
 
-[]{#_Toc131962281 .anchor}Figure 13 Security notification
+[]{#_Toc133399594 .anchor}Figure Security notification
 
-### Location details view
+### Location detail's view
 
-The location view displays the
+The location view displays the:
 
--   Permitted users
+-   Permitted users.
 
--   active sign-in (users signed in with no sign-out yet) users
+-   active sign-in (users signed in with no sign-out yet) users.
 
--   roster logs grouped by day
+-   roster logs grouped by day.
 
 ![Graphical user interface, application, email Description automatically
 generated](./images/thesis/media/image15.png){width="6.3in"
 height="3.370138888888889in"}
 
-[]{#_Toc131962282 .anchor}Figure 14 Limerick location view
+[]{#_Toc133399595 .anchor}Figure Limerick location view
 
-### View the location roster's day log
+### View the location roster's day log.
 
 The location's roaster lists the users' sign-in and sign-out times for
 the day.
@@ -1385,7 +1495,7 @@ the day.
 generated](./images/thesis/media/image16.png){width="6.3in"
 height="2.048611111111111in"}
 
-[]{#_Toc131962283 .anchor}Figure 15 Location roster day View
+[]{#_Toc133399596 .anchor}Figure Location roster day view
 
 ### Location Sign in
 
@@ -1396,7 +1506,7 @@ the server.
 generated](./images/thesis/media/image17.png){width="6.3in"
 height="4.356944444444444in"}
 
-[]{#_Toc131962284 .anchor}Figure 16 Location Sign In part 1
+[]{#_Toc133399597 .anchor}Figure Location Sign In part 1
 
 If the user is recognised, the system displays the user details on the
 screen and logs the day's timestamp.
@@ -1406,9 +1516,9 @@ Description automatically
 generated](./images/thesis/media/image18.png){width="6.3in"
 height="4.475694444444445in"}
 
-[]{#_Toc131962285 .anchor}Figure 17 Location Sign In part 2
+[]{#_Toc133399598 .anchor}Figure Location Sign In part 2
 
-### Location Sign off
+### Location Sign off.
 
 The location sign-off page takes pictures of the user and streams them
 to the server.
@@ -1418,7 +1528,7 @@ automatically
 generated](./images/thesis/media/image19.png){width="6.310968941382328in"
 height="3.5249945319335083in"}
 
-[]{#_Toc131962286 .anchor}Figure 18 Location Sign Out part 1
+[]{#_Toc133399599 .anchor}Figure Location Sign Out part 1.
 
 If the user is recognised, the system logs them out from the building
 and records their finishing time as the current time. This process
@@ -1430,7 +1540,7 @@ Description automatically
 generated](./images/thesis/media/image20.png){width="6.3in"
 height="5.616666666666666in"}
 
-[]{#_Toc131962287 .anchor}Figure 19 Location Sign Out part 2
+[]{#_Toc133399600 .anchor}Figure Location Sign Out part 2
 
 ### Setup user face recognition page
 
@@ -1444,18 +1554,18 @@ Description automatically
 generated](./images/thesis/media/image21.png){width="6.3in"
 height="4.2659722222222225in"}
 
-[]{#_Toc131962288 .anchor}Figure 20 Setting Up Facial recognition
+[]{#_Toc133399601 .anchor}Figure Setting Up Facial recognition.
 
 ### Edit Profile
 
 This page allows users to change their personal information, such as
-their name, email address, phone number, and username, as needed
+their name, email address, phone number, and username, as needed.
 
 ![Graphical user interface, application Description automatically
 generated](./images/thesis/media/image22.png){width="6.3in"
 height="3.13125in"}
 
-[]{#_Toc131962289 .anchor}Figure 21: Edit User Profile
+[]{#_Toc133399602 .anchor}Figure : Edit User Profile
 
 ### Change Password
 
@@ -1465,7 +1575,7 @@ A User can change their password here.
 generated](./images/thesis/media/image23.png){width="6.3in"
 height="3.004861111111111in"}
 
-[]{#_Toc131962290 .anchor}Figure 22: change-password.html
+[]{#_Toc133399603 .anchor}Figure : change-password.html
 
 ## Tools and Framework Considered
 
@@ -1475,14 +1585,14 @@ Jupyter is an abbreviation for Julia, Python, and R; these are the three
 programming languages with which Jupyter originated, but it now supports
 various languages. Jupyter Notebook is an online application that is
 both open-source and free to use. Jupyter Notebook is made so that
-programming work can be shown and others can join easily. With Jupyter
+programming work can be shown, and others can join easily. With Jupyter
 Notebook, programmers can combine code, comments, multimedia, and
-visuals into an interactive document called a "notebook." Recycled and
+visuals into an interactive document called a "notebook". Recycled and
 used again. It lets users write and execute computer code directly in
 the web browser. It is useful in teaching as we can show examples of how
 a script or a language works.
 
-**Advantages of using Jupyter Notebook:**
+Advantages of using Jupyter Notebook:
 
 -   **Data visualisation.** Most people learn about Jupyter Notebooks
     for the first time through data visualisation, which is a shared
@@ -1496,7 +1606,7 @@ a script or a language works.
     examine the results immediately in your browser**.**
 
 -   **Live interaction with code.** The code in Jupyter Notebook is not
-    static; it is real-time, gradually editable, and replayable, with
+    static; it is real-time, gradually editable, and replay-able, with
     feedback provided immediately in the browser. Notebooks can have
     user controls that can be utilised as code input sources.
 
@@ -1509,7 +1619,7 @@ a script or a language works.
 A Jupyter Notebook can have many parts, and each one is made up of
 different blocks.
 
-**Components of Jupyter Notebook:**
+Components of Jupyter Notebook:
 
 -   **Text and HTML** Anywhere on the page, developers can enter plain
     text or content written in Markdown syntax to turn it into HTML. The
@@ -1528,7 +1638,7 @@ different blocks.
     IPython.display module, or they can be inserted into a notebook as
     HTML elements.
 
--   **Data** In addition to the .ipynb file that makes up a Jupyter
+-   **Data** In addition to the \`.ipynb\` file that makes up a Jupyter
     Notebook, data can be given as a separate file or imported
     programmatically. For instance, code might be inserted into the
     notebook to download data from a public Internet repository or
@@ -1537,7 +1647,7 @@ different blocks.
 With certain limits, Jupyter Notebook can be equally as powerful and
 helpful.
 
-**The restriction set by Jupyter Notebook**
+The restriction set by Jupyter Notebook
 
 -   **Notebooks are not self-contained.** The fact that Jupyter Notebook
     requires the Jupyter runtime and the libraries the developer wants
@@ -1569,23 +1679,23 @@ languages. Since the Python community is vibrant and active, learning
 this language will provide developers access to a wealth of useful tools
 that Python users have created since its inception.
 
-**Why Python?**
+Why Python?
 
 In a nutshell, Python's popularity among developers is a result of its
 widespread use in a variety of industries, including data science,
 artificial intelligence, desktop and online application development,
 statistics, mathematics, and scientific research. Developers have access
-to several publicly accessible libraries, and the number of ready-made,
+to several publicly accessible libraries, and the number of ready-made
 user-friendly tools is always growing. Its development community, which
 is already sizable, is expanding quickly due to the language's ease of
 learning and suitability for novice programmers. And if someone gets
 stuck on a work, it's always simple to find information, solutions, and
 recommendations owing to the enormous Python community.
 
-**What does Python's simplicity mean?**
+What does Python's simplicity mean?
 
 Comparing the approaches that Python and other programming languages (in
-this case, Java and C++) take to solve the same straightforward problem
+this case, Java, and C++) take to solve the same straightforward problem
 is the greatest way to illustrate Python's openness and accessibility.
 Let's use a classic programming example: get the terminal to say, "Hello
 World!"
@@ -1595,7 +1705,7 @@ World!"
 +========================+=============================+===============+
 | #include \<iostream\>  | class HelloWorldApp {       | print(\"Hello |
 |                        |                             | World\")      |
-| int main()             | publicstaticvoid            |               |
+| int main()             | public static void          |               |
 |                        | main(String\[\] args) {     |               |
 | {                      |                             |               |
 |                        | System.out.println(\"Hello  |               |
@@ -1610,13 +1720,13 @@ World!"
 ### TensorFlow
 
 Since Google released version 1.0 of its open-source AI framework in
-2017, it has grown into a platform that defines the Industry as a whole.
-With the framework and the detailed documentation that comes with it,
-it's very easy to put together neural networks with only a few lines of
-code that can solve a wide range of problems. These networks can run on
-both CPUs and GPUs (not to mention those specifically designed for
-solving AI problems). About the hardware for the TPU (Tensor Processing
-Unit) target (TensorFlow, 2019).
+2017, it has grown into a platform that defines the industry. With the
+framework and the detailed documentation that comes with it, it's very
+easy to put together neural networks with only a few lines of code that
+can solve a wide range of problems. These networks can run on both CPUs
+and GPUs (not to mention those specifically designed for solving AI
+problems). About the hardware for the TPU (Tensor Processing Unit)
+target (TensorFlow, 2019).
 
 TensorFlow operation is built on a data flow-based implementation in
 which the computations and states of the algorithms are represented by
@@ -1625,8 +1735,8 @@ data flow graphs, allowing for the parallelisation of diverse processes
 internal states, allowing the vast number of parameters that occur in
 big models to be managed (TensorFlow, 2019). The framework was created
 in C++ (and CUDA-C), but it is now accessible in several programming
-languages, including C# and Java; however, it is most commonly used
-through Python language integration.
+languages, including C# and Java; however, it is most used through
+Python language integration.
 
 They often don't work directly with TensorFlow but rather with Keras, a
 higher-level software package that was not originally made for
@@ -1635,7 +1745,7 @@ and was not originally made for TensorFlow (Team, n.d.). The project's
 original goal was to create a more user-friendly API interface, achieved
 with network configurations that can be set up with just a few lines of
 code. The API also makes it easy to access important functions, such as
-the different activation functions used when building a network (e.g.
+the different activation functions used when building a network (e.g.,
 ReLu, Sigmoid, or Softmax42). It might seem obvious that the same
 backend should run both the neural networks made with TensorFlow and the
 training, which needs the same processing power as the net size.
@@ -1672,7 +1782,7 @@ The software's development process, including the tools, frameworks, and
 libraries used.
 
   -----------------------------------------------------------------------
-  Python 3.9            Programing language
+  Python 3.9            Programming language
   --------------------- -------------------------------------------------
   HTML, CSS, JavaScript Client-side programming languages
 
@@ -1707,26 +1817,23 @@ Git is the source control technology used, and the source is maintained
 in a GitHub repository @
 <https://github.com/zsolt821201/identity-ml-fyp-py>
 
-## To install and Run the project
+## To install and run the project.
 
-1\. Clone the repository
+1.  Clone the repository.
 
-git clone https://github.com/Zsolt821201/iDentity-ml-fyp-py.git
+> git clone https://github.com/Zsolt821201/iDentity-ml-fyp-py.git
 
-2\. Install the Python dependencies
+2.  Install the Python dependencies.
 
-pip install -r requirements.txt
+> pip install -r requirements.txt
 
-3\. Run the app
+3.  Run the app in VS Code and run the app by pressing the \`F5\` Key or
+    open a terminal and run the following command:
 
-Open VS Code and run the app by pressing the \`F5\` Key or
+> python manage.py runserver
 
-Open a terminal and run the following command:
-
-python manage.py runserver
-
-4\. Open the app in your browser @
-[http://localhost:8000](http://localhost:8000/)
+4.  Open the app in your browser @
+    [http://localhost:8000](http://localhost:8000/)
 
 Built-in user accounts are:
 
@@ -1740,22 +1847,22 @@ Built-in user accounts are:
   JoshuaFluke      Letmein1\$      user         Built-in admin account
   -----------------------------------------------------------------------
 
-## Building an OpenCv application to identify user\'s faces
+## Building an OpenCv application to identify user\'s faces.
 
 ### How to use Open CV
 
-The openCV-python package wraps the OpenCV library in Python. To utilise
-openCV in the application, this package must be installed. c.f. 6.4
+The OpenCv-python package wraps the OpenCV library in Python. To utilise
+OpenCv in the application, this package must be installed. c.f. 6.4
 Installing and running the project.
 
 In Python files, use the following code to import the package.
 
-1\. import cv2
+import cv2
 
 ### How to find a face in an image using OpenCv:
 
 Given a grey-scale image Mat object as input, the
-function\`detect_user_face.\` returns a tuple containing a boolean flag
+function\`detect_user_face\` returns a tuple containing a Boolean flag
 and a numpy array. The flag is True if a face is detected in the image
 and False if no face is detected. The numpy array contains the
 coordinates of the face in the image.
@@ -1806,7 +1913,7 @@ The detectMultiScale method of the face_detector_classifier object
 detects faces in the image. The detectMultiScale method returns a numpy
 array of faces. The parameters of detectMultiScales used are:
 
--   The image to be analysed, i.e. **gray_scale_image**
+-   The image to be analysed, i.e., **gray_scale_image**
 
 -   **scalefactor** Some faces in a group photo may be closer to the
     camera than others. It makes sense that these faces would stand out
@@ -1823,20 +1930,20 @@ array of faces. The parameters of detectMultiScales used are:
 
 -   **minSize** -- Minimum possible object size. Objects smaller than
     that are ignored. The Identity application uses a default min size
-    of None, i.e. is ignored unless otherwise specified
+    of None, i.e., is ignored unless otherwise specified.
 
 Each face is an array of four numbers. The numbers represent a rectangle
 location of the face in the gray_scale_image:
 
 -   the first number is the x coordinate of the top left corner of the
-    rectangle
+    rectangle.
 
 -   the second number is the y coordinate of the top left corner of the
-    rectangle
+    rectangle.
 
--   the third number is the width of the rectangle
+-   the third number is the width of the rectangle.
 
--   the fourth number is the height of the rectangle
+-   the fourth number is the height of the rectangle.
 
 The detect_user_face function checks for the cases of (1) no face
 detected and (2) more than one face detected. If either of these cases
@@ -1871,7 +1978,7 @@ f\"{DATABASE_FACE_DIRECTORY}/user-{user_account_id}\"
 
 12\. return face_found
 
-The \`detect_and_save_user_face.\` function accepts as input a user
+The \`detect_and_save_user_face\` function accepts as input a user
 account id, a picture, and an image number. To detect a face in the
 picture, the function transforms the image to grayscale and executes the
 detect user face function. OpenCV often uses grayscale images in
@@ -1886,17 +1993,18 @@ information is crucial, using colour images or combining grayscale and
 colour features may yield better results. The choice depends on the
 problem and the goals of the computer vision application. The function
 stores a face in the database directory when it is found. The method
-returns a boolean flag indicating the detection of a face.
+returns a Boolean flag indicating the detection of a face.
 
 ### How to train a facial recognition model using OpenCV:
 
 The face_training function trains the model using the images in the
-DATABASE_FACE_DIRECTORY directory. The function saves the trained model
-to the DATABASE_FACIAL_TRAINER file. recognizer =
-cv2.face.LBPHFaceRecognizer_create() creates a face recogniser object.
-The recogniser.train method takes the list of images and the list of
-user ids as input and trains the model. With the model-trained
-\`recogniser.write.\` method saves the trained model to the
+directory DATABASE_FACE_DIRECTORY.
+
+The function saves the trained model to the DATABASE_FACIAL_TRAINER
+file. recognizer = cv2.face . LBPHFaceRecognizer_create() creates a face
+recogniser object. The recogniser.train method takes the list of images
+and the list of user ids as input and trains the model. With the
+model-trained \`recogniser.write\` method saves the trained model to the
 DATABASE_FACIAL_TRAINER file.
 
 1\. def face_training():
@@ -1983,10 +2091,10 @@ int(os.path.split(user_directory)\[-1\].split(\"-\")\[1\])
 
 ### How to recognise a face in an image using a trained model in OpenCV
 
-In order to recognise a face in an image, a trained model named
-**trainer.yml** is required. The face_recognition function takes an
-image as input and utilises the face_image_recognition function to
-recognise a face in the image.
+To recognise a face in an image, a trained model named **trainer.yml**
+is required. The face_recognition function takes an image as input and
+utilises the face_image_recognition function to recognise a face in the
+image.
 
 The line **recogniser = cv2.face.LBPHFaceRecognizer_create()** creates
 an instance of the Local Binary Patterns Histograms (LBPH) face
@@ -2067,9 +2175,9 @@ recognizer.predict(gray_scale_image\[y:y+height, x:x+width\])
 When images are transferred via HTTP requests, they are typically
 encoded in Base64.
 
-In order to manipulate images in Python, it is necessary to convert the
-image into a numpy array. The image_to_numpy_array function accepts an
-image file path as input and returns a numpy array, utilising the
+To manipulate images in Python, it is necessary to convert the image
+into a numpy array. The image_to_numpy_array function accepts an image
+file path as input and returns a numpy array, utilising the
 PIL.Image.open method to open the image file and the numpy.array method
 to convert the image.
 
@@ -2077,9 +2185,9 @@ to convert the image.
 
 To processes Base64 encodings in OpenCV, these images must first be
 decoded. The decode_base64 function receives a Base64 encoded string as
-input and returns a byte array. To do so, the re.sub method removes the
-data:image/.+;base64, prefix from the string, while the base64.b64decode
-method decodes the string.
+input and returns a byte array. To do so, the \`re.sub\` method removes
+the "data:image/.+;base64", prefix from the string, while the
+base64.b64decode method decodes the string.
 
 1\. import base64
 
@@ -2225,7 +2333,7 @@ The following is required to use Django:
 
 2.  Django package
 
-#### Create a new Django project
+#### Create a new Django project.
 
 Once Django is installed, you can create a new project by running the
 following command:
@@ -2259,7 +2367,7 @@ database. Each attribute of the class represents a column in the table.
 The following code defines a Location class representing a database
 table.
 
-Eg.
+E.g.
 
 1\. from django.db import models
 
@@ -2327,24 +2435,24 @@ To override the default User model:
 3.  When referencing the UserAccount Model, use settings.AUTH_USER_MODEL
     rather than UserAccount
 
-1\. class Roster(models.Model):
-
-2\.     id = models.AutoField(primary_key=True)
-
-3\.     #\...#
-
-4\.     user_account = models.ForeignKey(
-
-5\.         settings.AUTH_USER_MODEL,
-
-6\.         on_delete=models.CASCADE,
-
-7\.     )
+> 1\. class Roster(models.Model):
+>
+> 2\.     id = models.AutoField(primary_key=True)
+>
+> 3\.     #\...#
+>
+> 4\.     user_account = models.ForeignKey(
+>
+> 5\.         settings.AUTH_USER_MODEL,
+>
+> 6\.         on_delete=models.CASCADE,
+>
+> 7\.     )
 
 4.  Then set the AUTH_USER_MODEL setting in the Website App settings.py
     file to point to your new User model UserAccount with its namespace.
 
-1\. AUTH_USER_MODEL = \'identity.UserAccount\'
+> AUTH_USER_MODEL = \'identity.UserAccount\'
 
 ### The Views
 
@@ -2389,7 +2497,7 @@ in the template. The following code, for example, establishes a method
 named setup facial recognition, which returns a rendered template from
 user-accounts/setup-facial-recognition.html in the templates folder.
 
-[views.py]{.underline}
+views.py
 
 1\. def setup_facial_recognition(request):
 
@@ -2399,9 +2507,9 @@ pk=request.user.id)
 3\.     context = { \'user_account_id\': user_account.id }
 
 4\.     return render(request,
-\'user-accounts/setup-facial-recognition.html\', context)  
+\'user-accounts/setup-facial-recognition.html\', context)
 
-user[-accounts/setup-facial-recognition.html]{.underline}
+user-accounts/setup-facial-recognition.html
 
 1\. {% extends \"master.html\" %}
 
@@ -2472,7 +2580,7 @@ For instance, the following code blocks build a basic template with a
 title block named master.html, and login.html extends the base template
 and replaces the title block.
 
-[master.html]{.underline}
+master.html
 
 1\. \<html lang=\"en\"\>
 
@@ -2492,9 +2600,7 @@ and replaces the title block.
 
 9\. \</html\>
 
-10\.  
-
-[login.html]{.underline}
+login.html
 
 1\. {% extends \'identity/master.html\' %}
 
@@ -2505,12 +2611,12 @@ base template is used to create the remaining HTML.
 
 #### Handling 404 Errors
 
-To improve the code, the function get_object_or_404 can generate a 404
-error message if the object cannot be located. For instance, consider
-the function below called \"user_account\", which returns a rendered
-template from the \"user-accounts/user-account.html\" file, located
-relative to the \"templates\" folder. If the user account cannot be
-located, a 404 error message will be returned.
+To improve the code, the function get_object_or_404 can generate a
+404-error message if the object cannot be located. For instance,
+consider the function below called \"user_account\", which returns a
+rendered template from the \"user-accounts/user-account.html\" file,
+located relative to the \"templates\" folder. If the user account cannot
+be located, a 404-error message will be returned.
 
 1\. def location_details(request, location_id):
 
@@ -2585,7 +2691,7 @@ permission \"identity.activate_sign_in\".
 3\. {% if perms.identity.activate_sign_in %}
 
 4\. \<a class=\"btn btn-primary\" href=\"{% url \'sign_in\' location.id
-%}\"\>Activate Sign in\</a\>
+%}\"\>Activate Sign n\</a\>
 
 5\. {% endif %}
 
@@ -2627,31 +2733,31 @@ name=\'details\'),
 
 1\. path(\'locations/\', views.locations, name=\'locations\')
 
-The URL is then accessed as follows: <http://localhost:8000/locations>
+The URL is then accessed as follows: <http://localhost:8000/locations>
 
-URL parameters are defined using angle brackets,
-e.g. \<int:location_id\>. The int parameter defines the type of the
-parameter. The location_id parameter is the name of the parameter. The
-parameter is then available in the function, e.g. def
-location_details(request, location_id):. The URL is then defined as
+URL parameters are defined using angle brackets, e.g.,
+\<int:location_id\>. The int parameter defines the type of the
+parameter. The location_id parameter is the name of the parameter. The
+parameter is then available in the function, e.g., def
+location_details(request, location_id). The URL is then defined as
 follows:
 
 1\. path(\'locations/\<int:location_id\>/\',views.location_details,
 name=\'details\')
 
-The URL is then accessed as
-follows: [[http://localhost:8000/locations/1/]{.underline}](http://localhost:8000/locations/1/)
+The URL is then accessed as follows:
+[[http://localhost:8000/locations/1/]{.underline}](http://localhost:8000/locations/1/)
 
-Generic views are used to map the URL to the function by using
-the \`**as_view**.\` function, e.g. path(\'edit-user-profile/\',
-UserEditView.as_view(), name=\"edit-user-profile\"),
+Generic views are used to map the URL to the function by using the
+\`**as_view\`**. function, e.g., path(\'edit-user-profile/\',
+UserEditView.as_view(), name=\"edit-user-profile\").
 
-The URL is then accessed as
-follows: <http://localhost:8000/edit-user-profile>
+The URL is then accessed as follows:
+<http://localhost:8000/edit-user-profile>
 
 #### Referencing the URLs
 
-The \`url.\` function can be utilised to reference a URL within a Django
+The \`url\` function can be utilised to reference a URL within a Django
 template. This function generates a URL based on the name of the URL
 pattern defined in the urls.py file and any associated parameters.
 
@@ -2669,7 +2775,7 @@ the href attribute for the \"Locations\" link.
 #### Adding the project URLs to the website
 
 To incorporate the URLs from the Identity app into the main website app,
-the code \`path('', include(\'identity.urls\')).\` can be added to the
+the code \`path('', include(\'identity.urls\'))\` can be added to the
 website\'s urls.py file. This code specifies that any URLs defined
 within the identity app should be included within the website app\'s
 URLs at the root level.
@@ -2695,7 +2801,7 @@ panel.
 
 7\. \]
 
-### The Admin
+### The admin
 
 The default Django application, the admin site, facilitates a
 user-friendly interface for managing site content. It can be accessed
@@ -2803,22 +2909,21 @@ Profile\</button\>
 
 18\. {% endblock content %}  
 
-{{ form.as_p }} is used to render the crispy form.
+The tag {{ form.as_p }} is used to render the crispy form.
 
 ### Utilities
 
-The application code for image processing was placed in
-\`utilities.py.\` This strategy offers many advantages. Secondly,
-isolating the image processing logic from the core application code
-enables better code structure. Second, it allows the reuse of the code
-across other application components. Thirdly, testing is simpler because
-the image processing functionality can be tested separately from the
-rest of the programme.
+The application code for image processing was placed in \`utilities.py\`
+This strategy offers many advantages. Secondly, isolating the image
+processing logic from the core application code enables better code
+structure. Second, it allows the reuse of the code across other
+application components. Thirdly, testing is simpler because the image
+processing functionality can be tested separately from the rest of the
+programme.
 
-haarcascades are pre-trained classifiers that are used to detect objects
-in images.\
-The identity project used haarcascade_frontalface_default.xml to detect
-faces in images
+Haarcascades are pre-trained classifiers that are used to detect objects
+in images. The identity project used haarcascade_frontalface_default.xml
+to detect faces in images.
 
 ### Constants and File Paths
 
@@ -2858,13 +2963,13 @@ file.
 
 The OpenCV library detects faces in images and trains the application to
 recognise them. At the same time, pre-trained classifiers known as
-haarcascades are employed to identify objects in images.
+Haarcascades are employed to identify objects in images.
 
 Haarcascade_frontalface_default.xml, which is available on
-github.com/kipr/opencv, was utilised by the identity project to detect
-faces in images.
+[github.com/kipr/opencv](https://github.com/kipr/opencv), was utilised
+by the identity project to detect faces in images.
 
-## Client Side Functionality
+## Client-Side Functionality
 
 JavaScript is employed to transmit a video stream from the client
 machine to the server. The server is configured to monitor three
@@ -2885,7 +2990,7 @@ with using procedural functions during the developmental and testing
 phases. Specifically, these functions proved challenging to test,
 maintain, and repurpose for other use cases.
 
-### Use Cases #2-3: Location Roaster Sign in/out
+### Use Cases #2-3: Location Roaster Sign in/out.
 
 Use cases 2 and 3 exhibit similarities in their operations, with both
 employing the transmission of a video stream, location ID, and user ID
@@ -2895,7 +3000,7 @@ case 3 pertains to user sign-out. Within the client-side JavaScript
 code, the action of sign-in or sign-out is established based on the URL
 of the request.
 
-### Refactoring Javascript
+### Refactoring JavaScript
 
 The client-side JavaScript code was refactored to address issues with
 the procedural functions used in the use case 1, incorporating classes
@@ -2909,13 +3014,13 @@ as parameters during construction.
 2\. const manager = new Manager(webPageControls,
 UrlPaths.PERFORM_SIGN_OUT_URL);
 
-The \`WebPageControls.\` class is responsible for the HTML page elements
+The \`WebPageControls\` class is responsible for the HTML page elements
 and is implemented to abstract such elements from the remainder of the
 code. This permits the code to be reused across various HTML pages while
 facilitating enhanced maintainability by providing a centralised access
 point to the HTML page elements.
 
-The \`Manager.\` is a class used to manage the video stream. The class
+The \`Manager\` is a class used to manage the video stream. The class
 abstracts the video stream from the rest of the code. This allows the
 code to be reused for different use cases. The class also provides a
 single point of access to the video stream. This allows the code to be
@@ -2928,14 +3033,14 @@ The second parameter to the Manager class is the URL to which the video
 stream is sent. This allows the Manager class to be reused for use cases
 2 and 3 by passing in the appropriate URL.
 
-### Incorporating Javascript into the web app
+### Incorporating JavaScript into the web app
 
-The javascript resources are saved in the static folder of the web app
+The JavaScript resources are saved in the static folder of the web app
 and accessed via Django static functions. c.f. The Static Files
 
-## Bulding and deploying the Website
+## Building and deploying the Website
 
-The web app, situated within the website folder identity_website, is
+The web app, situated within the website folder \`identity_website\`, is
 utilised to showcase content on the website.
 
 **Linking the App to the Website**
@@ -2958,7 +3063,7 @@ URLs.
 
 2\. LOGIN_REDIRECT_URL = \'/login/
 
-# Testing and Result
+# Testing and Results
 
 ## Introduction 
 
@@ -2974,28 +3079,27 @@ thoroughly tested to record user entry and exit times accurately.
 
 ## Unit Testing
 
-### What is Unit Testing, and why is important
+### What is Unit Testing, and why is important?
 
-Unit testing is a method used in software development to testing
-separate parts or units of an application to make sure they work as
-expected. Each unit is tested independently, and any dependencies are
-simulated to ensure that the test only looks at the unit in question.
-Unit testing is important because it lets developers find bugs early in
-the development process before they get harder to fix and cost more
-money. By testing units separately, developers can easily and quickly
-find problems that might be hard to find with other types of testing.
-Unit testing also ensures that changes to the codebase don\'t introduce
-new bugs or break features already there. Developers can ensure that
-changes are tested well before being added to the codebase\'s main
-branch by using unit tests as part of a continuous integration process.
-Unit testing also makes it easier to write clearer and
-easier-to-understand code. By breaking the application into smaller,
-easier-to-handle pieces, developers can write code that is easier to
-read, understand, and keep up to date. In conclusion, unit testing is an
-important part of software development that makes software applications
-better and more reliable. It can help find bugs early, stop regression,
-and encourage better coding practices, making software systems more
-stable and reliable.
+Unit testing is a method used in software development to test separate
+parts or units of an application to make sure they work as expected.
+Each unit is tested independently, and any dependencies are simulated to
+ensure that the test only looks at the unit in question. Unit testing is
+important because it lets developers find bugs early in the development
+process before they get harder to fix and cost more money. By testing
+units separately, developers can easily and quickly find problems that
+might be hard to find with other types of testing. Unit testing also
+ensures that changes to the codebase don\'t introduce new bugs or break
+features already there. Developers can ensure that changes are tested
+well before being added to the codebase\'s main branch by using unit
+tests as part of a continuous integration process. Unit testing also
+makes it easier to write clearer and easier-to-understand code. By
+breaking the application into smaller, easier-to-handle pieces,
+developers can write code that is easier to read, understand, and keep
+up to date. In conclusion, unit testing is an important part of software
+development that makes software applications better and more reliable.
+It can help find bugs early, stop regression, and encourage better
+coding practices, making software systems more stable and reliable.
 
 ### Testing Framework in Django
 
@@ -3004,12 +3108,12 @@ project, which offers comprehensive support for unit testing. Although
 the framework also includes functionality for integration and functional
 testing, only unit testing was employed in this case.
 
-To run the test, we must run the following in the terminal "python
-.\\manage.py test" .
+To run the test, we must run the following in the terminal
+"python\\manage.py test" .
 
 ## Unit Testing Done
 
-Unit testing was used to test the functions of face recognition
+Unit testing was used to test the functions of face recognition.
 
 -   get_images_and_labels
 
@@ -3019,26 +3123,25 @@ Unit testing was used to test the functions of face recognition
 
 The unit test "test_detect_user_face" takes an image known to have one
 face in the image. Lines 7 and 8 assert that the function
-detect_user_face works correctly if is_face_present is true and face is
+detect_user_face works correctly if is_face_present is true, and face is
 not none.
 
-1\.     def test_detect_user_face(self):
+1\.   def test_detect_user_face(self):
 
-2\.         image_path =
-\"identity/tests/secret/image-with-one-face.jpg\"
+2\.       image_path = \"identity/tests/secret/image-with-one-face.jpg\"
 
-3\.         open_cv_image = numpy.array(Image.open(image_path))
+3\.       open_cv_image = numpy.array(Image.open(image_path))
 
-4\.         gray_scale_image = cv2.cvtColor(open_cv_image,
+4\.       gray_scale_image = cv2.cvtColor(open_cv_image,
 cv2.COLOR_BGR2GRAY)
 
-5\.        
+5\.      
 
-6\.         is_face_present, face = detect_user_face(gray_scale_image)
+6\.       is_face_present, face = detect_user_face(gray_scale_image)
 
-7\.         self.assertTrue(is_face_present)
+7\.       self.assertTrue(is_face_present)
 
-8\.         self.assertIsNotNone(face)
+8\.       self.assertIsNotNone(face)
 
 ## Test-Driven Development
 
@@ -3048,8 +3151,6 @@ First, a scenario is written using Cucumber. This scenario checks if the
 locations are loaded correctly, verifying the emails in the HTML table.
 
 1\. Feature: Sign in activation feature
-
-2\.  
 
 3\. \@locations
 
@@ -3066,7 +3167,7 @@ behave_test\\features\\feature_files\\activate_sign_in\\activate_sign_in.feature
 
 The following Python code files support the above scenario. The code
 parse the HTML of the locations page so that the scenario can check the
-page contains the following emails; Limerick@identify.com and
+page contains the following emails: Limerick@identify.com and
 Cork@identify in the 3^rd^ column of the table.
 
 1\. label = {
@@ -3199,17 +3300,17 @@ This project's purpose was to develop and learn new skills. A lot of
 development problems resulted from a lack of knowledge. These problems
 are overcome by acquiring new skills involving trial and error. Some
 development time and bugs would have been reduced if the Use Cases in
-design had been more detailed. e.g. The initial version of the Sign in
-with facial data use-case did not document stopping a sign-on with an
+design had been more detailed. e.g., The initial version of the Sign in
+with facial use-case did not document stopping a sign-on with an
 incorrect identification. An abort option with a countdown to sign-on
 and a user identification display had to be added to the app.
 
 # Conclusion:
 
-It is the opinion of this author it is clear that the continued
-development of \'Identity\' as a proof of concept holds significant
-promise for meeting the needs of different businesses with varying
-levels of fault tolerance in different domains.
+It is the opinion of this author the continued development of
+\'Identity\' as a proof of concept holds significant promise for meeting
+the needs of different businesses with varying levels of fault tolerance
+in different domains.
 
 ## Continued development
 
@@ -3218,7 +3319,7 @@ to perform data analysis to ensure its viability. However, as a proof of
 concept, \'Identity\' could be scaled to meet the needs of different
 businesses with varying levels of fault tolerance in different domains.
 This flexibility makes \'Identity\' a promising solution for businesses
-looking to enhance their security and authentication processes
+looking to enhance their security and authentication processes.
 
 Security Tiers:
 
@@ -3234,13 +3335,13 @@ Security Tiers:
 3.  Malicious attacks (high): For prisons, the consequences of
     misidentifying a person and granting access to an authorised user
     are always assumed to be lethal. Every authentication request is
-    assumed to be potentially malicious (e.g. A prisoner holding up a
+    assumed to be potentially malicious (e.g., A prisoner holding up a
     photo of a guard in front of the 'Identity' station's camera),
     requiring a higher (confidence value) burden of proof to confirm
     user access. A prisoner cannot be permitted by 'Identity' entry or
     unlogged access to any location in prison.
 
-Resources and time will be required for Big data Analysis and confidence
+Resources and time will be required for big data analysis and confidence
 testing to determine the optimal confidence value to use 'Identity' for
 high-security tier environments (Hospitals, Prisons).
 
@@ -3267,7 +3368,7 @@ person\'s face (Saptarshi Chakraborty, 2014).
 The war against 'impersonation and fraud' is never-ending. A promising
 development in combating fraud is Generative Adversarial Networks
 (GANs). GANs are a class of deep learning models that consist of two
-neural networks, a generator and a discriminator, which compete against
+neural networks, a generator, and a discriminator, which compete against
 each other in a process known as adversarial training. In the context of
 biometric security, GANs can enhance biometric systems\' performance,
 robustness, and security by generating synthetic biometric data or
@@ -3277,7 +3378,7 @@ improving the detection of spoofing attempts.
 generated](./images/thesis/media/image26.jpeg){width="4.012900262467191in"
 height="2.5416666666666665in"}
 
-[]{#_Toc131962291 .anchor}Figure 23: Generator versus discriminator
+[]{#_Toc133399604 .anchor}Figure : Generator versus discriminator
 
 The science of image recognition will never stop. New and different
 techniques and challenges will give rise to new solutions. Continuous
@@ -3288,7 +3389,7 @@ literature reviews and new solutions will always be required.
 At a late stage of the project development, BDD and TDD were introduced
 and found to be beneficial. For further development of the project, BDD
 and TDD should be used from the outset to minimize errors, focus on
-goals and save development time.
+goals, and save development time.
 
 # Bibliography
 
@@ -3319,6 +3420,12 @@ Dertat, A., 2017. *towardsdatascience.* \[Online\]\
 Available at:
 [https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2]{.underline}\
 \[Accessed 4 November 2022\].
+
+FindBiometrics, 2022. *Biometric Facial Recognition - FindBiometrics.*
+\[Online\]\
+Available at:
+[https://findbiometrics.com/solutions/facial-recognition/]{.underline}\
+\[Accessed 30 September 2022\].
 
 GeeksforGeeks, 2021. *GeeksforGeeks Multi-Layer Perceptron Learning in
 Tensorflow.* \[Online\]\
@@ -3404,10 +3511,13 @@ Viola, P. & M.Jones, 2003. *ieeexplore.* \[Online\]\
 Available at: [https://ieeexplore.ieee.org/document/990517]{.underline}\
 \[Accessed 6 November 2022\].
 
-Vision?, W. i. G. C., n.d. *www.resourcespace.com.* \[Online\]\
+Vision?, What is Google Cloud, n.d. *www.resourcespace.com.* \[Online\]\
 Available at:
 [https://www.resourcespace.com/blog/what-is-google-vision]{.underline}\
 \[Accessed 25 10 2022\].
+
+Wynne, M. H. A. &. T. S., 2017. *The Cucumber Book: Behaviour-Driven
+Development for Testers and Developers.* s.l.:Pragmatic Bookshelf.
 
 Yi, S., Ding, L., Xiaogang , W. & Xiaoou , T., 2015. *researchgate.*
 \[Online\]\

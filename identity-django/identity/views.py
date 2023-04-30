@@ -136,6 +136,7 @@ def locations(request):
 
 
 @login_required
+@permission_required('identity.change_location', raise_exception=True)
 def location_details(request, location_id):
     """
     Display detailed information about a specific location.
@@ -298,6 +299,7 @@ def force_sign_out(_, roster_id):
 
 
 @login_required
+@permission_required('identity.change_location', raise_exception=True)
 def remove_permission(request, location_id, user_account_id):
     """
     Removes location permissions for a specific user account.

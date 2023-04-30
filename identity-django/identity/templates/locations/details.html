@@ -35,9 +35,7 @@
             </tr>
             {% for location_permission in location.locationpermission_set.all %}
                 <tr>
-                    <td>
-                        <a href="{% url 'user-account-details' location_permission.user_account.id %}">{{ location_permission.user_account.username }}</a>
-                    </td>
+                    <td>{{ location_permission.user_account.username }}</td>
                     <td>{{ location_permission.user_account.first_name }}</td>
                     <td>{{ location_permission.user_account.last_name }}</td>
                     <td>{{ location_permission.user_account.email }}</td>

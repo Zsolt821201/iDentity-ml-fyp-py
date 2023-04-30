@@ -21,6 +21,9 @@ class LocationPermission(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    
+    def __str__(self):
+        return f"{self.location.name} - {self.user_account.get_username()}"
 
 
 class Roster(models.Model):
@@ -32,6 +35,9 @@ class Roster(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return f"{self.location.name} - {self.sign_in_date.strftime('%Y-%m-%d %H:%M:%S')} - {self.user_account.get_username()}"
 
 
 class UserAccount(AbstractUser):

@@ -402,3 +402,13 @@ def log_attempt(user_id, confidence, face):
     file_path: str = f"{DATABASE_LOG_DIRECTORY}/{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}user-{user_id}-confidence-{confidence}.jpg"
     os.makedirs(file_path, exist_ok=True)
     cv2.imwrite(f"{file_path}", face)
+    
+###
+### Build Sample User Accounts
+###
+
+def build_user_josha_fluke():
+    image_path = "identity/tests/dummy-data/josha-fluke.mp4"
+    build_sample_user(image_path, "3")
+    
+    

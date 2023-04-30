@@ -73,11 +73,33 @@ Built-in user accounts are:
 | ZsoltToth      | Password1234!  | user  | Built in user account            |
 | JoshuaFluke    | Letmein1$      | user  | Built in user account            |
 
-## Test Application (Behave BDD)
+## Testing
+
+This project uses the following testing frameworks: Django Unit Tests, Behave BDD Tests, and Selenium WebDriver.
+
+### Run Django Unit Tests
+
+To run the tests, open a terminal and run the following command:
+
+```bash
+cd identity-django
+```
+
+```bash
+python manage.py test
+```
+
+To run a select test for example tests in the `identity.tests.test_detect_face_with_blank` module, open a terminal and run the following command:
+
+```bash
+python manage.py test identity.tests.test_detect_face_with_blank
+```
+
+### BDD Behave Tests
 
 To test the App in the Chrome browser, you need to install the Selenium WebDriver for Chrome.
 
-### Test Requirements
+#### Test Requirements
 
 To test the App in the Chrome browser, you need to install the Selenium WebDriver for Chrome.
 
@@ -90,6 +112,12 @@ To run the tests, open a terminal and run the following command:
 
 ```bash
 behave behave_test/features/feature_files/  -f pretty -o out/behave-logs/all.txt
+```
+
+To run selected tests for example tests with the tag `zsolt`, open a terminal and run the following command:
+
+```bash
+behave behave_test/features/feature_files/ --tags=zsolt -f pretty -o out/behave-logs/zsolt.txt
 ```
 
 ---

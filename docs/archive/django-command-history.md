@@ -70,7 +70,7 @@ python manage.py runserver
 
 ### Install Django Rest Framework
 
-#### Pip
+#### Pip Rest Framework
 
 ```bash
 pip install djangorestframework
@@ -78,7 +78,7 @@ pip install markdown       # Markdown support for the browse-able API.
 pip install django-filter  # Filtering support
 ```
 
-#### Conda
+#### Conda Rest Framework
 
 ```bash
 conda install -c conda-forge djangorestframework

@@ -303,7 +303,13 @@ function progressCountdown(seconds, countDownElement) {
 const FACE_SAMPLE_COUNT = 30;
 
 /**
- * 
+ * Asynchronously sets up user facial recognition by capturing and uploading face samples.
+ *
+ * This function captures a predefined number of face samples from a video input element, then
+ * uploads these samples to the server to set up facial recognition for the user. If the face
+ * is not detected in the captured frame, it will retry until it reaches the attempt limit.
+ * The function updates the status message displayed on the page based on the success or failure
+ * of the facial recognition setup.
  */
 async function setupUserFacialRecognition() {
 

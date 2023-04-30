@@ -28,7 +28,17 @@ from PIL import Image
 
 
 class PasswordsChangeView(PasswordChangeView):
-    '''custom password change view. for updating a user's password.'''
+    """
+    Custom view for updating a user's password.
+    Inherits from Django's built-in PasswordChangeView and customizes the form class,
+    template, and success URL. When a user successfully changes their password,
+    they will be redirected to the locations page.
+
+    Attributes:
+        form_class: The form used to handle password changes, defaults to PasswordChangeForm.
+        template_name: The template used to render the password change view, defaults to 'user-accounts/change-password.html'.
+        success_url: The URL to redirect to upon successful password change, defaults to '/locations/'.
+    """
     form_class = PasswordChangeForm
     template_name = 'user-accounts/change-password.html'
     success_url = reverse_lazy('/locations/')
@@ -40,7 +50,22 @@ def index(request):
 
 
 def login_user(request):
-    '''Handles user login by verifying the user's credentials and logging them in if they are valid.'''
+    """
+    Handles user login by verifying the user's credentials and logging them in if they are valid.
+
+    If the request method is POST, the function retrieves the submitted username and password,
+    then attempts to authenticate the user using Django's built-in authenticate function. If the
+    user is authenticated, they are logged in, a success message is displayed, and they are
+    redirected to the locations page. If the user is not authenticated, an error message is displayed,
+    and the user is redirected back to the login page. If the request method is not POST, an error
+    message is displayed, indicating an invalid username or password.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered template for the login page or a redirect to the locations page.
+    """
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -66,11 +91,25 @@ def logout_user(request):
 
 
 class UserEditView(LoginRequiredMixin, generic.UpdateView):
-    '''custom user edit view. for updating a user's profile.'''
+    """
+    Custom view for updating a user's profile.
+
+    Inherits from Django's generic UpdateView and LoginRequiredMixin to ensure only
+    authenticated users can access this view. Customizes the form class, template,
+    and success URL. When a user successfully updates their profile, they will be
+    redirected to the same page.
+
+    Attributes:
+        form_class: The form used to handle user profile updates, defaults to UserChangeForm.
+        template_name: The template used to render the user edit view, defaults to 'user-accounts/edit-user-profile.html'.
+        success_url: The URL to redirect to upon successful profile update, defaults to 'edit_user_profile'.
+
+    Methods:
+        get_object: Retrieves the current user's information to pre-populate the form.
+    """
     form_class = UserChangeForm
     template_name = 'user-accounts/edit-user-profile.html'
     success_url = reverse_lazy('edit_user_profile')
-# Retrieves the current user's information to pre-populate the form
 
     def get_object(self):
         return self.request.user
@@ -78,14 +117,42 @@ class UserEditView(LoginRequiredMixin, generic.UpdateView):
 
 @login_required
 def locations(request):
-    '''Display a list of all locations.'''
+    """
+    Display a list of all locations.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. It queries the database for all Location
+    objects, orders them by the 'name' attribute in descending order, and then renders
+    the 'locations/index.html' template with the list of locations as context.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered template for the locations page.
+    """
     locations: list(Location) = Location.objects.order_by('-name')
     return render(request, 'locations/index.html', {'locations': locations})
 
 
 @login_required
 def location_details(request, location_id):
-    '''Display detailed information about a specific location.'''
+    """
+    Display detailed information about a specific location.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. It retrieves the Location object based on the
+    provided location_id and fetches the active sign-ins and roster logs for that
+    location. The view then renders the 'locations/details.html' template with the
+    location details, active sign-ins, and roster logs as context.
+
+    Args:
+        request: The HTTP request object.
+        location_id: The primary key of the Location object to be displayed.
+
+    Returns:
+        HttpResponse: A rendered template for the location details page.
+    """
     location = get_object_or_404(Location, pk=location_id)
     # Get a list of currently active sign-ins for the location
     location_active_sign_ins: list = Roster.objects.filter(
@@ -105,7 +172,23 @@ def location_details(request, location_id):
 
 @login_required
 def location_roster_details(request, location_id, location_sign_in_date):
-    '''Display detailed information about a specific location's roster log for a specific date.'''
+    """
+    Display detailed information about a specific location's roster log for a specific date.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. It retrieves the Location object based on the
+    provided location_id and fetches the roster logs for the specified location and date.
+    The view then renders the 'locations/roster-details.html' template with the location
+    details, the specified date, and the roster logs as context.
+
+    Args:
+        request: The HTTP request object.
+        location_id: The primary key of the Location object to be displayed.
+        location_sign_in_date: The date for which the roster logs should be displayed.
+
+    Returns:
+        HttpResponse: A rendered template for the location's roster details page.
+    """
     location = get_object_or_404(Location, pk=location_id)
     # Retrieve the roster list for the specified location and date
     roster_list = location.roster_set.filter(
@@ -121,14 +204,45 @@ def location_roster_details(request, location_id, location_sign_in_date):
 
 @login_required
 def user_account_details(request, user_account_id):
-    '''Display detailed information about a specific user account.'''
+    """
+    Display detailed information about a specific user account.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. It retrieves the UserAccount object based on the
+    provided user_account_id and renders the 'user-accounts/user-details-profile.html' 
+    template with the user account details as context.
+
+    Args:
+        request: The HTTP request object.
+        user_account_id: The primary key of the UserAccount object to be displayed.
+
+    Returns:
+        HttpResponse: A rendered template for the user account details page.
+    """
     user_account = get_object_or_404(UserAccount, pk=user_account_id)
     return render(request, 'user-accounts/user-details-profile.html', {'user_account': user_account})
 
 
 @login_required
 def setup_facial_recognition(request):
-    '''Handles the setup of facial recognition for the logged in user.'''
+    """
+    Handles the setup of facial recognition for the logged in user.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. It retrieves the UserAccount object for the
+    logged-in user and checks if facial recognition is enabled for the user. If
+    facial recognition is not enabled, the user is redirected to the
+    'user-accounts/setup-facial-recognition-denied.html' template. Otherwise, the user
+    is directed to the 'user-accounts/setup-facial-recognition.html' template to proceed
+    with the setup process.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered template for the facial recognition setup page or
+                      the facial recognition denied page.
+    """
     user_account = get_object_or_404(UserAccount, pk=request.user.id)
 
     #TODO: Fix
@@ -140,14 +254,42 @@ def setup_facial_recognition(request):
 
 @login_required
 def test(request):
-    '''Trigers the facial recognition training process. and renders the test page.'''
+    """
+    Triggers the facial recognition training process and renders the test page.
+
+    This view is protected by the login_required decorator, ensuring that only
+    authenticated users can access it. The function initiates the facial
+    recognition training process by calling the face_training() function. After
+    the training process is complete, the 'user-accounts/test.html' template is
+    rendered.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered template for the test page.
+    """
     face_training()
     return render(request, 'user-accounts/test.html')
 
 
 @login_required
 def force_sign_out(_, roster_id):
-    '''Forces a sign out for a specific roster entry.'''
+    """
+    Forces a sign out for a specific roster entry.
+
+    This function retrieves the Roster object with the given roster_id, updates
+    its sign_out_date to the current date and time, and saves the changes. After
+    the sign-out process is complete, the function redirects the user to the
+    location details page for the associated location.
+
+    Args:
+        _: The HTTP request object (ignored, hence the underscore).
+        roster_id (int): The ID of the Roster object to force sign out.
+
+    Returns:
+        HttpResponseRedirect: A redirect to the location details page for the associated location.
+    """
     roster: Roster = Roster.objects.get(
         id=roster_id)
     roster.sign_out_date = datetime.now()
@@ -157,7 +299,25 @@ def force_sign_out(_, roster_id):
 
 @login_required
 def remove_permission(request, location_id, user_account_id):
-    '''Removes location permissions for a specific user account.'''
+    """
+    Removes location permissions for a specific user account.
+
+    This function checks if the logged-in user has permission to remove location
+    permissions for other users. If the user has the required permission, it retrieves
+    the LocationPermission object with the given location_id and user_account_id,
+    and deletes it. After removing the permission, the function redirects the user
+    to the location details page for the associated location. If the user does not
+    have the required permission, it renders a permission denied page.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        location_id (int): The ID of the location for which the permission should be removed.
+        user_account_id (int): The ID of the UserAccount object for which the permission should be removed.
+
+    Returns:
+        HttpResponseRedirect: A redirect to the location details page for the associated location.
+        HttpResponse: Renders a permission denied page if the user does not have the required permission.
+    """
     user_account = get_object_or_404(UserAccount, pk=request.user.id)
     if hasPermission(user_account, location_id, 'identity.remove_permission'):
         instance: LocationPermission = LocationPermission.objects.get(
@@ -177,7 +337,21 @@ def hasPermission(user_account: UserAccount, location_id: int, permission: str):
 @login_required
 @permission_required('identity.activate_sign_in', raise_exception=True)
 def sign_in(request, location_id):
-    '''Renders the sign in page for a specific location.'''
+    """
+    Renders the sign-in page for a specific location.
+
+    This function checks if the logged-in user has permission to sign in at the specified location.
+    If the user has the required permission, it renders the sign-in page for the given location.
+    If the user does not have the required permission, it raises a PermissionDenied exception.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        location_id (int): The ID of the Location object for which the user wants to sign in.
+
+    Returns:
+        HttpResponse: Renders the sign-in page for the specified location if the user has the required permission.
+        PermissionDenied: Raises a PermissionDenied exception if the user does not have the required permission.
+    """
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-in-new.html', {'location': location})
 
@@ -185,7 +359,21 @@ def sign_in(request, location_id):
 @login_required
 @permission_required('identity.activate_sign_off', raise_exception=True)
 def sign_out(request, location_id):
-    '''Renders the sign out page for a specific location.'''
+    """
+    Renders the sign-out page for a specific location.
+
+    This function checks if the logged-in user has permission to sign out at the specified location.
+    If the user has the required permission, it renders the sign-out page for the given location.
+    If the user does not have the required permission, it raises a PermissionDenied exception.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        location_id (int): The ID of the Location object for which the user wants to sign out.
+
+    Returns:
+        HttpResponse: Renders the sign-out page for the specified location if the user has the required permission.
+        PermissionDenied: Raises a PermissionDenied exception if the user does not have the required permission.
+    """
     location = get_object_or_404(Location, pk=location_id)
     return render(request, 'user-accounts/sign-out.html', {'location': location})
 
@@ -193,7 +381,20 @@ def sign_out(request, location_id):
 @csrf_exempt
 @permission_required('identity.activate_sign_in', raise_exception=True)
 def perform_sign_in(request):
-    '''Perform the sign in based on facial recognition.'''
+    """
+    Perform the sign-in based on facial recognition.
+
+    This function processes a facial recognition request to sign in a user at a specific location.
+    It first checks if a face is detected and if the user is recognized. If not, it returns an error response.
+    Next, it checks if the user is already on the active roster or if the user's permission is denied for the location.
+    If the user passes all these checks, they are signed in at the specified location.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: Returns an appropriate HTTP response based on the sign-in process outcome.
+    """
     face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
@@ -215,7 +416,22 @@ def perform_sign_in(request):
 
 @csrf_exempt
 def perform_sign_in1(request, location_id, user_account_id):
-    '''Perform sign in based on user accoutn id and location id.(alternative method )'''
+    """
+    Perform sign-in based on user account ID and location ID (alternative method).
+
+    This function processes a sign-in request for a user at a specific location
+    using user account ID and location ID as inputs. It first checks if the user
+    is already on the active roster or if the user's permission is denied for the
+    location. If the user passes these checks, they are signed in at the specified location.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        location_id (int): The ID of the location where the user wants to sign in.
+        user_account_id (int): The ID of the user account to be signed in.
+
+    Returns:
+        HttpResponse: Returns an appropriate HTTP response based on the sign-in process outcome.
+    """
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_account_id)
 
@@ -231,7 +447,21 @@ def perform_sign_in1(request, location_id, user_account_id):
 
 @csrf_exempt
 def identify_user_from_face(request):
-    '''Identify the user from the face and return their information'''
+    """
+    Identify the user from their face and return their information as a JSON response.
+
+    This function processes an HTTP request containing an image, identifies the user
+    in the image using facial recognition, and returns their account information
+    in a JSON response if the face is found. If no face is found, the response will
+    indicate the failure by setting the 'userId' field to 0.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing an image.
+
+    Returns:
+        JsonResponse: A JSON response containing the identified user's information, or
+                      a response indicating that no face was found.
+    """
     face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
@@ -244,7 +474,20 @@ def identify_user_from_face(request):
 
 @csrf_exempt
 def perform_sign_out(request):
-    '''Perform the sign out based on facial recognition.'''
+    """
+    Perform the sign out based on facial recognition.
+
+    This function processes an HTTP request containing an image, identifies the user
+    in the image using facial recognition, and signs them out of a specified location
+    if their face is found and they are on the active roster. If no face is found or
+    the user is not on the active roster, an error response will be returned.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing an image.
+
+    Returns:
+        HttpResponse: A response object indicating the success or failure of the sign-out process.
+    """
     face_found, user_id = parse_roaster_signing_requests(request)
 
     if not face_found:
@@ -266,7 +509,21 @@ def perform_sign_out(request):
 
 @csrf_exempt
 def perform_sign_out1(request, location_id, user_account_id):
-    '''Perform sign out based on user accoutn id and location id.(alternative method )'''
+    """
+    Perform sign out based on user account id and location id (alternative method).
+
+    This function signs out a user at a specified location using the user account id and
+    location id provided. If the user is not on the active roster or if permission is denied,
+    an error response will be returned.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        location_id (int): The id of the location to sign out from.
+        user_account_id (int): The id of the user account to sign out.
+
+    Returns:
+        HttpResponse: A response object indicating the success or failure of the sign-out process.
+    """
     location = Location.objects.get(pk=location_id)
     user_account = UserAccount.objects.get(pk=user_account_id)
     # Check if the user is on the active roster or if permission is denied
@@ -282,13 +539,19 @@ def perform_sign_out1(request, location_id, user_account_id):
 
 @csrf_exempt
 def upload_facial_data(request):
-    """ Receives a base64 encoded image for a user, detects a face saves the face to the system(folder on disk)
+    """
+    Receives a base64 encoded image for a user, detects a face, and saves the face to the system (folder on disk).
+
+    This function processes a base64 encoded image received from the client, detects a face in the image,
+    and saves the face to the system (folder on disk). If a face is found and it is the 30th image, the
+    facial recognition training process will be triggered. If a face is found, an 'OK' response will be
+    returned, otherwise an 'Error' response will be returned.
 
     Args:
-        request (_type_): _description_
+        request (HttpRequest): The HTTP request object containing the base64 encoded image, user-account-id, and image-number.
 
     Returns:
-        HttpResponse : _description_
+        HttpResponse: A response object indicating the success or failure of the facial data upload process.
     """
     request_data = request.POST
     request_user_id = request_data['user-account-id']
@@ -318,7 +581,20 @@ def upload_facial_data(request):
 
 
 def change_password(request):
-    '''Change the password of the user.'''
+    """
+    Change the password of the user.
+
+    This function allows the user to change their password. It handles both GET and POST requests.
+    If the request method is POST, it validates the submitted password change form, updates the user's password,
+    and maintains the user's session. Upon successful password change, the user is redirected to the home page.
+    If the request method is GET, it renders the password change form for the user to fill out.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: A response object rendering the password change form or redirecting the user to the home page.
+    """
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():

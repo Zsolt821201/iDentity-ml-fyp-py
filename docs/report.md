@@ -773,7 +773,7 @@ number of inputs in the original may be very different from the amount
 in the model (but none of its element numbers can be 0) (Kristof, 2002).
 
 ![A picture containing text, clock Description automatically
-generated](./images/thesis/media/image2.jpg){width="4.59375in"
+generated](./images/report/media/image2.jpg){width="4.59375in"
 height="2.4895833333333335in"}
 
 []{#_Toc133399582 .anchor}Figure A multi-layer NN's theoretical
@@ -888,7 +888,7 @@ neurons for pixel-level interpretation is not the most efficient when
 over the network in detail using a 100x100 pixel filter (Dertat, 2017).
 
 ![Diagram Description automatically
-generated](./images/thesis/media/image3.png){width="5.905555555555556in"
+generated](./images/report/media/image3.png){width="5.905555555555556in"
 height="4.024266185476815in"}
 
 []{#_Toc133399583 .anchor}Figure : Operation of the filter unit used by
@@ -928,7 +928,7 @@ The problem is solved via recurrent neural networks. They are recursive
 networks where data may be stored indefinitely (Olah, 2015).
 
 ![Diagram Description automatically
-generated](./images/thesis/media/image4.png){width="2.8131681977252843in"
+generated](./images/report/media/image4.png){width="2.8131681977252843in"
 height="2.358208661417323in"}
 
 []{#_Toc133399584 .anchor}Figure : Recurrent Neural Networks (Olah,
@@ -948,7 +948,7 @@ useful to imagine what would happen if the loop in the network structure
 was unfolded (Olah, 2015).
 
 ![A picture containing text, clock Description automatically
-generated](./images/thesis/media/image5.png){width="5.905555555555556in"
+generated](./images/report/media/image5.png){width="5.905555555555556in"
 height="1.4549070428696413in"}
 
 []{#_Toc133399585 .anchor}Figure . An unrolled recurrent neural network
@@ -999,7 +999,7 @@ Key aspects of Agile methodology suited to this project are:
 -   Incorporating regular feedback and open communication
 
 ![Text, whiteboard Description automatically
-generated](./images/thesis/media/image6.jpg){width="4.677083333333333in"
+generated](./images/report/media/image6.jpg){width="4.677083333333333in"
 height="2.9423108048993876in"}
 
 []{#_Toc133399586 .anchor}Figure : Agile
@@ -1042,7 +1042,7 @@ Key aspects of Behaviour-driven development:
     expectations.
 
 ![What is BDD? - Behavior Driven Development
-cycle.](./images/thesis/media/image7.png){width="5.270138888888889in"
+cycle.](./images/report/media/image7.png){width="5.270138888888889in"
 height="2.3828412073490814in"}
 
 []{#_Toc133399587 .anchor}Figure : Behaviour-driven development Cycle
@@ -1054,7 +1054,7 @@ product for release with just enough features to satisfy early adopters
 and gather valuable user feedback.
 
 ![Diagram Description automatically
-generated](./images/thesis/media/image8.png){width="5.083176946631671in"
+generated](./images/report/media/image8.png){width="5.083176946631671in"
 height="2.6458333333333335in"}
 
 []{#_Toc133399588 .anchor}Figure : MVP
@@ -1063,7 +1063,7 @@ Gantt diagrams can be useful for keeping track of tasks and focusing on
 critical tasks for an MVP.
 
 ![A screenshot of a computer Description automatically
-generated](./images/thesis/media/image9.png){width="5.905555555555556in"
+generated](./images/report/media/image9.png){width="5.905555555555556in"
 height="3.160416666666667in"}
 
 []{#_Toc133399589 .anchor}Figure : Gantt Diagram
@@ -1085,7 +1085,7 @@ Admin Group: members of the admin group have /inherit admin privileges.
 The system must have at least one admin user.
 
 ![Graphical user interface, application, Teams Description automatically
-generated](./images/thesis/media/image10.png){width="6.3in"
+generated](./images/report/media/image10.png){width="6.3in"
 height="2.2423611111111112in"}
 
 []{#_Toc133399590 .anchor}Figure : Class Diagram
@@ -1105,7 +1105,7 @@ who has access to the building. This process helps maintain a safe and
 secure environment for employees and visitors.
 
 ![Diagram, timeline Description automatically
-generated](./images/thesis/media/image11.png){width="6.375462598425197in"
+generated](./images/report/media/image11.png){width="6.375462598425197in"
 height="3.618566272965879in"}
 
 []{#_Toc133399591 .anchor}Figure Sign-in example
@@ -1114,7 +1114,7 @@ A location manager or other designated users are granted permission in
 the application to start sign-in / sign-off features.
 
 ![Diagram Description automatically
-generated](./images/thesis/media/image12.png){width="2.325173884514436in"
+generated](./images/report/media/image12.png){width="2.325173884514436in"
 height="3.0433464566929134in"}
 
 []{#_Toc133399592 .anchor}Figure Feature permissions
@@ -1456,7 +1456,7 @@ Clicking a location's name will give a details view of the location.
 Only authorised users, such as administrators or managers, can activate
 the sign-in /sign-off for a location.
 
-![](./images/thesis/media/image13.png){width="5.905555555555556in"
+![](./images/report/media/image13.png){width="5.905555555555556in"
 height="1.8706146106736659in"}
 
 []{#_Toc133399593 .anchor}Figure Locations list view
@@ -1465,7 +1465,7 @@ An unauthorised user who attempts to activate a location's
 sign-in/sign-off screen will receive a 403 response.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images/thesis/media/image14.png){width="5.633858267716535in"
+generated](./images/report/media/image14.png){width="5.633858267716535in"
 height="1.720472440944882in"}
 
 []{#_Toc133399594 .anchor}Figure Security notification
@@ -1481,7 +1481,7 @@ The location view displays the:
 -   roster logs grouped by day.
 
 ![Graphical user interface, application, email Description automatically
-generated](./images/thesis/media/image15.png){width="6.3in"
+generated](./images/report/media/image15.png){width="6.3in"
 height="3.370138888888889in"}
 
 []{#_Toc133399595 .anchor}Figure Limerick location view
@@ -1492,7 +1492,7 @@ The location's roaster lists the users' sign-in and sign-out times for
 the day.
 
 ![Graphical user interface, application Description automatically
-generated](./images/thesis/media/image16.png){width="6.3in"
+generated](./images/report/media/image16.png){width="6.3in"
 height="2.048611111111111in"}
 
 []{#_Toc133399596 .anchor}Figure Location roster day view
@@ -1503,7 +1503,7 @@ The location sign-in page takes pictures of the user and streams them to
 the server.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images/thesis/media/image17.png){width="6.3in"
+generated](./images/report/media/image17.png){width="6.3in"
 height="4.356944444444444in"}
 
 []{#_Toc133399597 .anchor}Figure Location Sign In part 1
@@ -1513,7 +1513,7 @@ screen and logs the day's timestamp.
 
 ![Graphical user interface, text, application, chat or text message
 Description automatically
-generated](./images/thesis/media/image18.png){width="6.3in"
+generated](./images/report/media/image18.png){width="6.3in"
 height="4.475694444444445in"}
 
 []{#_Toc133399598 .anchor}Figure Location Sign In part 2
@@ -1525,7 +1525,7 @@ to the server.
 
 ![Graphical user interface, text, application, Word Description
 automatically
-generated](./images/thesis/media/image19.png){width="6.310968941382328in"
+generated](./images/report/media/image19.png){width="6.310968941382328in"
 height="3.5249945319335083in"}
 
 []{#_Toc133399599 .anchor}Figure Location Sign Out part 1.
@@ -1537,7 +1537,7 @@ hours.
 
 ![Graphical user interface, text, application, chat or text message
 Description automatically
-generated](./images/thesis/media/image20.png){width="6.3in"
+generated](./images/report/media/image20.png){width="6.3in"
 height="5.616666666666666in"}
 
 []{#_Toc133399600 .anchor}Figure Location Sign Out part 2
@@ -1551,7 +1551,7 @@ the setup outcome upon completion.
 
 ![Graphical user interface, text, application, chat or text message
 Description automatically
-generated](./images/thesis/media/image21.png){width="6.3in"
+generated](./images/report/media/image21.png){width="6.3in"
 height="4.2659722222222225in"}
 
 []{#_Toc133399601 .anchor}Figure Setting Up Facial recognition.
@@ -1562,7 +1562,7 @@ This page allows users to change their personal information, such as
 their name, email address, phone number, and username, as needed.
 
 ![Graphical user interface, application Description automatically
-generated](./images/thesis/media/image22.png){width="6.3in"
+generated](./images/report/media/image22.png){width="6.3in"
 height="3.13125in"}
 
 []{#_Toc133399602 .anchor}Figure : Edit User Profile
@@ -1572,7 +1572,7 @@ height="3.13125in"}
 A User can change their password here.
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images/thesis/media/image23.png){width="6.3in"
+generated](./images/report/media/image23.png){width="6.3in"
 height="3.004861111111111in"}
 
 []{#_Toc133399603 .anchor}Figure : change-password.html
@@ -2473,7 +2473,7 @@ The following code, for example, provides a function named index that
 returns a rendered template called website/index.html relative to the
 templates folder.
 
-![](./images/thesis/media/image24.emf){width="6.3in"
+![](./images/report/media/image24.emf){width="6.3in"
 height="0.3215277777777778in"}
 
 #### The Static Files
@@ -2484,7 +2484,7 @@ JavaScript files. These files are typically stored within a folder named
 directory as the views.py file to refer to a static file within a
 template; the \"static\" tag can be utilised.
 
-![](./images/thesis/media/image25.emf){width="6.3in" height="1.3125in"}
+![](./images/report/media/image25.emf){width="6.3in" height="1.3125in"}
 
 #### Passing Data to Templates(The Context)
 
@@ -3375,7 +3375,7 @@ robustness, and security by generating synthetic biometric data or
 improving the detection of spoofing attempts.
 
 ![A picture containing text, toy Description automatically
-generated](./images/thesis/media/image26.jpeg){width="4.012900262467191in"
+generated](./images/report/media/image26.jpeg){width="4.012900262467191in"
 height="2.5416666666666665in"}
 
 []{#_Toc133399604 .anchor}Figure : Generator versus discriminator

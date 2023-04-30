@@ -1,36 +1,50 @@
 
-# iDentity-Biometric Face Recognition Time Management System
+# iDentity - Biometric Face Recognition Time Management System
 
 ## Aim
 
-Identity is a Python Django web application that uses machine learning and facial recognition. This project seeks to invest in the growing market for AI applications by developing a cloud-based facial recognition system based on machine learning and deep learning. The project aims to create a centralized facial recognition time management system for targeting workplaces. The core of this project:
-
-- Security – Ensure that data is delivered securely and that the program is not utilized outside the company’s PCs.Accuracy - To minimize the risk of the software mismatching a user’s face while also ensuring that it does so as correctly as possible, the purpose of this step is to guarantee that.
+This project aims to develop a web-based time management and user identification system that leverages facial recognition technology. The technology employs cameras to take a picture of the user’s face and then compare it to a previously registered image in the system to verify the user’s identity. The system grants access when the user’s identification has been verified and logs the user’s entry and exit times. This method may be utilized in various settings, such as businesses, institutions of higher learning, and healthcare facilities, to enhance security and time management. To see the full report, go to the [report](./docs/report.pdf).
 
 ## Requirements
 
-- Python
+- [Python 3.9](https://www.python.org/downloads/) - Python is a programming language that lets you work quickly and integrate systems more effectively.
 
-## Recommended Tools
+### IDEs
 
-- [Visual Studio Code](https://code.visualstudio.com/)
+- [VS Code](https://code.visualstudio.com/) - Code editing.Redefined. Free. Built on open source. Runs everywhere.[^vs-code]
 
-## Run
+[^vs-code]: The Extensions recommended for this project are in [extensions.json](./.vscode/extensions.json)
+
+### Source Code Management
+
+- [Git](https://git-scm.com/) is a free and open-source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+- [GitHub Desktop](https://desktop.github.com/) - Simple collaboration from your desktop
+- [WinMerge](https://winmerge.org/) is an Open Source differencing and merging tool for Windows.
+
+
+### Online Tools
+
+- [GitHub](https://wwww.github.com) is a web-based hosting service for version control using Git. It offers all of the distributed version control and source code management (SCM) functionality of Git as well as adding its features.
+- [gitignore.io](https://www.toptal.com/developers/gitignore) - Create useful .gitignore files for your project
+- [mermaid-js.github.io](https://mermaid-js.github.io/mermaid-live-editor) - Live Editor for the Mermaid diagramming language
+- [plantuml.com](https://plantuml.com/) - Open-source tool that uses simple textual descriptions to draw UML diagrams.
+
+## Run Application
 
 1. Clone the repository
 
     ```bash
-    git clone https://github.com/Zsolt821201/iDentity-ml-fyp-py.git
+    git clone https://github.com/zsolt821201/identity-ml-fyp-py.git
     ```
 
 2. Install dependencies
-    - With Pip
+    - With Pip (To fast execute, run on Windows [pip-install.cmd](./pip-install.cmd))
 
         ```bash
         pip install -r identity-django/requirements.txt
         ```
 
-    - With conda
+    - With conda (To fast execute, run on Windows [conda-install.cmd](./conda-install.cmd))
 
         ```bash
         conda install --file identity-django/requirements.txt
@@ -38,10 +52,13 @@ Identity is a Python Django web application that uses machine learning and facia
 
 3. Run the app
     Open VS Code and run the app by pressing the `F5` Key or  
-    Open a terminal and run the following command:
+    Open a terminal and run the following commands:
 
     ```bash
     cd identity-django
+    ```
+
+    ```bash
     python manage.py runserver
     ```
 
@@ -56,13 +73,28 @@ Built-in user accounts are:
 | ZsoltToth      | Password1234!  | user  | Built in user account            |
 | JoshuaFluke    | Letmein1$      | user  | Built in user account            |
 
-## Documentation
+## Test Application (Behave BDD)
 
-- [Proposal](./docs/proposal.md)
+To test the App in the Chrome browser, you need to install the Selenium WebDriver for Chrome.
+
+### Test Requirements
+
+To test the App in the Chrome browser, you need to install the Selenium WebDriver for Chrome.
+
+- [Chrome](https://www.google.com/chrome/) - Google Chrome is a cross-platform web browser developed by Google.
+- [ChromeDriver](https://sites.google.com/chromium.org/driver/?pli=1) - WebDriver is an open-source tool for automated testing of webapps across many browsers.[^chrome-driver]
+
+[^chrome-driver]: In this project, a copy of ChromeDriver is included in the [/behave_test/driver/](../behave_test/driver/) folder.
+
+To run the tests, open a terminal and run the following commands:
+
+```bash
+cd behave_test
+```
+
+```bash
+behave behave_test/features/feature_files/  -f pretty -o out/behave-logs/all.txt
+```
 
 ---
 Copyright &copy; 2023, [Zsolt Toth](https://github.com/Zsolt821201/iDentity-ml-fyp-py)
-
-## Installation
-
-## Django Commands

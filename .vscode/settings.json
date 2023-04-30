@@ -21,6 +21,7 @@
         "nbsp",
         "ndarray",
         "numpy",
+        "plantuml",
         "qvga",
         "runserver",
         "sqlmigrate",

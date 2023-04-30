@@ -12,6 +12,7 @@
         "gruntfuggly.todo-tree",
         "jebbs.plantuml",
         "redhat.fabric8-analytics",
-        "alexkrechik.cucumberautocomplete"
+        "alexkrechik.cucumberautocomplete",
+        "wraith13.open-in-github-desktop"
     ]
 }

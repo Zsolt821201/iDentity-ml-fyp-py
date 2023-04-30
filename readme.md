@@ -86,11 +86,7 @@ To test the App in the Chrome browser, you need to install the Selenium WebDrive
 
 [^chrome-driver]: In this project, a copy of ChromeDriver is included in the [/behave_test/driver/](../behave_test/driver/) folder.
 
-To run the tests, open a terminal and run the following commands:
-
-```bash
-cd behave_test
-```
+To run the tests, open a terminal and run the following command:
 
 ```bash
 behave behave_test/features/feature_files/  -f pretty -o out/behave-logs/all.txt

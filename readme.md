@@ -24,7 +24,7 @@ This project aims to develop a web-based time management and user identification
 
 ### Online Tools
 
-- [GitHub](https://wwww.github.com) is a web-based hosting service for version control using Git. It offers all of the distributed version control and source code management (SCM) functionality of Git as well as adding its features.
+- [GitHub](https://www.github.com) is a web-based hosting service for version control using Git. It offers all of the distributed version control and source code management (SCM) functionality of Git as well as adding its features.
 - [gitignore.io](https://www.toptal.com/developers/gitignore) - Create useful .gitignore files for your project
 - [mermaid-js.github.io](https://mermaid-js.github.io/mermaid-live-editor) - Live Editor for the Mermaid diagramming language
 - [plantuml.com](https://plantuml.com/) - Open-source tool that uses simple textual descriptions to draw UML diagrams.
@@ -86,13 +86,13 @@ cd identity-django
 ```
 
 ```bash
-python manage.py test
+python manage.py test identity.tests
 ```
 
-To run a select test for example tests in the `identity.tests.test_detect_face_with_blank` module, open a terminal and run the following command:
+To run a select test for example tests in the `identity.tests.FaceRecognitionUtilityTests.test_detect_face_with_blank` module, open a terminal and run the following command:
 
 ```bash
-python manage.py test identity.tests.test_detect_face_with_blank
+python manage.py test identity.tests.FaceRecognitionUtilityTests.test_detect_face_with_blank
 ```
 
 ### BDD Behave Tests

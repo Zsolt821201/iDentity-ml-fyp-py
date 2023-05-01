@@ -8,6 +8,10 @@ from .utilities import get_images_and_labels
 from .utilities import stream_image , face_recognition_web
 from .utilities import build_sample_user
 
+TEST_DATA_PATH:str = "identity/test-data/"
+"""The path to the test data.  The 'test-data' directory cannot be named 'tests', because it will conflict with 'tests.py'
+"""
+
 class FaceRecognitionUtilityTests(TestCase):
 
     def test_get_images_and_labels(self):
@@ -22,7 +26,7 @@ class FaceRecognitionUtilityTests(TestCase):
         """
         detect_user_face must return a single face
         """
-        image_path = "identity/tests/image-with-one-face.jpg"
+        image_path = f"{TEST_DATA_PATH}/image-with-one-face.jpg"
         open_cv_image = numpy.array(Image.open(image_path))
         gray_scale_image = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
         
@@ -34,7 +38,7 @@ class FaceRecognitionUtilityTests(TestCase):
         """
         detect_user_face must return a single face
         """
-        image_path = "identity/tests/no-face.jpg"
+        image_path = f"{TEST_DATA_PATH}/no-face.jpg"
         open_cv_image = numpy.array(Image.open(image_path))
         
         gray_scale_image = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
@@ -48,7 +52,7 @@ class FaceRecognitionUtilityTests(TestCase):
         """
         detect_user_face must return a single face
         """
-        image_path = "identity/tests/secret/user-2.png"
+        image_path = f"{TEST_DATA_PATH}/secret/user-2.png"
         open_cv_image = numpy.array(Image.open(image_path))
         
         user_id, confidence = face_recognition_web(open_cv_image)
@@ -61,7 +65,7 @@ class FaceRecognitionUtilityTests(TestCase):
         """
         detect_user_face must return a single face
         """
-        image_path = "identity/tests/arnold_schwarzenegger_by_gage_skidmore_4.jpg"
+        image_path = f"{TEST_DATA_PATH}/arnold-schwarzenegger.jpg"
         open_cv_image = numpy.array(Image.open(image_path))
         
         user_id, confidence = face_recognition_web(open_cv_image)

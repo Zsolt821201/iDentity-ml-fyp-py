@@ -120,11 +120,10 @@ class Manager {
 	 * @param {Number} imageNumber The number of the image being uploaded
 	 * @returns {Object} The options for the request
 	 */
-	buildIdentifyUserOptions(imageBase64Encoding, imageNumber) {
+	buildIdentifyUserOptions(imageBase64Encoding) {
 		const formData = new FormData();
 
 		formData.append('image-base64', imageBase64Encoding);
-		formData.append('image-number', imageNumber);
 
 		const options = {
 			body: formData,
@@ -147,12 +146,11 @@ class Manager {
 		await this.startCamera();
 		this.isStreaming = true;
 
-		let imageNumber = 1;
 		while (this.isStreaming) {
 			await progressCountdown(3, this.webPageControls.autoSignInCountDownElement);
 
 			let imageBase64Encoding = buildImageBase64Encoding(this.webPageControls.videoElement);
-			let options = this.buildIdentifyUserOptions(imageBase64Encoding, imageNumber++);
+			let options = this.buildIdentifyUserOptions(imageBase64Encoding);
 			let response = await fetch(UrlPaths.IDENTIFY_USER_FROM_FACE_URL, options);
 
 

@@ -180,6 +180,7 @@ def detect_user_face(gray_scale_image, min_size=None) -> tuple[bool,ndarray]:
         return False, None
 
     if len(faces) > 1: # More than one face detected
+        print("More than one face detected")
         return False, None
 
 

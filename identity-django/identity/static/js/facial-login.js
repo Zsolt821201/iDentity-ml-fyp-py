@@ -133,7 +133,7 @@ class Manager {
 		return options;
 	}
 	/**
-	 * Stop streeming video to the server by setting the isStreaming flag to false and stopping the camera
+	 * Stop streaming video to the server by setting the isStreaming flag to false and stopping the camera
 	 */
 	stopStreamingVideoToServer() {
 		this.isStreaming = false;

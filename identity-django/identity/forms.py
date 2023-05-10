@@ -11,9 +11,6 @@ class UserChangeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         user_permissions = self.fields.get('user_permissions')
-        #is_face_recognition_enabled= self.fields.get('is_face_recognition_enabled')
-        #if is_face_recognition_enabled:
-        #    self.fields['is_face_recognition_enabled'].widget.attrs['readonly'] = True
         if user_permissions:
             user_permissions.queryset = user_permissions.queryset.select_related('content_type')
             
